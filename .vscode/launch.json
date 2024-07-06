@@ -1,0 +1,69 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "time get",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "behave",
+            "console": "integratedTerminal",
+            "cwd": "/smokes/app/features",
+            "args": [
+                "--tags", "@time",
+                "--no-skipped"
+            ],
+            "env": {"PYTHONPATH": "${workspaceFolder}"}
+        },
+        {
+            "name": "get token",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "behave",
+            "console": "integratedTerminal",
+            "cwd": "/smokes/app/features",
+            "args": [
+                "--tags", "@token",
+                "--no-skipped"
+            ],
+            "env": {"PYTHONPATH": "${workspaceFolder}"}
+        },
+
+        {
+            "name": "User",
+            "args": ["--tags", "@user",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "User auth",
+            "args": ["--tags", "@user", "--tags", "@auth",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "User select",
+            "args": ["--tags", "@user", "--tags", "@select",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+
+        {
+            "name": "User register",
+            "args": ["--tags", "@user", "--tags", "@register",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+
+    ]
+}

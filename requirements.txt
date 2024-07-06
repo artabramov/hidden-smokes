@@ -1,0 +1,14 @@
+behave==1.2.6
+certifi==2024.7.4
+charset-normalizer==3.3.2
+Faker==24.11.0
+idna==3.7
+parse==1.20.2
+parse-type==0.6.2
+PyJWT==2.8.0
+pyotp==2.9.0
+python-dateutil==2.9.0.post0
+requests==2.31.0
+shortuuid==1.0.13
+six==1.16.0
+urllib3==2.2.2
