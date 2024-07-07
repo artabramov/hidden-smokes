@@ -1,5 +1,5 @@
 import configparser
-from app.steps import *
+from app.features.steps.steps import *
 
 
 def before_all(context):
