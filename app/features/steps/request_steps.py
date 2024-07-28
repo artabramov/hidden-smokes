@@ -2,25 +2,33 @@ import json
 import requests, pyotp
 from behave import *
 import jwt
-from app.fake import fake
+from app.fake_providers import fake
 
 REQUEST_HEADERS = {"accept": "application/json"}
 
 
 @given("set request param '{request_param}' from value '{value}'")
 def step_impl(context, request_param, value):
-    if value == "None":
+    if value == "none":
         if request_param in context.request_params:
             del context.request_params[request_param]
 
     elif value == "empty":
         context.request_params[request_param] = ""
 
-    elif value == "whitespaces":
+    elif value == "spaces":
         context.request_params[request_param] = " " * 8
+
+    elif value == "tabs":
+        context.request_params[request_param] = "   " * 8
 
     else:
         context.request_params[request_param] = value
+
+
+@given("set request param '{request_param}' from fake '{fake_provider}'")
+def step_impl(context, request_param, fake_provider):
+    context.request_params[request_param] = getattr(fake, fake_provider)()
 
 
 @when("send '{request_method}' request to url '{request_url}'")
