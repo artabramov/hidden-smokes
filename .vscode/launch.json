@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "time get",
+            "name": "time",
             "type": "debugpy",
             "request": "launch",
             "module": "behave",
@@ -17,44 +17,7 @@
             ],
             "env": {"PYTHONPATH": "${workspaceFolder}"}
         },
-        {
-            "name": "get token",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "behave",
-            "console": "integratedTerminal",
-            "cwd": "/smokes/app/features",
-            "args": [
-                "--tags", "@token",
-                "--no-skipped"
-            ],
-            "env": {"PYTHONPATH": "${workspaceFolder}"}
-        },
 
-        {
-            "name": "User",
-            "args": ["--tags", "@user",
-                     "--no-skipped", "--no-source", "--no-timings"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "User auth",
-            "args": ["--tags", "@user", "--tags", "@auth",
-                     "--no-skipped", "--no-source", "--no-timings"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "User select",
-            "args": ["--tags", "@user", "--tags", "@select",
-                     "--no-skipped", "--no-source", "--no-timings"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
 
         {
             "name": "User register",

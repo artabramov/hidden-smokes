@@ -7,6 +7,22 @@ from app.fake import fake
 REQUEST_HEADERS = {"accept": "application/json"}
 
 
+@given("set request param '{request_param}' from value '{value}'")
+def step_impl(context, request_param, value):
+    if value == "None":
+        if request_param in context.request_params:
+            del context.request_params[request_param]
+
+    elif value == "empty":
+        context.request_params[request_param] = ""
+
+    elif value == "whitespaces":
+        context.request_params[request_param] = " " * 8
+
+    else:
+        context.request_params[request_param] = value
+
+
 @when("send '{request_method}' request to url '{request_url}'")
 def step_impl(context, request_method, request_url):
     for placeholder in context.request_placeholders:
@@ -33,8 +49,3 @@ def step_impl(context, request_method, request_url):
 
     context.request_headers = {}
     context.request_params = {}
-
-
-@then("response code is <{code}>")
-def step_impl(context, code):
-    assert context.response_code == int(code)
