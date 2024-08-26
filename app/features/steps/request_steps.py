@@ -7,6 +7,21 @@ from app.fake_providers import fake
 REQUEST_HEADERS = {"accept": "application/json"}
 
 
+@given("set request token from global param '{global_param}'")
+def step_impl(context, global_param):
+    context.request_headers["Authorization"] = "Bearer " + context.global_params[global_param]
+
+
+@given("set request token from response param '{response_param}'")
+def step_impl(context, response_param):
+    context.request_headers["Authorization"] = "Bearer " + context.response_params[response_param]
+
+
+@given("set request placeholder '{request_placeholder}' from global param '{global_param}'")
+def step_impl(context, request_placeholder, global_param):
+    context.request_placeholders[request_placeholder] = context.global_params[global_param]
+
+
 @given("set request param '{request_param}' from value '{value}'")
 def step_impl(context, request_param, value):
     if value == "none":
@@ -29,6 +44,17 @@ def step_impl(context, request_param, value):
 @given("set request param '{request_param}' from fake '{fake_provider}'")
 def step_impl(context, request_param, fake_provider):
     context.request_params[request_param] = getattr(fake, fake_provider)()
+
+
+@given("set request param '{request_param}' from config param '{config_param}'")
+def step_impl(context, request_param, config_param):
+    context.request_params[request_param] = context.config_params[config_param]
+
+
+@given("generate request param 'user_totp' from config param '{config_param}'")
+def step_impl(context, config_param):
+    mfa_key = context.config_params[config_param]
+    context.request_params["user_totp"] = pyotp.TOTP(mfa_key).now()
 
 
 @when("send '{request_method}' request to url '{request_url}'")

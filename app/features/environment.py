@@ -1,4 +1,5 @@
 import configparser
+from app.features.steps.auth_steps import *
 from app.features.steps.request_steps import *
 from app.features.steps.response_steps import *
 
