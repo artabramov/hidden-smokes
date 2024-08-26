@@ -1,25 +1,29 @@
 import json
 import requests, pyotp
 from behave import *
-import jwt
 from app.fake_providers import fake
 
 REQUEST_HEADERS = {"accept": "application/json"}
+AUTH_HEADER = "Authorization"
+AUTH_PREFIX = "Bearer "
 
 
 @given("set request token from global param '{global_param}'")
 def step_impl(context, global_param):
-    context.request_headers["Authorization"] = "Bearer " + context.global_params[global_param]
+    auth_header = AUTH_PREFIX + context.global_params[global_param]
+    context.request_headers[AUTH_HEADER] = auth_header
 
 
 @given("set request token from response param '{response_param}'")
 def step_impl(context, response_param):
-    context.request_headers["Authorization"] = "Bearer " + context.response_params[response_param]
+    auth_header = AUTH_PREFIX + context.response_params[response_param]
+    context.request_headers[AUTH_HEADER] = auth_header
 
 
 @given("set request placeholder '{request_placeholder}' from global param '{global_param}'")
 def step_impl(context, request_placeholder, global_param):
-    context.request_placeholders[request_placeholder] = context.global_params[global_param]
+    param = context.global_params[global_param]
+    context.request_placeholders[request_placeholder] = param
 
 
 @given("set request param '{request_param}' from value '{value}'")
