@@ -78,15 +78,18 @@ def step_impl(context, global_param):
 @when("send '{request_method}' request to url '{request_url}'")
 def step_impl(context, request_method, request_url):
     """Send an HTTP request with the specified method."""
-    for placeholder in context.request_placeholders:
-        request_url = request_url.replace(":" + placeholder, str(context.request_placeholders[placeholder]))
     url = context.config_params["base_url"] + request_url
+    for placeholder in context.request_placeholders:
+        url = url.replace(":" + placeholder,
+                          str(context.request_placeholders[placeholder]))
+
     headers = context.request_headers
     headers["accept"] = "application/json"
     params = context.request_params
 
     if request_method == "POST":
-        response = requests.post(url, headers=headers, params=params, files=context.request_files)
+        response = requests.post(url, headers=headers, params=params,
+                                 files=context.request_files)
 
     elif request_method == "GET":
         response = requests.get(url, headers=headers, params=params)
