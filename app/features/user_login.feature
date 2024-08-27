@@ -18,6 +18,10 @@ Given set request param 'user_login' from config param 'admin_login'
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
  Then response code is '200'
+    # delete outdated auth data
+ Then delete global param 'admin_token'
+  And delete global param 'admin_id'
+
 
 @user @login
 Scenario: Login as editor user
@@ -37,3 +41,6 @@ Given set request param 'user_login' from config param 'editor_login'
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
  Then response code is '200'
+    # delete outdated auth data
+ Then delete global param 'editor_token'
+  And delete global param 'editor_id'

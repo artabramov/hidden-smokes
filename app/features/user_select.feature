@@ -24,4 +24,3 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_signature'
   And response params contain 'user_contacts'
   And response params contain 'userpic_url'
-

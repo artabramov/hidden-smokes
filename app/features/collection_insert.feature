@@ -27,22 +27,6 @@ Examples:
 | dummy     | bool_parsing |
 
 @collection @insert
-Scenario Outline: Success when is_locked valid
-Given set request token from global param 'admin_token' 
-  And set request param 'is_locked' from value '<is_locked>'
-  And set request param 'collection_name' from fake 'collection_name'
- When send 'POST' request to url 'collection'
- Then response code is '200'
-  And response params contain 'collection_id'
-
-Examples:
-| is_locked |
-| True      |
-| False     |
-| 1         |
-| 0         |
-
-@collection @insert
 Scenario Outline: Error when collection_name is invalid
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value 'False'
@@ -76,3 +60,20 @@ Examples:
 | collection_summary | error_type       |
 | a                  | string_too_short |
 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | string_too_long |
+
+@collection @insert
+Scenario Outline: When all data is correct
+Given set request token from global param 'admin_token' 
+  And set request param 'is_locked' from value '<is_locked>'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'POST' request to url 'collection'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+Examples:
+| is_locked |
+| True      |
+| False     |
+| 1         |
+| 0         |
