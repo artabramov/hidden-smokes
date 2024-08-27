@@ -1,4 +1,6 @@
 import json
+import random
+import string
 import requests, pyotp
 from behave import *
 from app.fake_providers import fake
@@ -6,6 +8,7 @@ from app.fake_providers import fake
 REQUEST_HEADERS = {"accept": "application/json"}
 AUTH_HEADER = "Authorization"
 AUTH_PREFIX = "Bearer "
+STRING_CHARACTERS = string.ascii_letters
 
 
 @given("set request token from global param '{global_param}'")
@@ -44,6 +47,11 @@ def step_impl(context, request_param, value):
 
     elif value == "tabs":
         context.request_params[request_param] = "   " * 8
+
+    elif value.startswith("string(") and value.endswith(")"):
+        string_len = int(value[len("string("):-1])
+        random_string = "".join(random.choices(STRING_CHARACTERS, k=string_len))
+        context.request_params[request_param] = random_string
 
     else:
         context.request_params[request_param] = value

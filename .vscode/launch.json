@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Run all",
+            "args": ["--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+
+        {
             "name": "time",
             "type": "debugpy",
             "request": "launch",
@@ -41,14 +49,6 @@
             "name": "User select",
             "args": ["--tags", "@user", "--tags", "@select",
                      "--no-skipped", "--no-source", "--no-timings"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-
-        {
-            "name": "Run all",
-            "args": ["--no-skipped", "--no-source", "--no-timings"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
