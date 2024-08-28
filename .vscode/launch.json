@@ -70,6 +70,22 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
+        {
+            "name": "Collection update",
+            "args": ["--tags", "@collection", "--tags", "@update",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "Collection delete",
+            "args": ["--tags", "@collection", "--tags", "@delete",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
 
         
     ]
