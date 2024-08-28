@@ -126,9 +126,9 @@ Given set request token from global param 'reader_token'
   And set request param 'collection_name' from fake 'collection_name'
   And set request param 'collection_summary' from fake 'collection_summary'
  When send 'POST' request to url 'collection'
- Then response code is '401'
+ Then response code is '403'
   And error loc is 'user_token'
-  And error type is 'role_rejected'
+  And error type is 'user_rejected'
 
 @collection @insert
 Scenario: When user_role is writer
@@ -159,3 +159,12 @@ Given set request token from global param 'admin_token'
  When send 'POST' request to url 'collection'
  Then response code is '201'
   And response params contain 'collection_id'
+
+@collection @insert
+Scenario: When user_token is missing
+Given delete request token
+  And set request param 'is_locked' from value '0'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'POST' request to url 'collection'
+ Then response code is '403'

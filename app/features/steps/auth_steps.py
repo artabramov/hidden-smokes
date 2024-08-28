@@ -1,3 +1,14 @@
+"""
+This module contains step definitions for user authentication and token
+management in behavior-driven development (BDD) scenarios using the
+Behave framework. It includes functionality for authenticating users
+based on their roles by logging in, retrieving authentication tokens,
+and decoding them to extract user-specific information. The module
+manages user tokens and IDs by storing them in global parameters for
+use in subsequent steps, facilitating dynamic and role-based
+authentication during testing.
+"""
+
 import json
 import requests, pyotp
 from behave import *
@@ -8,6 +19,16 @@ REQUEST_HEADERS = {"accept": "application/json"}
 
 @given("auth with user role '{user_role}'")
 def step_impl(context, user_role):
+    """
+    Authenticates a user based on the specified user_role by performing
+    login and token retrieval. The function first checks if a token for
+    the given user_role already exists in global_params. If not, it logs
+    in the user by sending a request with the user's login credentials,
+    then retrieves an authentication token using a TOTP generated from
+    the user's MFA secret. The token is decoded to extract the user ID,
+    and both the user ID and token are stored in global_params for use
+    in subsequent steps.
+    """
     if user_role + "_token" not in context.global_params:
         # user login
         url = context.config_params["base_url"] + "auth/login/"

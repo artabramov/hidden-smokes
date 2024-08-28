@@ -1,4 +1,5 @@
 {
     "window.zoomLevel": 1,
     "editor.rulers": [72, 79],
+    "editor.minimap.scale": 3,
 }
