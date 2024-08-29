@@ -25,6 +25,7 @@ Examples:
 | +1        | bool_parsing |
 | -1        | bool_parsing |
 | 2         | bool_parsing |
+| 123       | bool_parsing |
 | string(0) | bool_parsing |
 | string(8) | bool_parsing |
 
