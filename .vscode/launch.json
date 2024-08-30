@@ -11,22 +11,6 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
-        {
-            "name": "time",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "behave",
-            "console": "integratedTerminal",
-            "cwd": "/smokes/app/features",
-            "args": [
-                "--tags", "@time",
-                "--no-skipped"
-            ],
-            "env": {"PYTHONPATH": "${workspaceFolder}"}
-        },
-
-
         {
             "name": "User register",
             "args": ["--tags", "@user", "--tags", "@register",
@@ -35,10 +19,9 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
         {
-            "name": "User login",
-            "args": ["--tags", "@user", "--tags", "@login",
+            "name": "User auth",
+            "args": ["--tags", "@user", "--tags", "@auth",
                      "--no-skipped", "--no-source", "--no-timings"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
@@ -94,6 +77,22 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
+
+
+        {
+            "name": "time",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "behave",
+            "console": "integratedTerminal",
+            "cwd": "/smokes/app/features",
+            "args": [
+                "--tags", "@time",
+                "--no-skipped"
+            ],
+            "env": {"PYTHONPATH": "${workspaceFolder}"}
+        },
+
 
         
     ]
