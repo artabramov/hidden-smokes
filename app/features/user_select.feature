@@ -7,7 +7,7 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @user @select
-Scenario: When user not found
+Scenario: When user_id not found
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from value '99999999'
  When send 'GET' request to url 'user/:user_id'
