@@ -384,9 +384,9 @@ Examples:
 | user_id         |
 | collection_name |
 | documents_count |
+| documents_size  |
 | revisions_count |
 | revisions_size  |
-| originals_size  |
 
 @collection @list
 Scenario Outline: When order is invalid
