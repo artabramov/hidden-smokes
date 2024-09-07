@@ -1,13 +1,13 @@
-Feature: Collections list
+Feature: List collections
 
-Background: User auth
+Background: Authorize users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
 @collection @list
-Scenario Outline: When collection_name__ilike is correct
+Scenario Outline: List collections when collection_name__ilike is correct
 Given set request token from global param 'reader_token' 
   And set request param 'collection_name__ilike' from value '<collection_name>'
   And set request param 'offset' from value '0'
@@ -29,7 +29,7 @@ Examples:
 | string(8)       |
 
 @collection @list
-Scenario Outline: When is_locked__eq is invalid
+Scenario Outline: List collections when is_locked__eq is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked__eq' from value '<is_locked>'
   And set request param 'offset' from value '0'
@@ -53,7 +53,7 @@ Examples:
 | string(8) | bool_parsing |
 
 @collection @list
-Scenario Outline: When is_locked__eq is correct
+Scenario Outline: List collections when is_locked__eq is correct
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked__eq' from value '<is_locked>'
   And set request param 'offset' from value '0'
@@ -77,7 +77,7 @@ Examples:
 | 0         |
 
 @collection @list
-Scenario Outline: When documents_count__ge is invalid
+Scenario Outline: List collections when documents_count__ge is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__ge' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -99,7 +99,7 @@ Examples:
 | string(8)       | int_parsing        |
 
 @collection @list
-Scenario Outline: When documents_count__ge is correct
+Scenario Outline: List collections when documents_count__ge is correct
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__ge' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -122,7 +122,7 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: When documents_count__le is invalid
+Scenario Outline: List collections when documents_count__le is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__le' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -144,7 +144,7 @@ Examples:
 | string(8)       | int_parsing        |
 
 @collection @list
-Scenario Outline: When documents_count__le is correct
+Scenario Outline: List collections when documents_count__le is correct
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__le' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -167,7 +167,7 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: When documents_size__ge is invalid
+Scenario Outline: List collections when documents_size__ge is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__ge' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -189,7 +189,7 @@ Examples:
 | string(8)      | int_parsing        |
 
 @collection @list
-Scenario Outline: When documents_size__ge is correct
+Scenario Outline: List collections when documents_size__ge is correct
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__ge' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -212,7 +212,7 @@ Examples:
 | +123.0         |
 
 @collection @list
-Scenario Outline: When documents_size__le is invalid
+Scenario Outline: List collections when documents_size__le is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__le' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -234,7 +234,7 @@ Examples:
 | string(8)      | int_parsing        |
 
 @collection @list
-Scenario Outline: When documents_size__le is correct
+Scenario Outline: List collections when documents_size__le is correct
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__le' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -257,7 +257,7 @@ Examples:
 | +123.0         |
 
 @collection @list
-Scenario Outline: When offset is invalid
+Scenario Outline: List collections when offset is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -280,7 +280,7 @@ Examples:
 | string(8) | int_parsing        |
 
 @collection @list
-Scenario Outline: When offset is correct
+Scenario Outline: List collections when offset is correct
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -300,7 +300,7 @@ Examples:
 | +123   |
 
 @collection @list
-Scenario Outline: When limit is invalid
+Scenario Outline: List collections when limit is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -325,7 +325,7 @@ Examples:
 | string(8) | int_parsing        |
 
 @collection @list
-Scenario Outline: When limit is correct
+Scenario Outline: List collections when limit is correct
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -344,7 +344,7 @@ Examples:
 | +123  |
 
 @collection @list
-Scenario Outline: When order_by is invalid
+Scenario Outline: List collections when order_by is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -365,7 +365,7 @@ Examples:
 | string(8) | literal_error |
 
 @collection @list
-Scenario Outline: When order_by is correct
+Scenario Outline: List collections when order_by is correct
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -389,7 +389,7 @@ Examples:
 | revisions_size  |
 
 @collection @list
-Scenario Outline: When order is invalid
+Scenario Outline: List collections when order is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -410,7 +410,7 @@ Examples:
 | string(8) | literal_error |
 
 @collection @list
-Scenario Outline: When order is correct
+Scenario Outline: List collections when order is correct
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -427,7 +427,7 @@ Examples:
 | desc  |
 
 @collection @list
-Scenario: When user_role is reader
+Scenario: List collections when user_role is reader
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -439,7 +439,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: When user_role is writer
+Scenario: List collections when user_role is writer
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -451,7 +451,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: When user_role is editor
+Scenario: List collections when user_role is editor
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -463,7 +463,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: When user_role is admin
+Scenario: List collections when user_role is admin
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -475,7 +475,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: When user_token is missing
+Scenario: List collections when user_token is missing
 Given delete request token 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'

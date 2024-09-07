@@ -1,7 +1,7 @@
-Feature: User register
+Feature: Register user
 
 @user @register
-Scenario Outline: When user_login is invalid
+Scenario Outline: Register user when user_login is invalid
 Given set request param 'user_login' from value '<user_login>'
   And set request param 'user_password' from value 'abcdef'
   And set request param 'first_name' from value 'John'
@@ -25,7 +25,7 @@ Examples:
 | иванов     | string_pattern_mismatch |
 
 @user @register
-Scenario Outline: When user_password is invalid
+Scenario Outline: Register user when user_password is invalid
 Given set request param 'user_login' from value 'johndoe'
   And set request param 'user_password' from value '<user_password>'
   And set request param 'first_name' from value 'John'
@@ -45,7 +45,7 @@ Examples:
 | string(5)     | too_short   |
 
 @user @register
-Scenario Outline: When first_name is invalid
+Scenario Outline: Register user when first_name is invalid
 Given set request param 'user_login' from value 'johndoe'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from value '<first_name>'
@@ -65,7 +65,7 @@ Examples:
 | string(41) | string_too_long  |
 
 @user @register
-Scenario Outline: When last_name is invalid
+Scenario Outline: Register user when last_name is invalid
 Given set request param 'user_login' from value 'johndoe'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from value 'John'
@@ -85,7 +85,7 @@ Examples:
 | string(41) | string_too_long  |
 
 @user @register
-Scenario: When user register
+Scenario: Register user when user register
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'

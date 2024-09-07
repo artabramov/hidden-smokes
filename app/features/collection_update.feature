@@ -1,6 +1,6 @@
-Feature: Collection update
+Feature: Update collection
 
-Background: User auth
+Background: Authorize users and create collection
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -16,7 +16,7 @@ Given set request token from global param 'admin_token'
   And save response param 'collection_id' to global param 'collection_id'
 
 @collection @update
-Scenario Outline: When collection not found
+Scenario Outline: Update collection when collection not found
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from value '99999999'
   And set request param 'is_locked' from value '<is_locked>'
@@ -28,7 +28,7 @@ Given set request token from global param 'editor_token'
   And error type is 'resource_not_found'
 
 @collection @update
-Scenario Outline: When is_lock is invalid
+Scenario Outline: Update collection when is_lock is invalid
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '<is_locked>'
@@ -51,7 +51,7 @@ Examples:
 | string(8) | bool_parsing |
 
 @collection @update
-Scenario Outline: When is_lock is correct
+Scenario Outline: Update collection when is_lock is correct
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '<is_locked>'
@@ -73,7 +73,7 @@ Examples:
 | 0         |
 
 @collection @update
-Scenario Outline: When collection_name is invalid
+Scenario Outline: Update collection when collection_name is invalid
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -94,7 +94,7 @@ Examples:
 | string(513)     | string_too_long  |
 
 @collection @update
-Scenario Outline: When collection_name is correct
+Scenario Outline: Update collection when collection_name is correct
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -110,7 +110,7 @@ Examples:
 | string(128)     |
 
 @collection @update
-Scenario Outline: When collection_summary is invalid
+Scenario Outline: Update collection when collection_summary is invalid
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -130,7 +130,7 @@ Examples:
 | string(513)        | string_too_long  |
 
 @collection @update
-Scenario Outline: When collection_summary is correct
+Scenario Outline: Update collection when collection_summary is correct
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -147,7 +147,7 @@ Examples:
 | string(512)        |
 
 @collection @update
-Scenario Outline: When user_role is reader
+Scenario Outline: Update collection when user_role is reader
 Given set request token from global param 'reader_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -159,7 +159,7 @@ Given set request token from global param 'reader_token'
   And error type is 'user_rejected'
 
 @collection @update
-Scenario Outline: When user_role is writer
+Scenario Outline: Update collection when user_role is writer
 Given set request token from global param 'writer_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -171,7 +171,7 @@ Given set request token from global param 'writer_token'
   And error type is 'user_rejected'
 
 @collection @update
-Scenario Outline: When user_role is editor
+Scenario Outline: Update collection when user_role is editor
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -182,7 +182,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'collection_id'
 
 @collection @update
-Scenario Outline: When user_role is admin
+Scenario Outline: Update collection when user_role is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -193,7 +193,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @collection @update
-Scenario Outline: When user_token is missing
+Scenario Outline: Update collection when user_token is missing
 Given delete request token
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'

@@ -1,13 +1,13 @@
-Feature: Collection insert
+Feature: Insert collection
 
-Background: User auth
+Background: Authorize users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
 @collection @insert
-Scenario Outline: When is_lock is invalid
+Scenario Outline: Insert collection when is_lock is invalid
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '<is_locked>'
   And set request param 'collection_name' from fake 'collection_name'
@@ -30,7 +30,7 @@ Examples:
 | string(8) | bool_parsing |
 
 @collection @insert
-Scenario Outline: When is_lock is correct
+Scenario Outline: Insert collection when is_lock is correct
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '<is_locked>'
   And set request param 'collection_name' from fake 'collection_name'
@@ -51,7 +51,7 @@ Examples:
 | 0         |
 
 @collection @insert
-Scenario Outline: When collection_name is invalid
+Scenario Outline: Insert collection when collection_name is invalid
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from value '<collection_name>'
@@ -71,7 +71,7 @@ Examples:
 | string(513)     | string_too_long  |
 
 @collection @insert
-Scenario Outline: When collection_name is correct
+Scenario Outline: Insert collection when collection_name is correct
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from value '<collection_name>'
@@ -86,7 +86,7 @@ Examples:
 | string(128)     |
 
 @collection @insert
-Scenario Outline: When collection_summary is invalid
+Scenario Outline: Insert collection when collection_summary is invalid
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -105,7 +105,7 @@ Examples:
 | string(513)        | string_too_long  |
 
 @collection @insert
-Scenario Outline: When collection_summary is correct
+Scenario Outline: Insert collection when collection_summary is correct
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -121,7 +121,7 @@ Examples:
 | string(512)        |
 
 @collection @insert
-Scenario: When user_role is reader
+Scenario: Insert collection when user_role is reader
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -132,7 +132,7 @@ Given set request token from global param 'reader_token'
   And error type is 'user_rejected'
 
 @collection @insert
-Scenario: When user_role is writer
+Scenario: Insert collection when user_role is writer
 Given set request token from global param 'writer_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -142,7 +142,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'collection_id'
 
 @collection @insert
-Scenario: When user_role is editor
+Scenario: Insert collection when user_role is editor
 Given set request token from global param 'editor_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -152,7 +152,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'collection_id'
 
 @collection @insert
-Scenario: When user_role is admin
+Scenario: Insert collection when user_role is admin
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -162,7 +162,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @collection @insert
-Scenario: When user_token is missing
+Scenario: Insert collection when user_token is missing
 Given delete request token
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'

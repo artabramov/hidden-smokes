@@ -80,17 +80,13 @@
 
 
         {
-            "name": "time",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "behave",
-            "console": "integratedTerminal",
-            "cwd": "/smokes/app/features",
+            "name": "Time select",
             "args": [
-                "--tags", "@time",
-                "--no-skipped"
-            ],
-            "env": {"PYTHONPATH": "${workspaceFolder}"}
+                "--tags", "@service", "--tags", "@time",
+                "--no-skipped", "--no-source", "--no-timings"],
+                "type": "debugpy", "request": "launch", "module": "behave",
+                "console": "integratedTerminal", "cwd": "/smokes/app/features",
+                "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
 
 

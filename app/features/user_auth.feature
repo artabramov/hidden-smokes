@@ -1,7 +1,7 @@
-Feature: User auth
+Feature: Authorize user
 
 @user @auth
-Scenario Outline: When user_login is invalid (on user login)
+Scenario Outline: Authorize user when user_login is invalid (on first step)
     # user login
 Given set request param 'user_login' from value '<user_login>'
   And set request param 'user_password' from value 'fake_password'
@@ -24,7 +24,7 @@ Examples:
 | иванов     | string_pattern_mismatch |
 
 @user @auth
-Scenario: When user_login not found (on user login)
+Scenario: Authorize user when user_login not found (on first step)
     # user login
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value 'fake_password'
@@ -34,7 +34,7 @@ Given set request param 'user_login' from fake 'user_login'
   And error type is 'resource_not_found'
 
 @user @auth
-Scenario Outline: When user_password is invalid (on user login)
+Scenario Outline: Authorize user when user_password is invalid (on first step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from value '<user_password>'
@@ -53,7 +53,7 @@ Examples:
 | string(5)     | too_short   |
 
 @user @auth
-Scenario: When user_password is not matched (on user login)
+Scenario: Authorize user when user_password is not matched (on first step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from value 'fake_password'
@@ -63,7 +63,7 @@ Given set request param 'user_login' from config param 'reader_login'
   And error type is 'value_invalid'
 
 @user @auth
-Scenario Outline: When user_login is invalid (on token retrieve)
+Scenario Outline: Authorize user when user_login is invalid (on second step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from config param 'reader_password'
@@ -92,7 +92,7 @@ Examples:
 | иванов     | string_pattern_mismatch |
 
 @user @auth
-Scenario: When user_login not found (on token retrieve)
+Scenario: Authorize user when user_login not found (on second step)
     # token retrieve
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_totp' from value '123456'
@@ -102,7 +102,7 @@ Given set request param 'user_login' from fake 'user_login'
   And error type is 'resource_not_found'
 
 @user @auth
-Scenario Outline: When user_totp is invalid (on token retrieve)
+Scenario Outline: Authorize user when user_totp is invalid (on second step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from config param 'reader_password'
@@ -127,7 +127,7 @@ Examples:
 | string(5) | string_too_short |
 
 @user @auth
-Scenario: When user_totp is not matched (on token retrieve)
+Scenario: Authorize user when user_totp is not matched (on second step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from config param 'reader_password'
@@ -143,7 +143,7 @@ Given set request param 'user_login' from config param 'reader_login'
   And error type is 'value_invalid'
 
 @user @auth
-Scenario Outline: When token_exp is invalid (on token retrieve)
+Scenario Outline: Authorize user when token_exp is invalid (on second step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from config param 'reader_password'
@@ -169,7 +169,7 @@ Examples:
 | -1         | value_error |
 
 @user @auth
-Scenario Outline: When token_exp is correct
+Scenario Outline: Authorize user when token_exp is correct (on second step)
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from config param 'reader_password'
@@ -198,7 +198,7 @@ Examples:
 | 4102430400.0 |
 
 @user @auth
-Scenario: When auth as reader
+Scenario: Authorize user when user_role is reader
     # user login
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_password' from config param 'reader_password'
@@ -220,7 +220,7 @@ Given set request token from response param 'user_token'
   And delete global param 'reader_id'
 
 @user @auth
-Scenario: When auth as writer
+Scenario: Authorize user when user_role is writer
     # user login
 Given set request param 'user_login' from config param 'writer_login'
   And set request param 'user_password' from config param 'writer_password'
@@ -242,7 +242,7 @@ Given set request token from response param 'user_token'
   And delete global param 'writer_id'
 
 @user @auth
-Scenario: When auth as editor
+Scenario: Authorize user when user_role is editor
     # user login
 Given set request param 'user_login' from config param 'editor_login'
   And set request param 'user_password' from config param 'editor_password'
@@ -264,7 +264,7 @@ Given set request token from response param 'user_token'
   And delete global param 'editor_id'
 
 @user @auth
-Scenario: When auth as admin
+Scenario: Authorize user when user_role is admin
     # user login
 Given set request param 'user_login' from config param 'admin_login'
   And set request param 'user_password' from config param 'admin_password'

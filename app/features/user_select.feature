@@ -1,13 +1,13 @@
-Feature: User select
+Feature: Select user
 
-Background: Auth
+Background: Authorize users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
 @user @select
-Scenario: When user_id not found
+Scenario: Select user when user_id not found
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from value '99999999'
  When send 'GET' request to url 'user/:user_id'
@@ -16,7 +16,7 @@ Given set request token from global param 'reader_token'
   And error type is 'resource_not_found'
 
 @user @select
-Scenario: When select reader user
+Scenario: Select user when select reader user
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from global param 'reader_id'
  When send 'GET' request to url 'user/:user_id'
@@ -35,7 +35,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'userpic_url'
 
 @user @select
-Scenario: When select writer user
+Scenario: Select user when select writer user
 Given set request token from global param 'writer_token' 
   And set request placeholder 'user_id' from global param 'writer_id'
  When send 'GET' request to url 'user/:user_id'
@@ -54,7 +54,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'userpic_url'
 
 @user @select
-Scenario: When select editor user
+Scenario: Select user when select editor user
 Given set request token from global param 'editor_token' 
   And set request placeholder 'user_id' from global param 'editor_id'
  When send 'GET' request to url 'user/:user_id'
@@ -73,7 +73,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'userpic_url'
 
 @user @select
-Scenario: When select admin user
+Scenario: Select user when select admin user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'admin_id'
  When send 'GET' request to url 'user/:user_id'
@@ -92,7 +92,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'userpic_url'
 
 @user @select
-Scenario: When user token is missing
+Scenario: Select user when user token is missing
 Given delete request token 
   And set request placeholder 'user_id' from global param 'admin_id'
  When send 'GET' request to url 'user/:user_id'
