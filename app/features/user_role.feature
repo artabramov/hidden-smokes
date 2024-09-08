@@ -113,18 +113,20 @@ Given set request token from global param 'admin_token'
 
 Examples:
 | is_active |
-| 0         |
-| 1         |
-| true      |
-| false     |
 | TRUE      |
+| true      |
 | FALSE     |
+| false     |
+| YES       |
 | yes       |
+| NO        |
 | no        |
-| y         |
-| n         |
 | Y         |
+| y         |
 | N         |
+| n         |
+| 1         |
+| 0         |
 
 @user @role
 Scenario: Update role when user is admin 

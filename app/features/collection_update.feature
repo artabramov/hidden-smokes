@@ -66,9 +66,17 @@ Examples:
 | TRUE      |
 | True      |
 | true      |
+| YES       |
+| yes       |
+| Y         |
+| y         |
 | FALSE     |
 | False     |
 | false     |
+| NO        |
+| no        |
+| N         |
+| n         |
 | 1         |
 | 0         |
 
