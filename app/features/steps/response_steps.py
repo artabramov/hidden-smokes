@@ -19,7 +19,10 @@ def step_impl(context, code):
     context.response_code with the integer value of code to ensure they
     are equal.
     """
-    assert context.response_code == int(code)
+    try:
+        assert context.response_code == int(code)
+    except Exception as e:
+        raise e
 
 
 @then("error loc is '{error_loc}'")
@@ -31,8 +34,11 @@ def step_impl(context, error_loc):
     length of the detail list is 1 and verifies that error_loc is
     included in the loc field of the first error in the list.
     """
-    assert len(context.response_params["detail"]) == 1
-    assert error_loc in context.response_params["detail"][0]["loc"]
+    try:
+        assert len(context.response_params["detail"]) == 1
+        assert error_loc in context.response_params["detail"][0]["loc"]
+    except Exception as e:
+        raise e
 
 
 @then("error type is '{error_type}'")
@@ -44,8 +50,11 @@ def step_impl(context, error_type):
     detail list is 1 and checks that the type field of the first error
     in the list matches the provided error_type.
     """
-    assert len(context.response_params["detail"]) == 1
-    assert context.response_params["detail"][0]["type"] == error_type
+    try:
+        assert len(context.response_params["detail"]) == 1
+        assert context.response_params["detail"][0]["type"] == error_type
+    except Exception as e:
+        raise e
 
 
 @then("response params contain '{key}'")
@@ -55,7 +64,10 @@ def step_impl(context, key):
     dict within the context. The function checks if key is a valid key
     in context.response_params.
     """
-    assert key in context.response_params
+    try:
+        assert key in context.response_params
+    except Exception as e:
+        raise e
 
 
 @then("save response param '{response_param}' to global param '{global_param}'")

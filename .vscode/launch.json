@@ -36,7 +36,6 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
         {
             "name": "User update",
             "args": ["--tags", "@user", "--tags", "@update",
@@ -45,7 +44,14 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
+        {
+            "name": "User role",
+            "args": ["--tags", "@user", "--tags", "@role",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
         {
             "name": "Collection insert",
             "args": ["--tags", "@collection", "--tags", "@insert",

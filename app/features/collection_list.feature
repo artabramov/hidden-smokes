@@ -427,7 +427,7 @@ Examples:
 | desc  |
 
 @collection @list
-Scenario: List collections when user_role is reader
+Scenario: List collections when user is reader
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -439,7 +439,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: List collections when user_role is writer
+Scenario: List collections when user is writer
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -451,7 +451,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: List collections when user_role is editor
+Scenario: List collections when user is editor
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -463,7 +463,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: List collections when user_role is admin
+Scenario: List collections when user is admin
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'
@@ -475,7 +475,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: List collections when user_token is missing
+Scenario: List collections when token is missing
 Given delete request token 
   And set request param 'offset' from value '1'
   And set request param 'limit' from value '1'

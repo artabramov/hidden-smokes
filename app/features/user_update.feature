@@ -130,7 +130,7 @@ Examples:
 | string(512)   |
 
 @user @update
-Scenario Outline: Update user when user_role is reader
+Scenario Outline: Update user when user is reader
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -140,7 +140,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'user_id'
 
 @user @update
-Scenario Outline: Update user when user_role is writer
+Scenario Outline: Update user when user is writer
 Given set request token from global param 'writer_token'
   And set request placeholder 'user_id' from global param 'writer_id'
   And set request param 'first_name' from fake 'first_name'
@@ -150,7 +150,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'user_id'
 
 @user @update
-Scenario Outline: Update user when user_role is editor
+Scenario Outline: Update user when user is editor
 Given set request token from global param 'editor_token'
   And set request placeholder 'user_id' from global param 'editor_id'
   And set request param 'first_name' from fake 'first_name'
@@ -160,7 +160,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'user_id'
 
 @user @update
-Scenario Outline: Update user when user_role is admin
+Scenario Outline: Update user when user is admin
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'admin_id'
   And set request param 'first_name' from fake 'first_name'
@@ -170,7 +170,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
 
 @user @update
-Scenario Outline: Update user when user_token is missing
+Scenario Outline: Update user when token is missing
 Given delete request token
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'

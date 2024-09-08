@@ -120,7 +120,7 @@ Examples:
 | string(512)        |
 
 @collection @insert
-Scenario: Insert collection when user_role is reader
+Scenario: Insert collection when user is reader
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -131,7 +131,7 @@ Given set request token from global param 'reader_token'
   And error type is 'user_rejected'
 
 @collection @insert
-Scenario: Insert collection when user_role is writer
+Scenario: Insert collection when user is writer
 Given set request token from global param 'writer_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -141,7 +141,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'collection_id'
 
 @collection @insert
-Scenario: Insert collection when user_role is editor
+Scenario: Insert collection when user is editor
 Given set request token from global param 'editor_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -151,7 +151,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'collection_id'
 
 @collection @insert
-Scenario: Insert collection when user_role is admin
+Scenario: Insert collection when user is admin
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -161,7 +161,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @collection @insert
-Scenario: Insert collection when user_token is missing
+Scenario: Insert collection when token is missing
 Given delete request token
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'

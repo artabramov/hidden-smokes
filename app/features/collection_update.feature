@@ -146,7 +146,7 @@ Examples:
 | string(512)        |
 
 @collection @update
-Scenario Outline: Update collection when user_role is reader
+Scenario Outline: Update collection when user is reader
 Given set request token from global param 'reader_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -158,7 +158,7 @@ Given set request token from global param 'reader_token'
   And error type is 'user_rejected'
 
 @collection @update
-Scenario Outline: Update collection when user_role is writer
+Scenario Outline: Update collection when user is writer
 Given set request token from global param 'writer_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -170,7 +170,7 @@ Given set request token from global param 'writer_token'
   And error type is 'user_rejected'
 
 @collection @update
-Scenario Outline: Update collection when user_role is editor
+Scenario Outline: Update collection when user is editor
 Given set request token from global param 'editor_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -181,7 +181,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'collection_id'
 
 @collection @update
-Scenario Outline: Update collection when user_role is admin
+Scenario Outline: Update collection when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'
@@ -192,7 +192,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @collection @update
-Scenario Outline: Update collection when user_token is missing
+Scenario Outline: Update collection when token is missing
 Given delete request token
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '0'

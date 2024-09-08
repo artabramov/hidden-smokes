@@ -24,7 +24,7 @@ class UserLoginProvider(BaseProvider):
         it to lowercase, removing spaces, and appending a specified
         number of random digits.
         """
-        user_login = fake.name().lower().replace(" ", "")
+        user_login = fake.name().lower().replace(" ", "").replace(".", "")
         random_digits = "".join(random.choices(
             string.digits, k=USER_LOGIN_DIGITS_NUMBER))
         return user_login + random_digits
