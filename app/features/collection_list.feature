@@ -7,7 +7,7 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @collection @list
-Scenario Outline: List collections when collection_name__ilike is correct
+Scenario Outline: List collections when collection_name is correct
 Given set request token from global param 'reader_token' 
   And set request param 'collection_name__ilike' from value '<collection_name>'
   And set request param 'offset' from value '0'
@@ -29,7 +29,7 @@ Examples:
 | string(8)       |
 
 @collection @list
-Scenario Outline: List collections when is_locked__eq is invalid
+Scenario Outline: List collections when is_locked is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked__eq' from value '<is_locked>'
   And set request param 'offset' from value '0'
@@ -53,7 +53,7 @@ Examples:
 | string(8) | bool_parsing |
 
 @collection @list
-Scenario Outline: List collections when is_locked__eq is correct
+Scenario Outline: List collections when is_locked is correct
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked__eq' from value '<is_locked>'
   And set request param 'offset' from value '0'
@@ -257,6 +257,186 @@ Examples:
 | +123.0         |
 
 @collection @list
+Scenario Outline: List collections when revisions_count__ge is invalid
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_count__ge' from value '<revisions_count>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '422'
+  And error loc is 'revisions_count__ge'
+  And error type is '<error_type>'
+
+Examples:
+| revisions_count | error_type         |
+| tabs            | int_parsing        |
+| spaces          | int_parsing        |
+| 123.4           | int_parsing        |
+| 123,0           | int_parsing        |
+| string(0)       | int_parsing        |
+| string(8)       | int_parsing        |
+
+@collection @list
+Scenario Outline: List collections when revisions_count__ge is correct
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_count__ge' from value '<revisions_count>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '200'
+  And response params contain 'collections'
+  And response params contain 'collections_count'
+
+Examples:
+| revisions_count |
+| none            |
+| 0               |
+| 0.0             |
+| -123            |
+| -123.0          |
+| +123            |
+| +123.0          |
+
+@collection @list
+Scenario Outline: List collections when revisions_count__le is invalid
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_count__le' from value '<revisions_count>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '422'
+  And error loc is 'revisions_count__le'
+  And error type is '<error_type>'
+
+Examples:
+| revisions_count | error_type         |
+| tabs            | int_parsing        |
+| spaces          | int_parsing        |
+| 123.4           | int_parsing        |
+| 123,0           | int_parsing        |
+| string(0)       | int_parsing        |
+| string(8)       | int_parsing        |
+
+@collection @list
+Scenario Outline: List collections when revisions_count__le is correct
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_count__le' from value '<revisions_count>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '200'
+  And response params contain 'collections'
+  And response params contain 'collections_count'
+
+Examples:
+| revisions_count |
+| none            |
+| 0               |
+| 0.0             |
+| -123            |
+| -123.0          |
+| +123            |
+| +123.0          |
+
+@collection @list
+Scenario Outline: List collections when revisions_size__ge is invalid
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_size__ge' from value '<revisions_size>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '422'
+  And error loc is 'revisions_size__ge'
+  And error type is '<error_type>'
+
+Examples:
+| revisions_size | error_type         |
+| tabs           | int_parsing        |
+| spaces         | int_parsing        |
+| 123.4          | int_parsing        |
+| 123,0          | int_parsing        |
+| string(0)      | int_parsing        |
+| string(8)      | int_parsing        |
+
+@collection @list
+Scenario Outline: List collections when revisions_size__ge is correct
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_size__ge' from value '<revisions_size>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '200'
+  And response params contain 'collections'
+  And response params contain 'collections_count'
+
+Examples:
+| revisions_size |
+| none           |
+| 0              |
+| 0.0            |
+| -123           |
+| -123.0         |
+| +123           |
+| +123.0         |
+
+@collection @list
+Scenario Outline: List collections when revisions_size__le is invalid
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_size__le' from value '<revisions_size>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '422'
+  And error loc is 'revisions_size__le'
+  And error type is '<error_type>'
+
+Examples:
+| revisions_size | error_type         |
+| tabs           | int_parsing        |
+| spaces         | int_parsing        |
+| 123.4          | int_parsing        |
+| 123,0          | int_parsing        |
+| string(0)      | int_parsing        |
+| string(8)      | int_parsing        |
+
+@collection @list
+Scenario Outline: List collections when revisions_size__le is correct
+Given set request token from global param 'reader_token' 
+  And set request param 'revisions_size__le' from value '<revisions_size>'
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '200'
+  And response params contain 'collections'
+  And response params contain 'collections_count'
+
+Examples:
+| revisions_size |
+| none           |
+| 0              |
+| 0.0            |
+| -123           |
+| -123.0         |
+| +123           |
+| +123.0         |
+
+@collection @list
 Scenario Outline: List collections when offset is invalid
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
@@ -401,13 +581,14 @@ Given set request token from global param 'reader_token'
   And error type is '<error_type>'
 
 Examples:
-| order     | error_type    |
-| none      | missing       |
-| tabs      | literal_error |
-| spaces    | literal_error |
-| 0         | literal_error |
-| 123       | literal_error |
-| string(8) | literal_error |
+| order  | error_type    |
+| none   | missing       |
+| tabs   | literal_error |
+| spaces | literal_error |
+| 0      | literal_error |
+| 123    | literal_error |
+| ASC    | literal_error |
+| DESC   | literal_error |
 
 @collection @list
 Scenario Outline: List collections when order is correct

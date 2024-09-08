@@ -24,7 +24,7 @@ Given set request token from global param 'admin_token'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '422'
   And error loc is 'file'
-  And error type is 'mimetype_rejected'
+  And error type is 'mimetype_unsupported'
 
 @user @userpic @upload
 Scenario Outline: Upload userpic when file is correct
