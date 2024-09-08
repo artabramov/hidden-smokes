@@ -7,13 +7,19 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @user @select
-Scenario: Select user when user_id not found
+Scenario Outline: Select user when user_id not found
 Given set request token from global param 'reader_token' 
-  And set request placeholder 'user_id' from value '99999999'
+  And set request placeholder 'user_id' from value '<user_id>'
  When send 'GET' request to url 'user/:user_id'
  Then response code is '404'
   And error loc is 'user_id'
   And error type is 'resource_not_found'
+
+Examples:
+| user_id  |
+| -1       |
+| 0        |
+| 99999999 |
 
 @user @select
 Scenario: Select user when user is reader
