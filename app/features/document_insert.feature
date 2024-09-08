@@ -75,7 +75,7 @@ Examples:
 | string(257)   | string_too_long |
 
 @document @insert
-Scenario Outline: Insert document when document_name is correct or filename
+Scenario Outline: Insert document when document_name is correct or missing
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from value '<document_name>'
