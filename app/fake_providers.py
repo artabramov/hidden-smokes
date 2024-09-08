@@ -16,6 +16,10 @@ fake = Faker()
 USER_LOGIN_DIGITS_NUMBER = 4
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
+DOCUMENT_NAME_WORDS_NUMBER = 4
+DOCUMENT_SUMMARY_WORDS_NUMBER = 16
+DOCUMENT_TAGS_COUNT = 8
+
 
 class UserLoginProvider(BaseProvider):
     def user_login(self):
@@ -48,6 +52,37 @@ class CollectionSummaryProvider(BaseProvider):
         return fake.sentence(nb_words=COLLECTION_SUMMARY_WORDS_NUMBER)
 
 
+class DocumentNameProvider(BaseProvider):
+    def document_name(self):
+        """
+        Generate a document name by creating a random sentence with
+        Faker and removing the trailing period.
+        """
+        return fake.sentence(nb_words=DOCUMENT_NAME_WORDS_NUMBER).rstrip(".")
+
+
+class DocumentSummaryProvider(BaseProvider):
+    def document_summary(self):
+        """
+        Generate a document summary by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=DOCUMENT_SUMMARY_WORDS_NUMBER)
+
+
+class DocumentTagsProvider(BaseProvider):
+    def document_tags(self):
+        """
+        Generate a list of document tags by creating random words with
+        Faker. The number of tags can be controlled by a constant.
+        """
+        tags = [fake.word() for _ in range(DOCUMENT_TAGS_COUNT)]
+        return ", ".join(tags)
+
+
 fake.add_provider(UserLoginProvider)
 fake.add_provider(CollectionNameProvider)
 fake.add_provider(CollectionSummaryProvider)
+fake.add_provider(DocumentNameProvider)
+fake.add_provider(DocumentSummaryProvider)
+fake.add_provider(DocumentTagsProvider)

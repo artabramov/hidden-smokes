@@ -11,7 +11,6 @@ comprehensive testing by managing request and response details
 dynamically.
 """
 
-import io
 import json
 import random
 import string
@@ -147,6 +146,17 @@ def step_impl(context, request_param, config_param):
     to the specified request_param in context.request_params.
     """
     context.request_params[request_param] = context.config_params[config_param]
+
+
+@given("set request param '{request_param}' from global param '{global_param}'")
+def step_impl(context, request_param, global_param):
+    """
+    Sets a request parameter from a global parameter value. The function
+    retrieves the value of a global parameter from the context and
+    assigns it to a request parameter in the context.
+    """
+    param = context.global_params[global_param]
+    context.request_params[request_param] = param
 
 
 @given("set request file from sample format '{file_extension}'")

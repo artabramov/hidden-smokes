@@ -76,7 +76,7 @@ Examples:
 | spaces          | string_too_short |
 | string(0)       | string_too_short |
 | string(1)       | string_too_short |
-| string(513)     | string_too_long  |
+| string(129)     | string_too_long  |
 
 @collection @insert
 Scenario Outline: Insert collection when collection_name is correct

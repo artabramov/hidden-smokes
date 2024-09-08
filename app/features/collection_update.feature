@@ -5,7 +5,7 @@ Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # Insert collection
+    # insert collection
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'

@@ -22,6 +22,7 @@ def step_impl(context, code):
     try:
         assert context.response_code == int(code)
     except Exception as e:
+        # use for debugging
         raise e
 
 
@@ -38,6 +39,7 @@ def step_impl(context, error_loc):
         assert len(context.response_params["detail"]) == 1
         assert error_loc in context.response_params["detail"][0]["loc"]
     except Exception as e:
+        # use for debugging
         raise e
 
 
@@ -54,6 +56,7 @@ def step_impl(context, error_type):
         assert len(context.response_params["detail"]) == 1
         assert context.response_params["detail"][0]["type"] == error_type
     except Exception as e:
+        # use for debugging
         raise e
 
 
@@ -67,6 +70,7 @@ def step_impl(context, key):
     try:
         assert key in context.response_params
     except Exception as e:
+        # use for debugging
         raise e
 
 
