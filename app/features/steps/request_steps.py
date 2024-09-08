@@ -11,6 +11,7 @@ comprehensive testing by managing request and response details
 dynamically.
 """
 
+import io
 import json
 import random
 import string
@@ -146,6 +147,24 @@ def step_impl(context, request_param, config_param):
     to the specified request_param in context.request_params.
     """
     context.request_params[request_param] = context.config_params[config_param]
+
+
+@given("set request file from sample format '{file_extension}'")
+def step_impl(context, file_extension: str):
+    """
+    Sets up a request sample file with the specified extension from the
+    configured base path, and stores the file data, filename, and MIME
+    type in the context for use in subsequent requests.
+    """
+    base_path = context.config_params["file_samples_base_path"]
+    filename = "sample." + file_extension
+    mimetype = "image/" + file_extension
+
+    file_data = None
+    with open(base_path + filename, "rb") as fn:
+        file_data = fn.read()
+
+    context.request_files = {"file": (filename, file_data, mimetype)}
 
 
 @given("generate request param 'user_totp' from config param '{config_param}'")
