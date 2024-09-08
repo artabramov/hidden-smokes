@@ -72,8 +72,8 @@ Given set request token from global param 'admin_token'
 Examples:
 | collection_name | error_type       |
 | none            | missing          |
-| tabs            | value_error      |
-| spaces          | value_error      |
+| tabs            | string_too_short |
+| spaces          | string_too_short |
 | string(0)       | string_too_short |
 | string(1)       | string_too_short |
 | string(513)     | string_too_long  |
