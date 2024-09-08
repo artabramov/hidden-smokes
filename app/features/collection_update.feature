@@ -16,16 +16,22 @@ Given set request token from global param 'admin_token'
   And save response param 'collection_id' to global param 'collection_id'
 
 @collection @update
-Scenario Outline: Update collection when collection not found
+Scenario Outline: Update collection when collection_id not found
 Given set request token from global param 'editor_token' 
-  And set request placeholder 'collection_id' from value '99999999'
-  And set request param 'is_locked' from value '<is_locked>'
+  And set request placeholder 'collection_id' from value '<collection_id>'
+  And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
   And set request param 'collection_summary' from fake 'collection_summary'
  When send 'PUT' request to url 'collection/:collection_id'
  Then response code is '404'
   And error loc is 'collection_id'
   And error type is 'resource_not_found'
+
+Examples:
+| collection_id |
+| -1            |
+| 0             |
+| 99999999      |
 
 @collection @update
 Scenario Outline: Update collection when is_lock is invalid

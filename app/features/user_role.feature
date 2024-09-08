@@ -28,7 +28,7 @@ Given set request token from global param 'admin_token'
   And error type is 'resource_forbidden'
 
 @user @role
-Scenario: Update role when user_id is not found
+Scenario: Update role when user_id not found
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from value '99999999'
   And set request param 'is_active' from value '1'

@@ -1,6 +1,6 @@
 Feature: Select document
 
-Background: Authorize users and create collection
+Background: Authorize users, create collection and document
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
