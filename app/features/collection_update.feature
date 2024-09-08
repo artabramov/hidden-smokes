@@ -91,7 +91,7 @@ Examples:
 | spaces          | value_error      |
 | string(0)       | string_too_short |
 | string(1)       | string_too_short |
-| string(513)     | string_too_long  |
+| string(129)     | string_too_long  |
 
 @collection @update
 Scenario Outline: Update collection when collection_name is correct
@@ -122,12 +122,8 @@ Given set request token from global param 'editor_token'
   And error type is '<error_type>'
 
 Examples:
-| collection_summary | error_type       |
-| tabs               | string_too_short |
-| spaces             | string_too_short |
-| string(0)          | string_too_short |
-| string(1)          | string_too_short |
-| string(513)        | string_too_long  |
+| collection_summary | error_type      |
+| string(513)        | string_too_long |
 
 @collection @update
 Scenario Outline: Update collection when collection_summary is correct
@@ -143,7 +139,10 @@ Given set request token from global param 'editor_token'
 Examples:
 | collection_summary |
 | none               |
-| string(2)          |
+| tabs               |
+| spaces             |
+| string(0)          |
+| string(1)          |
 | string(512)        |
 
 @collection @update

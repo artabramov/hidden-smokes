@@ -98,10 +98,6 @@ Given set request token from global param 'admin_token'
 
 Examples:
 | collection_summary | error_type       |
-| tabs               | string_too_short |
-| spaces             | string_too_short |
-| string(0)          | string_too_short |
-| string(1)          | string_too_short |
 | string(513)        | string_too_long  |
 
 @collection @insert
@@ -117,7 +113,10 @@ Given set request token from global param 'admin_token'
 Examples:
 | collection_summary |
 | none               |
-| string(2)          |
+| tabs               |
+| spaces             |
+| string(0)          |
+| string(1)          |
 | string(512)        |
 
 @collection @insert

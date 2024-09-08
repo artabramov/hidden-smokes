@@ -13,8 +13,8 @@ from faker.providers import BaseProvider
 
 fake = Faker()
 
-USER_LOGIN_DIGITS_NUMBER = 4
-COLLECTION_NAME_WORDS_NUMBER = 4
+USER_LOGIN_DIGITS_NUMBER = 8
+COLLECTION_NAME_WORDS_NUMBER = 8
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
 
 class UserLoginProvider(BaseProvider):
