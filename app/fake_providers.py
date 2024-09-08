@@ -14,6 +14,8 @@ from faker.providers import BaseProvider
 fake = Faker()
 
 USER_LOGIN_DIGITS_NUMBER = 4
+USER_SIGNATURE_WORDS_COUNT = 2
+USER_CONTACTS_WORDS_COUNT = 16
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_NAME_WORDS_NUMBER = 4
@@ -32,6 +34,24 @@ class UserLoginProvider(BaseProvider):
         random_digits = "".join(random.choices(
             string.digits, k=USER_LOGIN_DIGITS_NUMBER))
         return user_login + random_digits
+
+
+class UserSignatureProvider(BaseProvider):
+    def user_signature(self):
+        """
+        Generate a user signature by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=USER_SIGNATURE_WORDS_COUNT)
+
+
+class UserContactsProvider(BaseProvider):
+    def user_contacts(self):
+        """
+        Generate a user contacts by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=USER_CONTACTS_WORDS_COUNT)
 
 
 class CollectionNameProvider(BaseProvider):
@@ -81,6 +101,8 @@ class DocumentTagsProvider(BaseProvider):
 
 
 fake.add_provider(UserLoginProvider)
+fake.add_provider(UserSignatureProvider)
+fake.add_provider(UserContactsProvider)
 fake.add_provider(CollectionNameProvider)
 fake.add_provider(CollectionSummaryProvider)
 fake.add_provider(DocumentNameProvider)
