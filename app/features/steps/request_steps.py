@@ -58,6 +58,18 @@ def step_impl(context):
         del context.request_headers[AUTH_HEADER]
 
 
+@given("set request placeholder '{request_placeholder}' from config param '{config_param}'")
+def step_impl(context, request_placeholder, config_param):
+    """
+    Sets a request placeholder in the context with a value retrieved
+    from config parameters, updating the request_placeholders dict using
+    the specified config parameter key to get the corresponding value
+    from config_params.
+    """
+    param = context.config_params[config_param]
+    context.request_placeholders[request_placeholder] = param
+
+
 @given("set request placeholder '{request_placeholder}' from global param '{global_param}'")
 def step_impl(context, request_placeholder, global_param):
     """
