@@ -27,7 +27,7 @@ Given set request token from global param 'admin_token'
   And save response param 'document_id' to global param 'document_id'
 
 @document @select
-Scenario Outline: Select collection when collection_id not found
+Scenario Outline: Select document when document_id not found
 Given set request token from global param 'reader_token' 
   And set request placeholder 'document_id' from value '<document_id>'
  When send 'GET' request to url 'document/:document_id'
@@ -42,7 +42,7 @@ Examples:
 | 99999999    |
 
 @document @select
-Scenario: Select collection when user is reader
+Scenario: Select document when user is reader
 Given set request token from global param 'reader_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'GET' request to url 'document/:document_id'
@@ -64,7 +64,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'latest_revision'
 
 @document @select
-Scenario: Select collection when user is writer
+Scenario: Select document when user is writer
 Given set request token from global param 'writer_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'GET' request to url 'document/:document_id'
@@ -86,7 +86,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'latest_revision'
 
 @document @select
-Scenario: Select collection when user is editor
+Scenario: Select document when user is editor
 Given set request token from global param 'editor_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'GET' request to url 'document/:document_id'
@@ -108,7 +108,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'latest_revision'
 
 @document @select
-Scenario: Select collection when user is admin
+Scenario: Select document when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'GET' request to url 'document/:document_id'
@@ -130,7 +130,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'latest_revision'
 
 @document @select
-Scenario: Select collection when token is missing
+Scenario: Select document when token is missing
 Given delete request token
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'GET' request to url 'document/:document_id'
