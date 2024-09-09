@@ -42,6 +42,38 @@ Examples:
 | 99999999    |
 
 @document @select
+Scenario: Select document when collection is locked
+    # lock collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+  And set request param 'is_locked' from value '1'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+    # select document
+Given set request token from global param 'reader_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'GET' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'collection_id'
+  And response params contain 'document_name'
+  And response params contain 'document_summary'
+  And response params contain 'document_size'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'comments_count'
+  And response params contain 'downloads_count'
+  And response params contain 'favorites_count'
+  And response params contain 'document_tags'
+  And response params contain 'latest_revision'
+
+@document @select
 Scenario: Select document when user is reader
 Given set request token from global param 'reader_token' 
   And set request placeholder 'document_id' from global param 'document_id'

@@ -36,6 +36,25 @@ Given set request token from global param 'admin_token'
   And error type is 'resource_not_found'
 
 @document @delete
+Scenario: Delete document when collection is locked
+    # lock collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+  And set request param 'is_locked' from value '1'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+    # delete document
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '423'
+  And error loc is 'document_id'
+  And error type is 'resource_locked'
+
+@document @delete
 Scenario: Delete document when user is reader
 Given set request token from global param 'reader_token' 
   And set request placeholder 'document_id' from global param 'document_id'

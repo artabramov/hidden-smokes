@@ -171,6 +171,30 @@ Examples:
 | string(512)      |
 
 @document @update
+Scenario: Update document when collection is locked
+    # lock collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+  And set request param 'is_locked' from value '1'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+    # update document
+Given set request token from global param 'admin_token' 
+  And set request param 'collection_id' from global param 'collection_id'
+  And set request placeholder 'document_id' from global param 'document_id'
+  And set request param 'document_name' from fake 'document_name'
+  And set request param 'document_summary' from fake 'document_summary'
+  And set request param 'tags' from fake 'document_tags'
+  And set request file from sample format 'pdf'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '423'
+  And error loc is 'document_id'
+  And error type is 'resource_locked'
+
+@document @update
 Scenario: Update document when user is admin
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
