@@ -165,6 +165,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Comment insert",
+            "args": ["--tags", "@comment", "--tags", "@insert",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Comment list",
             "args": ["--tags", "@comment", "--tags", "@list",
                      "--no-skipped", "--no-source", "--no-timings"],

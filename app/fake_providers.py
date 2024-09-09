@@ -21,6 +21,7 @@ COLLECTION_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_NAME_WORDS_NUMBER = 4
 DOCUMENT_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_TAGS_COUNT = 8
+COMMENT_CONTENT_WORDS_NUMBER = 16
 
 
 class UserLoginProvider(BaseProvider):
@@ -99,6 +100,14 @@ class DocumentTagsProvider(BaseProvider):
         tags = [fake.word() for _ in range(DOCUMENT_TAGS_COUNT)]
         return ", ".join(tags)
 
+class CommentContentProvider(BaseProvider):
+    def comment_content(self):
+        """
+        Generate a comment content by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=COMMENT_CONTENT_WORDS_NUMBER)
+
 
 fake.add_provider(UserLoginProvider)
 fake.add_provider(UserSignatureProvider)
@@ -108,3 +117,4 @@ fake.add_provider(CollectionSummaryProvider)
 fake.add_provider(DocumentNameProvider)
 fake.add_provider(DocumentSummaryProvider)
 fake.add_provider(DocumentTagsProvider)
+fake.add_provider(CommentContentProvider)
