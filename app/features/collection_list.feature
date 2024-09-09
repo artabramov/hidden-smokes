@@ -90,13 +90,13 @@ Given set request token from global param 'reader_token'
   And error type is '<error_type>'
 
 Examples:
-| documents_count | error_type         |
-| tabs            | int_parsing        |
-| spaces          | int_parsing        |
-| 123.4           | int_parsing        |
-| 123,0           | int_parsing        |
-| string(0)       | int_parsing        |
-| string(8)       | int_parsing        |
+| documents_count | error_type  |
+| tabs            | int_parsing |
+| spaces          | int_parsing |
+| 123.4           | int_parsing |
+| 123,0           | int_parsing |
+| string(0)       | int_parsing |
+| string(8)       | int_parsing |
 
 @collection @list
 Scenario Outline: List collections when documents_count__ge is correct
@@ -610,7 +610,7 @@ Examples:
 @collection @list
 Scenario: List collections when user is reader
 Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '1'
+  And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
   And set request param 'order' from value 'asc'
@@ -622,7 +622,7 @@ Given set request token from global param 'reader_token'
 @collection @list
 Scenario: List collections when user is writer
 Given set request token from global param 'writer_token' 
-  And set request param 'offset' from value '1'
+  And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
   And set request param 'order' from value 'asc'
@@ -634,7 +634,7 @@ Given set request token from global param 'writer_token'
 @collection @list
 Scenario: List collections when user is editor
 Given set request token from global param 'editor_token' 
-  And set request param 'offset' from value '1'
+  And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
   And set request param 'order' from value 'asc'
@@ -646,7 +646,7 @@ Given set request token from global param 'editor_token'
 @collection @list
 Scenario: List collections when user is admin
 Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '1'
+  And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
   And set request param 'order' from value 'asc'
@@ -658,7 +658,7 @@ Given set request token from global param 'admin_token'
 @collection @list
 Scenario: List collections when token is missing
 Given delete request token 
-  And set request param 'offset' from value '1'
+  And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
   And set request param 'order' from value 'asc'
