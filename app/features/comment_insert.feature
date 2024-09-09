@@ -36,7 +36,7 @@ Examples:
 | document_id |
 | 0           |
 | -1          |
-| 99999999    |
+| 9999999999  |
 
 @comment @insert
 Scenario Outline: Insert comment when document_id is invalid

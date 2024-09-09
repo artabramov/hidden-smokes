@@ -30,7 +30,7 @@ Given set request token from global param 'admin_token'
 @user @role
 Scenario: Update role when user_id not found
 Given set request token from global param 'admin_token'
-  And set request placeholder 'user_id' from value '99999999'
+  And set request placeholder 'user_id' from value '9999999999'
   And set request param 'is_active' from value '1'
   And set request param 'user_role' from value 'admin'
  When send 'PUT' request to url 'user/:user_id/role'

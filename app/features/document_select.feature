@@ -39,7 +39,7 @@ Examples:
 | document_id |
 | -1          |
 | 0           |
-| 99999999    |
+| 9999999999  |
 
 @document @select
 Scenario: Select document when collection is locked

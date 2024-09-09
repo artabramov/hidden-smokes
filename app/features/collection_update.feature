@@ -31,7 +31,7 @@ Examples:
 | collection_id |
 | -1            |
 | 0             |
-| 99999999      |
+| 9999999999    |
 
 @collection @update
 Scenario Outline: Update collection when is_lock is invalid

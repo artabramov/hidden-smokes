@@ -18,7 +18,7 @@ Given set request token from global param 'admin_token'
 @collection @delete
 Scenario: Delete collection when collection_id not found
 Given set request token from global param 'admin_token' 
-  And set request placeholder 'collection_id' from value '99999999'
+  And set request placeholder 'collection_id' from value '9999999999'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '404'
   And error loc is 'collection_id'

@@ -16,10 +16,10 @@ Given set request token from global param 'reader_token'
   And error type is 'resource_not_found'
 
 Examples:
-| user_id  |
-| -1       |
-| 0        |
-| 99999999 |
+| user_id    |
+| -1         |
+| 0          |
+| 9999999999 |
 
 @user @select
 Scenario: Select user when user is reader

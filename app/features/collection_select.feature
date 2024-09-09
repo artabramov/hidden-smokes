@@ -28,7 +28,7 @@ Examples:
 | collection_id |
 | -1            |
 | 0             |
-| 99999999      |
+| 9999999999    |
 
 @collection @select
 Scenario: Select collection when user is reader

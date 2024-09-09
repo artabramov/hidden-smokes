@@ -32,7 +32,7 @@ Examples:
 | collection_id |
 | 0             |
 | -1            |
-| 99999999      |
+| 9999999999    |
 
 @document @insert
 Scenario Outline: Insert document when collection_id is invalid

@@ -29,7 +29,7 @@ Given set request token from global param 'admin_token'
 @document @delete
 Scenario: Delete document when document_id not found
 Given set request token from global param 'admin_token' 
-  And set request placeholder 'document_id' from value '99999999'
+  And set request placeholder 'document_id' from value '9999999999'
  When send 'DELETE' request to url 'document/:document_id'
  Then response code is '404'
   And error loc is 'document_id'

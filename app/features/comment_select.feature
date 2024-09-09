@@ -43,7 +43,7 @@ Examples:
 | comment_id |
 | -1         |
 | 0          |
-| 99999999   |
+| 9999999999 |
 
 @comment @select
 Scenario: Select comment when user is admin

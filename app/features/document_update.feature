@@ -44,7 +44,7 @@ Examples:
 | collection_id |
 | -1            |
 | 0             |
-| 99999999      |
+| 9999999999    |
 
 @document @update
 Scenario Outline: Update document when collection_id is invalid
@@ -88,7 +88,7 @@ Examples:
 | document_id |
 | -1          |
 | 0           |
-| 99999999    |
+| 9999999999  |
 
 @document @update
 Scenario Outline: Update document when document_name is invalid
