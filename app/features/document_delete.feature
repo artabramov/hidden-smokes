@@ -30,6 +30,12 @@ Given set request token from global param 'admin_token'
  Then response code is '404'
   And error loc is 'document_id'
   And error type is 'resource_not_found'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @document @delete
 Scenario: Delete document when collection is locked
@@ -49,24 +55,26 @@ Given set request token from global param 'admin_token'
  Then response code is '423'
   And error loc is 'document_id'
   And error type is 'resource_locked'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @document @delete
-Scenario: Delete document when user is reader
-Given set request token from global param 'reader_token' 
+Scenario: Delete document when user is admin
+Given set request token from global param 'admin_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
- Then response code is '403'
-  And error loc is 'user_token'
-  And error type is 'user_rejected'
-
-@document @delete
-Scenario: Delete document when user is writer
-Given set request token from global param 'writer_token' 
-  And set request placeholder 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '403'
-  And error loc is 'user_token'
-  And error type is 'user_rejected'
+ Then response code is '200'
+  And response params contain 'document_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @document @delete
 Scenario: Delete document when user is editor
@@ -76,14 +84,42 @@ Given set request token from global param 'editor_token'
  Then response code is '403'
   And error loc is 'user_token'
   And error type is 'user_rejected'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @document @delete
-Scenario: Delete document when user is admin
-Given set request token from global param 'admin_token' 
+Scenario: Delete document when user is writer
+Given set request token from global param 'writer_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '403'
+  And error loc is 'user_token'
+  And error type is 'user_rejected'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
+
+@document @delete
+Scenario: Delete document when user is reader
+Given set request token from global param 'reader_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '403'
+  And error loc is 'user_token'
+  And error type is 'user_rejected'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @document @delete
 Scenario: Delete document when token is missing
@@ -91,3 +127,9 @@ Given delete request token
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
  Then response code is '403'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'

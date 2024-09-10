@@ -31,7 +31,6 @@ Examples:
 
 @collection @insert
 Scenario Outline: Insert collection when is_lock is correct
-    # insert collection
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '<is_locked>'
   And set request param 'collection_name' from fake 'collection_name'
@@ -88,7 +87,6 @@ Examples:
 
 @collection @insert
 Scenario Outline: Insert collection when collection_name is correct
-    # insert collection
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from value '<collection_name>'
@@ -126,7 +124,6 @@ Examples:
 
 @collection @insert
 Scenario Outline: Insert collection when collection_summary is correct
-    # insert collection
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -153,7 +150,6 @@ Examples:
 
 @collection @insert
 Scenario: Insert collection when user is admin
-    # insert collection
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -171,7 +167,6 @@ Given set request token from global param 'admin_token'
 
 @collection @insert
 Scenario: Insert collection when user is editor
-    # insert collection
 Given set request token from global param 'editor_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
@@ -189,7 +184,6 @@ Given set request token from global param 'admin_token'
 
 @collection @insert
 Scenario: Insert collection when user is writer
-    # insert collection
 Given set request token from global param 'writer_token' 
   And set request param 'is_locked' from value '0'
   And set request param 'collection_name' from fake 'collection_name'
