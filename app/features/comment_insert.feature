@@ -31,6 +31,12 @@ Given set request token from global param 'admin_token'
  Then response code is '404'
   And error loc is 'document_id'
   And error type is 'resource_not_found'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 Examples:
 | document_id |
@@ -47,6 +53,12 @@ Given set request token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'document_id'
   And error type is '<error_type>'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 Examples:
 | document_id | error_type  |
@@ -67,6 +79,12 @@ Given set request token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'comment_content'
   And error type is '<error_type>'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 Examples:
 | comment_content | error_type       |
@@ -84,6 +102,12 @@ Given set request token from global param 'admin_token'
  When send 'POST' request to url 'comment'
  Then response code is '201'
   And response params contain 'comment_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 Examples:
 | comment_content |
@@ -97,7 +121,6 @@ Given set request token from global param 'admin_token'
   And set request placeholder 'collection_id' from global param 'collection_id'
   And set request param 'is_locked' from value '1'
   And set request param 'collection_name' from fake 'collection_name'
-  And set request param 'collection_summary' from fake 'collection_summary'
  When send 'PUT' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
@@ -109,6 +132,12 @@ Given set request token from global param 'admin_token'
  Then response code is '423'
   And error loc is 'document_id'
   And error type is 'resource_locked'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @comment @insert
 Scenario: Insert comment when user is admin
@@ -118,6 +147,12 @@ Given set request token from global param 'admin_token'
  When send 'POST' request to url 'comment'
  Then response code is '201'
   And response params contain 'comment_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @comment @insert
 Scenario: Insert comment when user is editor
@@ -127,6 +162,12 @@ Given set request token from global param 'editor_token'
  When send 'POST' request to url 'comment'
  Then response code is '201'
   And response params contain 'comment_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @comment @insert
 Scenario: Insert comment when user is writer
@@ -136,6 +177,12 @@ Given set request token from global param 'writer_token'
  When send 'POST' request to url 'comment'
  Then response code is '201'
   And response params contain 'comment_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @comment @insert
 Scenario: Insert comment when user is reader
@@ -146,6 +193,12 @@ Given set request token from global param 'reader_token'
  Then response code is '403'
   And error loc is 'user_token'
   And error type is 'user_rejected'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @comment @insert
 Scenario: Insert comment when token is missing
@@ -154,3 +207,9 @@ Given delete request token
   And set request param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '403'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
