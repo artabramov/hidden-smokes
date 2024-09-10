@@ -26,6 +26,12 @@ Given set request token from global param 'admin_token'
  Then response code is '403'
   And error loc is 'user_id'
   And error type is 'resource_forbidden'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @role
 Scenario: Update role when user_id not found
@@ -37,6 +43,12 @@ Given set request token from global param 'admin_token'
  Then response code is '404'
   And error loc is 'user_id'
   And error type is 'resource_not_found'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @role
 Scenario Outline: Update role when user_role is invalid
@@ -48,6 +60,12 @@ Given set request token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'user_role'
   And error type is '<error_type>'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | user_role | error_type |
@@ -70,6 +88,12 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '200'
   And response params contain 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | user_role |
@@ -88,6 +112,12 @@ Given set request token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'is_active'
   And error type is '<error_type>'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | is_active | error_type   |
@@ -108,6 +138,12 @@ Given set request token from global param 'admin_token'
   And set request param 'is_active' from value '<is_active>'
   And set request param 'user_role' from value 'reader'
  When send 'PUT' request to url 'user/:user_id/role'
+ Then response code is '200'
+  And response params contain 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
 
@@ -137,6 +173,12 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '200'
   And response params contain 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @role
 Scenario: Update role when user is editor 
@@ -148,6 +190,12 @@ Given set request token from global param 'editor_token'
  Then response code is '403'
   And error loc is 'user_token'
   And error type is 'user_rejected'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @role
 Scenario: Update role when user is writer 
@@ -159,6 +207,12 @@ Given set request token from global param 'writer_token'
  Then response code is '403'
   And error loc is 'user_token'
   And error type is 'user_rejected'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @role
 Scenario: Update role when user is reader 
@@ -170,6 +224,12 @@ Given set request token from global param 'reader_token'
  Then response code is '403'
   And error loc is 'user_token'
   And error type is 'user_rejected'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @role
 Scenario: Update role when token is missing
@@ -179,3 +239,9 @@ Given delete request token
   And set request param 'user_role' from value 'reader'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '403'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'

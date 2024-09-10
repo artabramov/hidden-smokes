@@ -27,7 +27,6 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
         {
             "name": "User select",
             "args": ["--tags", "@user", "--tags", "@select",
@@ -39,6 +38,14 @@
         {
             "name": "User update",
             "args": ["--tags", "@user", "--tags", "@update",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "User delete",
+            "args": ["--tags", "@user", "--tags", "@delete",
                      "--no-skipped", "--no-source", "--no-timings"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
@@ -62,7 +69,7 @@
         },
         {
             "name": "Userpic upload",
-            "args": ["--tags", "@user", "--tags", "@userpic", "--tags", "@upload",
+            "args": ["--tags", "@userpic", "--tags", "@upload",
                      "--no-skipped", "--no-source", "--no-timings"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
@@ -70,7 +77,7 @@
         },
         {
             "name": "Userpic delete",
-            "args": ["--tags", "@user", "--tags", "@userpic", "--tags", "@delete",
+            "args": ["--tags", "@userpic", "--tags", "@delete",
                      "--no-skipped", "--no-source", "--no-timings"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

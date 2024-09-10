@@ -1,5 +1,8 @@
 Feature: Register user
 
+Background: Authorize admin user
+Given auth with user role 'admin'
+
 @user @register
 Scenario Outline: Register user when user_login is invalid
 Given set request param 'user_login' from value '<user_login>'
@@ -61,6 +64,13 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | user_password |
@@ -101,6 +111,13 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | first_name |
@@ -142,6 +159,13 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | last_name  |
@@ -178,6 +202,13 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | user_signature |
@@ -218,6 +249,13 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 Examples:
 | user_contacts |
@@ -241,3 +279,10 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
