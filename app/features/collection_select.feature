@@ -22,69 +22,18 @@ Given set request token from global param 'reader_token'
  Then response code is '404'
   And error loc is 'collection_id'
   And error type is 'resource_not_found'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 Examples:
 | collection_id |
 | -1            |
 | 0             |
 | 9999999999    |
-
-@collection @select
-Scenario: Select collection when user is reader
-Given set request token from global param 'reader_token' 
-  And set request placeholder 'collection_id' from global param 'collection_id'
- When send 'GET' request to url 'collection/:collection_id'
- Then response code is '200'
-  And response params contain 'id'
-  And response params contain 'created_date'
-  And response params contain 'updated_date'
-  And response params contain 'user_id'
-  And response params contain 'is_locked'
-  And response params contain 'collection_name'
-  And response params contain 'collection_summary'
-  And response params contain 'documents_count'
-  And response params contain 'documents_size'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
-  And response params contain 'collection_user'
-
-@collection @select
-Scenario: Select collection when user is writer
-Given set request token from global param 'writer_token' 
-  And set request placeholder 'collection_id' from global param 'collection_id'
- When send 'GET' request to url 'collection/:collection_id'
- Then response code is '200'
-  And response params contain 'id'
-  And response params contain 'created_date'
-  And response params contain 'updated_date'
-  And response params contain 'user_id'
-  And response params contain 'is_locked'
-  And response params contain 'collection_name'
-  And response params contain 'collection_summary'
-  And response params contain 'documents_count'
-  And response params contain 'documents_size'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
-  And response params contain 'collection_user'
-
-@collection @select
-Scenario: Select collection when user is editor
-Given set request token from global param 'editor_token' 
-  And set request placeholder 'collection_id' from global param 'collection_id'
- When send 'GET' request to url 'collection/:collection_id'
- Then response code is '200'
-  And response params contain 'id'
-  And response params contain 'created_date'
-  And response params contain 'updated_date'
-  And response params contain 'user_id'
-  And response params contain 'is_locked'
-  And response params contain 'collection_name'
-  And response params contain 'collection_summary'
-  And response params contain 'documents_count'
-  And response params contain 'documents_size'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
-  And response params contain 'collection_user'
 
 @collection @select
 Scenario: Select collection when user is admin
@@ -104,6 +53,87 @@ Given set request token from global param 'admin_token'
   And response params contain 'revisions_count'
   And response params contain 'revisions_size'
   And response params contain 'collection_user'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@collection @select
+Scenario: Select collection when user is editor
+Given set request token from global param 'editor_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'is_locked'
+  And response params contain 'collection_name'
+  And response params contain 'collection_summary'
+  And response params contain 'documents_count'
+  And response params contain 'documents_size'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'collection_user'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@collection @select
+Scenario: Select collection when user is writer
+Given set request token from global param 'writer_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'is_locked'
+  And response params contain 'collection_name'
+  And response params contain 'collection_summary'
+  And response params contain 'documents_count'
+  And response params contain 'documents_size'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'collection_user'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@collection @select
+Scenario: Select collection when user is reader
+Given set request token from global param 'reader_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'is_locked'
+  And response params contain 'collection_name'
+  And response params contain 'collection_summary'
+  And response params contain 'documents_count'
+  And response params contain 'documents_size'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'collection_user'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @collection @select
 Scenario: Select collection when token is missing
@@ -111,3 +141,9 @@ Given delete request token
   And set request placeholder 'collection_id' from global param 'collection_id'
  When send 'GET' request to url 'collection/:collection_id'
  Then response code is '403'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'

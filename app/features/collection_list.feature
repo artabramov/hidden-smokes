@@ -608,20 +608,8 @@ Examples:
 | desc  |
 
 @collection @list
-Scenario: List collections when user is reader
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '200'
-  And response params contain 'collections'
-  And response params contain 'collections_count'
-
-@collection @list
-Scenario: List collections when user is writer
-Given set request token from global param 'writer_token' 
+Scenario: List collections when user is admin
+Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
@@ -644,8 +632,20 @@ Given set request token from global param 'editor_token'
   And response params contain 'collections_count'
 
 @collection @list
-Scenario: List collections when user is admin
-Given set request token from global param 'admin_token' 
+Scenario: List collections when user is writer
+Given set request token from global param 'writer_token' 
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'collections'
+ Then response code is '200'
+  And response params contain 'collections'
+  And response params contain 'collections_count'
+
+@collection @list
+Scenario: List collections when user is reader
+Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
