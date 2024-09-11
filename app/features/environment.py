@@ -22,3 +22,4 @@ def before_scenario(context, scenario):
 
     context.response_code = 0
     context.response_params = {}
+    context.response_content = None

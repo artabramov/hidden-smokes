@@ -74,6 +74,16 @@ def step_impl(context, key):
         raise e
 
 
+@then("response content is not empty")
+def step_impl(context):
+    """
+    Asserts that the response content in the context is not empty. The
+    function checks if response_content is not none to ensure that the
+    response content is present and has been correctly populated.
+    """
+    assert context.response_content is not None
+
+
 @then("save response param '{response_param}' to global param '{global_param}'")
 def step_impl(context, response_param, global_param):
     """

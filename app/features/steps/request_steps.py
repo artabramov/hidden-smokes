@@ -235,7 +235,12 @@ def step_impl(context, request_method, request_url):
         response = requests.delete(url, headers=headers, params=params)
 
     context.response_code = response.status_code
-    context.response_params = json.loads(response.text)
+    context.response_content = response.content
+
+    try:
+        context.response_params = json.loads(response.text)
+    except Exception:
+        context.response_params = {}
 
     context.request_headers = {}
     context.request_params = {}

@@ -244,6 +244,24 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Revision select",
+            "args": ["--tags", "@revision", "--tags", "@select",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "Revision download",
+            "args": ["--tags", "@revision", "--tags", "@download",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+
+
+        {
             "name": "Time select",
             "args": [
                 "--tags", "@service", "--tags", "@time",
