@@ -259,7 +259,14 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
+        {
+            "name": "Revision list",
+            "args": ["--tags", "@revision", "--tags", "@list",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
 
         {
             "name": "Time select",
