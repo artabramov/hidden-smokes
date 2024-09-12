@@ -22,7 +22,8 @@ DOCUMENT_NAME_WORDS_NUMBER = 4
 DOCUMENT_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_TAGS_COUNT = 8
 COMMENT_CONTENT_WORDS_NUMBER = 16
-
+OPTION_KEY_WORDS_NUMBER = 2
+OPTION_VALUE_WORDS_NUMBER = 4
 
 class UserLoginProvider(BaseProvider):
     def user_login(self):
@@ -109,6 +110,26 @@ class CommentContentProvider(BaseProvider):
         return fake.sentence(nb_words=COMMENT_CONTENT_WORDS_NUMBER)
 
 
+class OptionKeyProvider(BaseProvider):
+    def option_key(self):
+        """
+        Generate a optionkey by creating random words with Faker divided
+        by underscore. The number of tags can be controlled by
+        a constant.
+        """
+        fake_words = [fake.word() for _ in range(OPTION_KEY_WORDS_NUMBER)]
+        return "_".join(fake_words)
+
+
+class OptionValueProvider(BaseProvider):
+    def option_value(self):
+        """
+        Generate an option value by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=OPTION_VALUE_WORDS_NUMBER)
+
+
 fake.add_provider(UserLoginProvider)
 fake.add_provider(UserSignatureProvider)
 fake.add_provider(UserContactsProvider)
@@ -118,3 +139,5 @@ fake.add_provider(DocumentNameProvider)
 fake.add_provider(DocumentSummaryProvider)
 fake.add_provider(DocumentTagsProvider)
 fake.add_provider(CommentContentProvider)
+fake.add_provider(OptionKeyProvider)
+fake.add_provider(OptionValueProvider)

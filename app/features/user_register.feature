@@ -30,6 +30,32 @@ Examples:
 | иванов     | string_pattern_mismatch |
 
 @user @register
+Scenario Outline: Register user when user_login is correct
+Given set request param 'user_login' from value '<user_login>'
+  And set request param 'user_password' from value '123456'
+  And set request param 'first_name' from fake 'first_name'
+  And set request param 'last_name' from fake 'last_name'
+  And set request param 'user_signature' from fake 'user_signature'
+  And set request param 'user_contacts' from fake 'user_contacts'
+ When send 'POST' request to url 'user'
+ Then response code is '201'
+  And response params contain 'user_id'
+  And response params contain 'mfa_secret'
+  And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
+
+Examples:
+| user_login |
+| string(2)  |
+| string(40) |
+
+@user @register
 Scenario Outline: Register user when user_password is invalid
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '<user_password>'

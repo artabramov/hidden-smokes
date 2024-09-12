@@ -284,6 +284,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Option set",
+            "args": ["--tags", "@option", "--tags", "@set",
+                     "--no-skipped", "--no-source", "--no-timings"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Time select",
             "args": [
                 "--tags", "@service", "--tags", "@time",
