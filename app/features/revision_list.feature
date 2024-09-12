@@ -197,6 +197,8 @@ Examples:
 | 123    | literal_error |
 | ASC    | literal_error |
 | DESC   | literal_error |
+| RAND   | literal_error |
+| rand   | literal_error |
 
 @revision @list
 Scenario Outline: List revisions when order is correct

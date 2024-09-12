@@ -197,6 +197,8 @@ Examples:
 | 123    | literal_error |
 | ASC    | literal_error |
 | DESC   | literal_error |
+| RAND   | literal_error |
+| rand   | literal_error |
 
 @comment @list
 Scenario Outline: List comments when order is correct

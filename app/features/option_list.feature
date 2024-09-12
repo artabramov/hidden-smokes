@@ -154,6 +154,8 @@ Examples:
 | 123    | literal_error |
 | ASC    | literal_error |
 | DESC   | literal_error |
+| RAND   | literal_error |
+| rand   | literal_error |
 
 @option @list
 Scenario Outline: List options when order is correct
