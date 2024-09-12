@@ -169,6 +169,7 @@ Examples:
 | order |
 | asc   |
 | desc  |
+| limit |
 
 @favorite @list
 Scenario: List favorites when user is admin

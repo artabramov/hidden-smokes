@@ -606,6 +606,7 @@ Examples:
 | order |
 | asc   |
 | desc  |
+| rand  |
 
 @collection @list
 Scenario: List collections when user is admin

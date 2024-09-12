@@ -314,6 +314,7 @@ Examples:
 | order |
 | asc   |
 | desc  |
+| rand  |
 
 @user @list
 Scenario Outline: List users when user is admin

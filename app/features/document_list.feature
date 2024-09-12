@@ -832,6 +832,7 @@ Examples:
 | order |
 | asc   |
 | desc  |
+| rand  |
 
 @document @list
 Scenario: List documents when user is admin
