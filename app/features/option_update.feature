@@ -1,4 +1,4 @@
-Feature: Set option
+Feature: Insert/update option
 
 Background: Authorize users
 Given auth with user role 'admin'
@@ -6,8 +6,8 @@ Given auth with user role 'admin'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
-@option @set
-Scenario Outline: Set option when option_key is invalid
+@option @update
+Scenario Outline: Insert/update option when option_key is invalid
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
   And set request param 'option_value' from fake 'option_value'
@@ -24,8 +24,8 @@ Examples:
 | string(1)  | string_pattern_mismatch |
 | string(41) | string_pattern_mismatch |
 
-@option @set
-Scenario Outline: Set option when option_key is correct
+@option @update
+Scenario Outline: Insert/update option when option_key is correct
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
   And set request param 'option_value' from fake 'option_value'
@@ -45,8 +45,8 @@ Examples:
 | string(2)  |
 | string(40) |
 
-@option @set
-Scenario: Set option when user is admin
+@option @update
+Scenario: Insert/update option when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -61,8 +61,8 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'option_key'
 
-@option @set
-Scenario: Set option when user is editor
+@option @update
+Scenario: Insert/update option when user is editor
 Given set request token from global param 'editor_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -71,8 +71,8 @@ Given set request token from global param 'editor_token'
   And error loc is 'user_token'
   And error type is 'user_rejected'
 
-@option @set
-Scenario: Set option when user is writer
+@option @update
+Scenario: Insert/update option when user is writer
 Given set request token from global param 'writer_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -81,8 +81,8 @@ Given set request token from global param 'writer_token'
   And error loc is 'user_token'
   And error type is 'user_rejected'
 
-@option @set
-Scenario: Set option when user is reader
+@option @update
+Scenario: Insert/update option when user is reader
 Given set request token from global param 'reader_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -91,8 +91,8 @@ Given set request token from global param 'reader_token'
   And error loc is 'user_token'
   And error type is 'user_rejected'
 
-@option @set
-Scenario: Set option when token is missing
+@option @update
+Scenario: Insert/update option when token is missing
 Given delete request token 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
