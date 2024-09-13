@@ -94,3 +94,15 @@ def step_impl(context, response_param, global_param):
     """
     param = context.response_params[response_param]
     context.global_params[global_param] = param
+
+
+@then("save id from response list '{response_list}' to global param '{global_param}'")
+def step_impl(context, response_list, global_param):
+    """
+    Saves the ID of the first item in a response list to a global
+    parameter. The function retrieves the list associated with
+    response_list from context.response_params, extracts the ID from
+    the first item in the list, and assigns it to the key global_param.
+    """
+    param = context.response_params[response_list][0]["id"]
+    context.global_params[global_param] = param
