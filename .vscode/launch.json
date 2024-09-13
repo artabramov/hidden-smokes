@@ -6,9 +6,8 @@
     "configurations": [
         
         {
-            "name": "Run all",
-            "args": [ "--tags", "~@demo",
-                      "--no-skipped", "--no-source", "--no-timings"],
+            "name": "Run all tests",
+            "args": [ "--tags", "~@demo", "--format", "progress"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -16,7 +15,7 @@
         {
             "name": "User register",
             "args": ["--tags", "@user", "--tags", "@register", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -24,7 +23,7 @@
         {
             "name": "User auth",
             "args": ["--tags", "@user", "--tags", "@auth", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -32,7 +31,7 @@
         {
             "name": "User select",
             "args": ["--tags", "@user", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -40,7 +39,7 @@
         {
             "name": "User update",
             "args": ["--tags", "@user", "--tags", "@update", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -48,7 +47,7 @@
         {
             "name": "User delete",
             "args": ["--tags", "@user", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -56,7 +55,7 @@
         {
             "name": "User role",
             "args": ["--tags", "@user", "--tags", "@role", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -64,7 +63,7 @@
         {
             "name": "User password",
             "args": ["--tags", "@user", "--tags", "@password", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -72,7 +71,7 @@
         {
             "name": "Userpic upload",
             "args": ["--tags", "@userpic", "--tags", "@upload", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -80,7 +79,7 @@
         {
             "name": "Userpic delete",
             "args": ["--tags", "@userpic", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -88,7 +87,7 @@
         {
             "name": "User list",
             "args": ["--tags", "@user", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -96,7 +95,7 @@
         {
             "name": "Collection insert",
             "args": ["--tags", "@collection", "--tags", "@insert", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -104,7 +103,7 @@
         {
             "name": "Collection select",
             "args": ["--tags", "@collection", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -112,7 +111,7 @@
         {
             "name": "Collection update",
             "args": ["--tags", "@collection", "--tags", "@update", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -120,7 +119,7 @@
         {
             "name": "Collection delete",
             "args": ["--tags", "@collection", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -128,7 +127,7 @@
         {
             "name": "Collection list",
             "args": ["--tags", "@collection", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -136,7 +135,7 @@
         {
             "name": "Document insert",
             "args": ["--tags", "@document", "--tags", "@insert", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -144,7 +143,7 @@
         {
             "name": "Document select",
             "args": ["--tags", "@document", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -152,7 +151,7 @@
         {
             "name": "Document update",
             "args": ["--tags", "@document", "--tags", "@update", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -160,7 +159,7 @@
         {
             "name": "Document delete",
             "args": ["--tags", "@document", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -168,7 +167,7 @@
         {
             "name": "Document list",
             "args": ["--tags", "@document", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -176,7 +175,7 @@
         {
             "name": "Comment insert",
             "args": ["--tags", "@comment", "--tags", "@insert", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -184,7 +183,7 @@
         {
             "name": "Comment select",
             "args": ["--tags", "@comment", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -192,7 +191,7 @@
         {
             "name": "Comment update",
             "args": ["--tags", "@comment", "--tags", "@update", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -200,7 +199,7 @@
         {
             "name": "Comment delete",
             "args": ["--tags", "@comment", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -208,7 +207,7 @@
         {
             "name": "Comment list",
             "args": ["--tags", "@comment", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -216,7 +215,7 @@
         {
             "name": "Favorite insert",
             "args": ["--tags", "@favorite", "--tags", "@insert", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -224,7 +223,7 @@
         {
             "name": "Favorite select",
             "args": ["--tags", "@favorite", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -232,7 +231,7 @@
         {
             "name": "Favorite delete",
             "args": ["--tags", "@favorite", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -240,7 +239,7 @@
         {
             "name": "Favorite list",
             "args": ["--tags", "@favorite", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -248,7 +247,7 @@
         {
             "name": "Revision select",
             "args": ["--tags", "@revision", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -256,7 +255,7 @@
         {
             "name": "Revision download",
             "args": ["--tags", "@revision", "--tags", "@download", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -264,7 +263,7 @@
         {
             "name": "Revision list",
             "args": ["--tags", "@revision", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -272,7 +271,7 @@
         {
             "name": "Download select",
             "args": ["--tags", "@download", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -280,7 +279,7 @@
         {
             "name": "Download list",
             "args": ["--tags", "@download", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -288,7 +287,7 @@
         {
             "name": "Option update",
             "args": ["--tags", "@option", "--tags", "@update", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -296,7 +295,7 @@
         {
             "name": "Option select",
             "args": ["--tags", "@option", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -304,7 +303,7 @@
         {
             "name": "Option delete",
             "args": ["--tags", "@option", "--tags", "@delete", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -312,25 +311,24 @@
         {
             "name": "Option list",
             "args": ["--tags", "@option", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--no-timings"],
+                     "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
             "name": "Time select",
-            "args": [
-                "--tags", "@service", "--tags", "@time", "--tags", "~@demo",
-                "--no-skipped", "--no-source", "--no-timings"],
-                "type": "debugpy", "request": "launch", "module": "behave",
-                "console": "integratedTerminal", "cwd": "/smokes/app/features",
-                "env": {"PYTHONPATH": "${workspaceFolder}"},
+            "args": ["--tags", "@service", "--tags", "@time", "--tags", "~@demo",
+                     "--no-skipped", "--no-source"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
             "name": "Demo collection",
             "args": [
                 "--tags", "@collection", "--tags", "@demo",
-                "--no-skipped", "--no-source", "--no-timings"],
+                "--no-skipped", "--no-source"],
                 "type": "debugpy", "request": "launch", "module": "behave",
                 "console": "integratedTerminal", "cwd": "/smokes/app/features",
                 "env": {"PYTHONPATH": "${workspaceFolder}"},
@@ -339,11 +337,19 @@
             "name": "Demo document",
             "args": [
                 "--tags", "@document", "--tags", "@demo",
-                "--no-skipped", "--no-source", "--no-timings"],
+                "--no-skipped", "--no-source"],
                 "type": "debugpy", "request": "launch", "module": "behave",
                 "console": "integratedTerminal", "cwd": "/smokes/app/features",
                 "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-        
+        {
+            "name": "Demo comment",
+            "args": [
+                "--tags", "@comment", "--tags", "@demo",
+                "--no-skipped", "--no-source"],
+                "type": "debugpy", "request": "launch", "module": "behave",
+                "console": "integratedTerminal", "cwd": "/smokes/app/features",
+                "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
     ]
 }

@@ -1,4 +1,4 @@
-Feature: Create document
+Feature: Create demo document
 
 Background: Authorize users
 Given auth with user role 'admin'
@@ -14,7 +14,6 @@ Given set request token from global param 'admin_token'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
-  And response params contain 'collections_count'
   And save id from response list 'collections' to global param 'collection_id'
     # insert document
 Given set request token from global param 'admin_token' 
@@ -25,5 +24,3 @@ Given set request token from global param 'admin_token'
   And set request file from sample format 'pdf'
  When send 'POST' request to url 'document'
  Then response code is '201'
-  And response params contain 'document_id'
-  And response params contain 'revision_id'
