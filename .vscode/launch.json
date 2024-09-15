@@ -317,8 +317,8 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Time select",
-            "args": ["--tags", "@service", "--tags", "@time", "--tags", "~@demo",
+            "name": "Service hello",
+            "args": ["--tags", "@service", "--tags", "@hello", "--tags", "~@demo",
                      "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
