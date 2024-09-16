@@ -14,12 +14,14 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
+  And response contains '1' params
     # unlock app
 Given set request token from global param 'admin_token' 
  When send 'GET' request to url 'system/unlock'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
+  And response contains '1' params
 
 @system @lock @unlock
 Scenario: Execute lock when user is editor

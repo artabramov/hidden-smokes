@@ -8,3 +8,4 @@ Then response code is '200'
  And response params contain 'timezone_name'
  And response params contain 'timezone_offset'
  And response params contain 'is_locked'
+ And response contains '4' params

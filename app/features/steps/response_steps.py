@@ -35,12 +35,8 @@ def step_impl(context, error_loc):
     length of the detail list is 1 and verifies that error_loc is
     included in the loc field of the first error in the list.
     """
-    try:
-        assert len(context.response_params["detail"]) == 1
-        assert error_loc in context.response_params["detail"][0]["loc"]
-    except Exception as e:
-        # use for debugging
-        raise e
+    assert len(context.response_params["detail"]) == 1
+    assert error_loc in context.response_params["detail"][0]["loc"]
 
 
 @then("error type is '{error_type}'")
@@ -52,12 +48,8 @@ def step_impl(context, error_type):
     detail list is 1 and checks that the type field of the first error
     in the list matches the provided error_type.
     """
-    try:
-        assert len(context.response_params["detail"]) == 1
-        assert context.response_params["detail"][0]["type"] == error_type
-    except Exception as e:
-        # use for debugging
-        raise e
+    assert len(context.response_params["detail"]) == 1
+    assert context.response_params["detail"][0]["type"] == error_type
 
 
 @then("response params contain '{key}'")
@@ -67,11 +59,17 @@ def step_impl(context, key):
     dict within the context. The function checks if key is a valid key
     in context.response_params.
     """
-    try:
-        assert key in context.response_params
-    except Exception as e:
-        # use for debugging
-        raise e
+    assert key in context.response_params
+
+
+@then("response contains '{param_count}' params")
+def step_impl(context, param_count):
+    """
+    Asserts that the number of parameters in the response matches the
+    expected count. It converts the expected count from a string to an
+    integer and compares it with the length of response_params.
+    """
+    len(context.response_params) == int(param_count)
 
 
 @then("response param '{key}' equals '{value}'")

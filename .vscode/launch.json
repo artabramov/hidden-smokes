@@ -325,7 +325,7 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "System lock/unlock",
+            "name": "System lock",
             "args": ["--tags", "@system", "--tags", "@lock", "--tags", "@unlock", "--tags", "~@demo",
                      "--no-skipped", "--no-source"],
             "type": "debugpy", "request": "launch", "module": "behave",
