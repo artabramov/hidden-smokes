@@ -325,6 +325,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Service lock/unlock",
+            "args": ["--tags", "@service", "--tags", "@lock", "--tags", "@unlock", "--tags", "~@demo",
+                     "--no-skipped", "--no-source"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Demo collection",
             "args": [
                 "--tags", "@collection", "--tags", "@demo",

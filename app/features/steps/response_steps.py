@@ -74,6 +74,11 @@ def step_impl(context, key):
         raise e
 
 
+@then("response param '{key}' equals '{value}'")
+def step_impl(context, key, value):
+    assert str(context.response_params[key]) == str(value)
+
+
 @then("response content is not empty")
 def step_impl(context):
     """
