@@ -201,6 +201,44 @@ Examples:
 | string(512)        |
 
 @collection @update
+Scenario Outline: Update collection when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # update collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+  And set request param 'is_locked' from value '0'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # update collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+  And set request param 'is_locked' from value '0'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@collection @update
 Scenario Outline: Update collection when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'

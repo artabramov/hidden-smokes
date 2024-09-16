@@ -36,6 +36,49 @@ Examples:
 | 9999999999    |
 
 @collection @select
+Scenario: Select collection when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # select collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # select collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'is_locked'
+  And response params contain 'collection_name'
+  And response params contain 'collection_summary'
+  And response params contain 'documents_count'
+  And response params contain 'documents_size'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'collection_user'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@collection @select
 Scenario: Select collection when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'

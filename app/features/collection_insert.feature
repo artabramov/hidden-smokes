@@ -149,6 +149,43 @@ Examples:
 | string(512)        |
 
 @collection @insert
+Scenario: Insert collection when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # insert collection
+Given set request token from global param 'admin_token' 
+  And set request param 'is_locked' from value '0'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'POST' request to url 'collection'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # insert collection
+Given set request token from global param 'admin_token' 
+  And set request param 'is_locked' from value '0'
+  And set request param 'collection_name' from fake 'collection_name'
+  And set request param 'collection_summary' from fake 'collection_summary'
+ When send 'POST' request to url 'collection'
+ Then response code is '201'
+  And response params contain 'collection_id'
+  And save response param 'collection_id' to global param 'collection_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@collection @insert
 Scenario: Insert collection when user is admin
 Given set request token from global param 'admin_token' 
   And set request param 'is_locked' from value '0'
