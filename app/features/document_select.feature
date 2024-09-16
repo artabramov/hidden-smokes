@@ -83,6 +83,54 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @document @select
+Scenario: Select document when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # select document
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'GET' request to url 'document/:document_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # select document
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'GET' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'collection_id'
+  And response params contain 'document_name'
+  And response params contain 'document_summary'
+  And response params contain 'document_size'
+  And response params contain 'document_mimetype'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'comments_count'
+  And response params contain 'downloads_count'
+  And response params contain 'favorites_count'
+  And response params contain 'document_tags'
+  And response params contain 'latest_revision_id'
+  And response params contain 'latest_revision'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@document @select
 Scenario: Select document when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'document_id' from global param 'document_id'

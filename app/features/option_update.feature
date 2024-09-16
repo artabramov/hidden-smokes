@@ -46,6 +46,41 @@ Examples:
 | string(40) |
 
 @option @update
+Scenario: Insert/update option when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # update option
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'option_key' from fake 'option_key'
+  And set request param 'option_value' from fake 'option_value'
+ When send 'PUT' request to url 'option/:option_key'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # update option
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'option_key' from fake 'option_key'
+  And set request param 'option_value' from fake 'option_value'
+ When send 'PUT' request to url 'option/:option_key'
+ Then response code is '200'
+  And response params contain 'option_key'
+  And save response param 'option_key' to global param 'option_key'
+    # delete option
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'option_key' from global param 'option_key'
+ When send 'DELETE' request to url 'option/:option_key'
+ Then response code is '200'
+  And response params contain 'option_key'
+
+@option @update
 Scenario: Insert/update option when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from fake 'option_key'

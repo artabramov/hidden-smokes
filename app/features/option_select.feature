@@ -57,6 +57,42 @@ Given set request token from global param 'admin_token'
 | string(41) | string_pattern_mismatch |
 
 @option @select
+Scenario: Select option when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # select option
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'option_key' from global param 'option_key'
+ When send 'GET' request to url 'option/:option_key'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # select option
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'option_key' from global param 'option_key'
+ When send 'GET' request to url 'option/:option_key'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'option_key'
+  And response params contain 'option_value'
+    # delete option
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'option_key' from global param 'option_key'
+ When send 'DELETE' request to url 'option/:option_key'
+ Then response code is '200'
+  And response params contain 'option_key'
+
+@option @select
 Scenario: Select option when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'

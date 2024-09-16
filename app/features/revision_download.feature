@@ -44,6 +44,38 @@ Examples:
 | 9999999999  |
 
 @revision @download
+Scenario: Download revision when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # download revision
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'revision_id' from global param 'revision_id'
+ When send 'GET' request to url 'revision/:revision_id/download'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # download revision
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'revision_id' from global param 'revision_id'
+ When send 'GET' request to url 'revision/:revision_id/download'
+ Then response code is '200'
+  And response content is not empty
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@revision @download
 Scenario: Download revision when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'revision_id' from global param 'revision_id'

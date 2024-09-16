@@ -44,6 +44,49 @@ Examples:
 | 9999999999  |
 
 @revision @select
+Scenario: Select revision when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # select revision
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'revision_id' from global param 'revision_id'
+ When send 'GET' request to url 'revision/:revision_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # select revision
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'revision_id' from global param 'revision_id'
+ When send 'GET' request to url 'revision/:revision_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'user_id'
+  And response params contain 'document_id'
+  And response params contain 'is_latest'
+  And response params contain 'revision_size'
+  And response params contain 'original_filename'
+  And response params contain 'original_size'
+  And response params contain 'original_mimetype'
+  And response params contain 'thumbnail_url'
+  And response params contain 'downloads_count'
+  And response params contain 'revision_user'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@revision @select
 Scenario: Select revision when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'revision_id' from global param 'revision_id'

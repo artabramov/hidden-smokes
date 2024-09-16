@@ -293,6 +293,50 @@ Examples:
 | string(512)   |
 
 @user @register
+Scenario: Register user when app is locked
+Given auth with user role 'admin'
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # register user
+Given set request param 'user_login' from fake 'user_login'
+  And set request param 'user_password' from value '123456'
+  And set request param 'first_name' from fake 'first_name'
+  And set request param 'last_name' from fake 'last_name'
+  And set request param 'user_signature' from fake 'user_signature'
+  And set request param 'user_contacts' from fake 'user_contacts'
+ When send 'POST' request to url 'user'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # register user
+Given set request param 'user_login' from fake 'user_login'
+  And set request param 'user_password' from value '123456'
+  And set request param 'first_name' from fake 'first_name'
+  And set request param 'last_name' from fake 'last_name'
+  And set request param 'user_signature' from fake 'user_signature'
+  And set request param 'user_contacts' from fake 'user_contacts'
+ When send 'POST' request to url 'user'
+ Then response code is '201'
+  And response params contain 'user_id'
+  And response params contain 'mfa_secret'
+  And response params contain 'mfa_url'
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
+
+@user @register
 Scenario: Register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'

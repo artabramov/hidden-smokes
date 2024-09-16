@@ -140,9 +140,31 @@ Examples:
 | string(512)   |
 
 @user @update
-Scenario Outline: Update user when user is reader
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
+Scenario Outline: Update user when app islocked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # update user
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'admin_id'
+  And set request param 'first_name' from fake 'first_name'
+  And set request param 'last_name' from fake 'last_name'
+  And set request param 'user_signature' from fake 'user_signature'
+  And set request param 'user_contacts' from fake 'user_contacts'
+ When send 'PUT' request to url 'user/:user_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # update user
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'admin_id'
   And set request param 'first_name' from fake 'first_name'
   And set request param 'last_name' from fake 'last_name'
   And set request param 'user_signature' from fake 'user_signature'
@@ -152,9 +174,9 @@ Given set request token from global param 'reader_token'
   And response params contain 'user_id'
 
 @user @update
-Scenario Outline: Update user when user is writer
-Given set request token from global param 'writer_token'
-  And set request placeholder 'user_id' from global param 'writer_id'
+Scenario Outline: Update user when user is admin
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'admin_id'
   And set request param 'first_name' from fake 'first_name'
   And set request param 'last_name' from fake 'last_name'
   And set request param 'user_signature' from fake 'user_signature'
@@ -176,9 +198,21 @@ Given set request token from global param 'editor_token'
   And response params contain 'user_id'
 
 @user @update
-Scenario Outline: Update user when user is admin
-Given set request token from global param 'admin_token'
-  And set request placeholder 'user_id' from global param 'admin_id'
+Scenario Outline: Update user when user is writer
+Given set request token from global param 'writer_token'
+  And set request placeholder 'user_id' from global param 'writer_id'
+  And set request param 'first_name' from fake 'first_name'
+  And set request param 'last_name' from fake 'last_name'
+  And set request param 'user_signature' from fake 'user_signature'
+  And set request param 'user_contacts' from fake 'user_contacts'
+ When send 'PUT' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
+
+@user @update
+Scenario Outline: Update user when user is reader
+Given set request token from global param 'reader_token'
+  And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
   And set request param 'last_name' from fake 'last_name'
   And set request param 'user_signature' from fake 'user_signature'

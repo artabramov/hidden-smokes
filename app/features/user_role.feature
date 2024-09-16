@@ -165,6 +165,42 @@ Examples:
 | 0         |
 
 @user @role
+Scenario: Update role when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # update role
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'user_id'
+  And set request param 'is_active' from value '1'
+  And set request param 'user_role' from value 'reader'
+ When send 'PUT' request to url 'user/:user_id/role'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # update role
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'user_id'
+  And set request param 'is_active' from value '1'
+  And set request param 'user_role' from value 'reader'
+ When send 'PUT' request to url 'user/:user_id/role'
+ Then response code is '200'
+  And response params contain 'user_id'
+    # delete user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
+
+@user @role
 Scenario: Update role when user is admin 
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'user_id'

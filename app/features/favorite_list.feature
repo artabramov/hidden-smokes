@@ -172,6 +172,39 @@ Examples:
 | rand  |
 
 @favorite @list
+Scenario: List favorites when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # list favorites
+Given set request token from global param 'admin_token' 
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'favorites'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # list favorites
+Given set request token from global param 'admin_token' 
+  And set request param 'offset' from value '0'
+  And set request param 'limit' from value '1'
+  And set request param 'order_by' from value 'id'
+  And set request param 'order' from value 'asc'
+ When send 'GET' request to url 'favorites'
+ Then response code is '200'
+  And response params contain 'favorites'
+  And response params contain 'favorites_count'
+
+@favorite @list
 Scenario: List favorites when user is admin
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'

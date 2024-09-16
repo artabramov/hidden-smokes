@@ -52,6 +52,45 @@ Examples:
 | 9999999999  |
 
 @favorite @delete
+Scenario: Delete favorite when app is locked
+    # insert favorite
+Given set request token from global param 'admin_token' 
+  And set request param 'document_id' from global param 'document_id'
+ When send 'POST' request to url 'favorite'
+ Then response code is '201'
+  And response params contain 'favorite_id'
+  And save response param 'favorite_id' to global param 'favorite_id'
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # delete favorite
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'favorite_id' from global param 'favorite_id'
+ When send 'DELETE' request to url 'favorite/:favorite_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # delete favorite
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'favorite_id' from global param 'favorite_id'
+ When send 'DELETE' request to url 'favorite/:favorite_id'
+ Then response code is '200'
+  And response params contain 'favorite_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@favorite @delete
 Scenario: Delete favorite when user is admin
     # insert favorite
 Given set request token from global param 'admin_token' 

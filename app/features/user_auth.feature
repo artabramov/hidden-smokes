@@ -198,16 +198,51 @@ Examples:
 | 4102430400.0 |
 
 @user @auth
-Scenario: Authorize user when user_role is reader
+Scenario: Authorize user when app is locked
+Given auth with user role 'admin'
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
+Given set request param 'user_login' from config param 'admin_login'
+  And set request param 'user_password' from config param 'admin_password'
+ When send 'GET' request to url 'auth/login/'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # user login
+Given set request param 'user_login' from config param 'admin_login'
+  And set request param 'user_password' from config param 'admin_password'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
     # token retrieve
-Given set request param 'user_login' from config param 'reader_login'
-  And generate request param 'user_totp' from config param 'reader_mfa_secret'
+Given set request param 'user_login' from config param 'admin_login'
+  And generate request param 'user_totp' from config param 'admin_mfa_secret'
+ When send 'GET' request to url 'auth/token/'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # token retrieve
+Given set request param 'user_login' from config param 'admin_login'
+  And generate request param 'user_totp' from config param 'admin_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
@@ -216,20 +251,20 @@ Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
  Then response code is '200'
     # delete outdated auth data
- Then delete global param 'reader_token'
-  And delete global param 'reader_id'
+ Then delete global param 'admin_token'
+  And delete global param 'admin_id'
 
 @user @auth
-Scenario: Authorize user when user_role is writer
+Scenario: Authorize user when user_role is admin
     # user login
-Given set request param 'user_login' from config param 'writer_login'
-  And set request param 'user_password' from config param 'writer_password'
+Given set request param 'user_login' from config param 'admin_login'
+  And set request param 'user_password' from config param 'admin_password'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
     # token retrieve
-Given set request param 'user_login' from config param 'writer_login'
-  And generate request param 'user_totp' from config param 'writer_mfa_secret'
+Given set request param 'user_login' from config param 'admin_login'
+  And generate request param 'user_totp' from config param 'admin_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
@@ -238,8 +273,8 @@ Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
  Then response code is '200'
     # delete outdated auth data
- Then delete global param 'writer_token'
-  And delete global param 'writer_id'
+ Then delete global param 'admin_token'
+  And delete global param 'admin_id'
 
 @user @auth
 Scenario: Authorize user when user_role is editor
@@ -264,16 +299,16 @@ Given set request token from response param 'user_token'
   And delete global param 'editor_id'
 
 @user @auth
-Scenario: Authorize user when user_role is admin
+Scenario: Authorize user when user_role is writer
     # user login
-Given set request param 'user_login' from config param 'admin_login'
-  And set request param 'user_password' from config param 'admin_password'
+Given set request param 'user_login' from config param 'writer_login'
+  And set request param 'user_password' from config param 'writer_password'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
     # token retrieve
-Given set request param 'user_login' from config param 'admin_login'
-  And generate request param 'user_totp' from config param 'admin_mfa_secret'
+Given set request param 'user_login' from config param 'writer_login'
+  And generate request param 'user_totp' from config param 'writer_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
@@ -282,5 +317,27 @@ Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
  Then response code is '200'
     # delete outdated auth data
- Then delete global param 'admin_token'
-  And delete global param 'admin_id'
+ Then delete global param 'writer_token'
+  And delete global param 'writer_id'
+
+@user @auth
+Scenario: Authorize user when user_role is reader
+    # user login
+Given set request param 'user_login' from config param 'reader_login'
+  And set request param 'user_password' from config param 'reader_password'
+ When send 'GET' request to url 'auth/login/'
+ Then response code is '200'
+  And response params contain 'password_accepted'
+    # token retrieve
+Given set request param 'user_login' from config param 'reader_login'
+  And generate request param 'user_totp' from config param 'reader_mfa_secret'
+ When send 'GET' request to url 'auth/token/'
+ Then response code is '200'
+  And response params contain 'user_token'
+    # token invalidate
+Given set request token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token/'
+ Then response code is '200'
+    # delete outdated auth data
+ Then delete global param 'reader_token'
+  And delete global param 'reader_id'

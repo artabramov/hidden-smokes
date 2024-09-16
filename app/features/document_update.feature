@@ -241,6 +241,49 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @document @update
+Scenario: Update document when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # update document
+Given set request token from global param 'admin_token' 
+  And set request param 'collection_id' from global param 'collection_id'
+  And set request placeholder 'document_id' from global param 'document_id'
+  And set request param 'document_name' from fake 'document_name'
+  And set request param 'document_summary' from fake 'document_summary'
+  And set request param 'tags' from fake 'document_tags'
+  And set request file from sample format 'pdf'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # update document
+Given set request token from global param 'admin_token' 
+  And set request param 'collection_id' from global param 'collection_id'
+  And set request placeholder 'document_id' from global param 'document_id'
+  And set request param 'document_name' from fake 'document_name'
+  And set request param 'document_summary' from fake 'document_summary'
+  And set request param 'tags' from fake 'document_tags'
+  And set request file from sample format 'pdf'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'document_id'
+  And response params contain 'revision_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@document @update
 Scenario: Update document when user is admin
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'

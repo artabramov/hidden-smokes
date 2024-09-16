@@ -50,6 +50,36 @@ Examples:
 | string(5)     | too_short   |
 
 @user @password
+Scenario: Change password when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # change password
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'admin_id'
+  And set request param 'current_password' from config param 'admin_password'
+  And set request param 'updated_password' from config param 'admin_password'
+ When send 'PUT' request to url 'user/:user_id/password'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # change password
+Given set request token from global param 'admin_token'
+  And set request placeholder 'user_id' from global param 'admin_id'
+  And set request param 'current_password' from config param 'admin_password'
+  And set request param 'updated_password' from config param 'admin_password'
+ When send 'PUT' request to url 'user/:user_id/password'
+ Then response code is '200'
+  And response params contain 'user_id'
+
+@user @password
 Scenario: Change password when user is admin
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'admin_id'

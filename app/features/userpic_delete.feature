@@ -16,6 +16,32 @@ Given set request token from global param 'admin_token'
   And error type is 'resource_forbidden'
 
 @userpic @delete
+Scenario: Upload userpic when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # delete userpic
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'admin_id'
+ When send 'DELETE' request to url 'user/:user_id/userpic'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # delete userpic
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'admin_id'
+ When send 'DELETE' request to url 'user/:user_id/userpic'
+ Then response code is '200'
+  And response params contain 'user_id'
+
+@userpic @delete
 Scenario: Upload userpic when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'admin_id'

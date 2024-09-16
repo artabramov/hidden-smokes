@@ -62,6 +62,38 @@ Given set request token from global param 'admin_token'
   And response params contain 'collection_id'
 
 @document @delete
+Scenario: Delete document when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # delete document
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # delete document
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'document_id' from global param 'document_id'
+ When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'document_id'
+    # delete collection
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+
+@document @delete
 Scenario: Delete document when user is admin
 Given set request token from global param 'admin_token' 
   And set request placeholder 'document_id' from global param 'document_id'

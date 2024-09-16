@@ -22,9 +22,27 @@ Examples:
 | 9999999999 |
 
 @user @select
-Scenario: Select user when user is reader
-Given set request token from global param 'reader_token' 
-  And set request placeholder 'user_id' from global param 'reader_id'
+Scenario: Select user when app is locked
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # select user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'admin_id'
+ When send 'GET' request to url 'user/:user_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'service/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+    # select user
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'admin_id'
  When send 'GET' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'id'
@@ -41,9 +59,9 @@ Given set request token from global param 'reader_token'
   And response params contain 'userpic_url'
 
 @user @select
-Scenario: Select user when user is writer
-Given set request token from global param 'writer_token' 
-  And set request placeholder 'user_id' from global param 'writer_id'
+Scenario: Select user when user is admin
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'user_id' from global param 'admin_id'
  When send 'GET' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'id'
@@ -79,9 +97,28 @@ Given set request token from global param 'editor_token'
   And response params contain 'userpic_url'
 
 @user @select
-Scenario: Select user when user is admin
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'admin_id'
+Scenario: Select user when user is writer
+Given set request token from global param 'writer_token' 
+  And set request placeholder 'user_id' from global param 'writer_id'
+ When send 'GET' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'last_login_date'
+  And response params contain 'user_role'
+  And response params contain 'is_active'
+  And response params contain 'user_login'
+  And response params contain 'first_name'
+  And response params contain 'last_name'
+  And response params contain 'user_signature'
+  And response params contain 'user_contacts'
+  And response params contain 'userpic_url'
+
+@user @select
+Scenario: Select user when user is reader
+Given set request token from global param 'reader_token' 
+  And set request placeholder 'user_id' from global param 'reader_id'
  When send 'GET' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'id'
