@@ -1,8 +1,8 @@
-Feature: Service hello
+Feature: Systen hello
 
-@service @hello
+@system @hello
 Scenario: Execute hello when user token is missing
-When send 'GET' request to url 'service/hello'
+When send 'GET' request to url 'system/hello'
 Then response code is '200'
  And response params contain 'unix_timestamp'
  And response params contain 'timezone_name'

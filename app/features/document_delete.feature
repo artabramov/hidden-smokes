@@ -65,7 +65,7 @@ Given set request token from global param 'admin_token'
 Scenario: Delete document when app is locked
     # lock app
 Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'service/lock'
+ When send 'GET' request to url 'system/lock'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
@@ -76,7 +76,7 @@ Given set request token from global param 'admin_token'
  Then response code is '503'
     # unlock app
 Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'service/unlock'
+ When send 'GET' request to url 'system/unlock'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'

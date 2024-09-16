@@ -297,7 +297,7 @@ Scenario: Register user when app is locked
 Given auth with user role 'admin'
     # lock app
 Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'service/lock'
+ When send 'GET' request to url 'system/lock'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
@@ -312,7 +312,7 @@ Given set request param 'user_login' from fake 'user_login'
  Then response code is '503'
     # unlock app
 Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'service/unlock'
+ When send 'GET' request to url 'system/unlock'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
