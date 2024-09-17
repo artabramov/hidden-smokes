@@ -1,6 +1,7 @@
 Feature: Delete document
 
 Background: Authorize users, create collection and document
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -24,6 +25,7 @@ Given set request token from global param 'admin_token'
 
 @document @delete
 Scenario: Delete document when document_id not found
+    # delete document
 Given set request token from global param 'admin_token' 
   And set request placeholder 'document_id' from value '9999999999'
  When send 'DELETE' request to url 'document/:document_id'
@@ -95,11 +97,13 @@ Given set request token from global param 'admin_token'
 
 @document @delete
 Scenario: Delete document when user is admin
+    # delete document
 Given set request token from global param 'admin_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
  Then response code is '200'
   And response params contain 'document_id'
+  And response contains '2' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -109,6 +113,7 @@ Given set request token from global param 'admin_token'
 
 @document @delete
 Scenario: Delete document when user is editor
+    # delete document
 Given set request token from global param 'editor_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
@@ -124,6 +129,7 @@ Given set request token from global param 'admin_token'
 
 @document @delete
 Scenario: Delete document when user is writer
+    # delete document
 Given set request token from global param 'writer_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
@@ -139,6 +145,7 @@ Given set request token from global param 'admin_token'
 
 @document @delete
 Scenario: Delete document when user is reader
+    # delete document
 Given set request token from global param 'reader_token' 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'
@@ -154,6 +161,7 @@ Given set request token from global param 'admin_token'
 
 @document @delete
 Scenario: Delete document when token is missing
+    # delete document
 Given delete request token 
   And set request placeholder 'document_id' from global param 'document_id'
  When send 'DELETE' request to url 'document/:document_id'

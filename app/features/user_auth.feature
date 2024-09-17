@@ -70,6 +70,7 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from value '<user_login>'
   And generate request param 'user_totp' from config param 'reader_mfa_secret'
@@ -109,6 +110,7 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_totp' from value '<user_totp>'
@@ -134,6 +136,7 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'reader_login'
   And set request param 'user_totp' from value '000000'
@@ -150,6 +153,7 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'reader_login'
   And generate request param 'user_totp' from config param 'reader_mfa_secret'
@@ -176,6 +180,7 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'reader_login'
   And generate request param 'user_totp' from config param 'reader_mfa_secret'
@@ -183,6 +188,7 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
+  And response contains '1' params
     # token invalidate
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
@@ -223,6 +229,7 @@ Given set request param 'user_login' from config param 'admin_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # lock app
 Given set request token from global param 'admin_token' 
  When send 'GET' request to url 'system/lock'
@@ -246,6 +253,7 @@ Given set request param 'user_login' from config param 'admin_login'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
+  And response contains '1' params
     # token invalidate
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
@@ -262,12 +270,14 @@ Given set request param 'user_login' from config param 'admin_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'admin_login'
   And generate request param 'user_totp' from config param 'admin_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
+  And response contains '1' params
     # token invalidate
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
@@ -284,12 +294,14 @@ Given set request param 'user_login' from config param 'editor_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'editor_login'
   And generate request param 'user_totp' from config param 'editor_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
+  And response contains '1' params
     # token invalidate
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
@@ -306,12 +318,14 @@ Given set request param 'user_login' from config param 'writer_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'writer_login'
   And generate request param 'user_totp' from config param 'writer_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
+  And response contains '1' params
     # token invalidate
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'
@@ -328,12 +342,14 @@ Given set request param 'user_login' from config param 'reader_login'
  When send 'GET' request to url 'auth/login/'
  Then response code is '200'
   And response params contain 'password_accepted'
+  And response contains '1' params
     # token retrieve
 Given set request param 'user_login' from config param 'reader_login'
   And generate request param 'user_totp' from config param 'reader_mfa_secret'
  When send 'GET' request to url 'auth/token/'
  Then response code is '200'
   And response params contain 'user_token'
+  And response contains '1' params
     # token invalidate
 Given set request token from response param 'user_token'
  When send 'DELETE' request to url 'auth/token/'

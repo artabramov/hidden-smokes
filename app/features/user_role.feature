@@ -1,12 +1,12 @@
 Feature: Update user role
 
 Background: Authorize users and register a new user
-    # authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # register a new user
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -18,6 +18,7 @@ Given set request param 'user_login' from fake 'user_login'
 
 @user @role
 Scenario: Update role when self user_id
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'admin_id'
   And set request param 'is_active' from value '1'
@@ -35,6 +36,7 @@ Given set request token from global param 'admin_token'
 
 @user @role
 Scenario: Update role when user_id not found
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from value '9999999999'
   And set request param 'is_active' from value '1'
@@ -52,6 +54,7 @@ Given set request token from global param 'admin_token'
 
 @user @role
 Scenario Outline: Update role when user_role is invalid
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'
@@ -81,6 +84,7 @@ Examples:
 
 @user @role
 Scenario Outline: Update role when user_role is correct
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'
@@ -88,6 +92,7 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
     # delete user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'user_id'
@@ -104,6 +109,7 @@ Examples:
 
 @user @role
 Scenario Outline: Update role when is_active is invalid
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '<is_active>'
@@ -133,6 +139,7 @@ Examples:
 
 @user @role
 Scenario Outline: Update role when is_active is correct
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '<is_active>'
@@ -140,6 +147,7 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
     # delete user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'user_id'
@@ -193,6 +201,7 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
     # delete user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'user_id'
@@ -202,6 +211,7 @@ Given set request token from global param 'admin_token'
 
 @user @role
 Scenario: Update role when user is admin 
+    # update role
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'
@@ -209,6 +219,7 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id/role'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
     # delete user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'user_id'
@@ -218,6 +229,7 @@ Given set request token from global param 'admin_token'
 
 @user @role
 Scenario: Update role when user is editor 
+    # update role
 Given set request token from global param 'editor_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'
@@ -234,7 +246,8 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
 
 @user @role
-Scenario: Update role when user is writer 
+Scenario: Update role when user is writer
+    # update role 
 Given set request token from global param 'writer_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'
@@ -251,7 +264,8 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
 
 @user @role
-Scenario: Update role when user is reader 
+Scenario: Update role when user is reader
+    # update role
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'
@@ -269,6 +283,7 @@ Given set request token from global param 'admin_token'
 
 @user @role
 Scenario: Update role when token is missing
+    # update role
 Given delete request token
   And set request placeholder 'user_id' from global param 'user_id'
   And set request param 'is_active' from value '1'

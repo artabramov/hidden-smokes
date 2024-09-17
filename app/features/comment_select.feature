@@ -64,6 +64,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'document_id'
   And response params contain 'comment_content'
   And response params contain 'comment_user'
+  And response contains '7' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -102,6 +103,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'document_id'
   And response params contain 'comment_content'
   And response params contain 'comment_user'
+  And response contains '7' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -122,6 +124,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'document_id'
   And response params contain 'comment_content'
   And response params contain 'comment_user'
+  And response contains '7' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -142,6 +145,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'document_id'
   And response params contain 'comment_content'
   And response params contain 'comment_user'
+  And response contains '7' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -162,6 +166,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'document_id'
   And response params contain 'comment_content'
   And response params contain 'comment_user'
+  And response contains '7' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'

@@ -1,6 +1,7 @@
 Feature: List revisions
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @revision @list
 Scenario Outline: List revisions when document_id is invalid
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'document_id__eq' from value '<document_id>'
   And set request param 'offset' from value '0'
@@ -30,6 +32,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when document_id is correct
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'document_id__eq' from value '<document_id>'
   And set request param 'offset' from value '0'
@@ -40,6 +43,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 Examples:
 | document_id |
@@ -53,6 +57,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when offset is invalid
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -76,6 +81,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when offset is correct
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -85,6 +91,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -96,6 +103,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when limit is invalid
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -121,6 +129,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when limit is correct
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -130,6 +139,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -140,6 +150,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when order_by is invalid
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -161,6 +172,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when order_by is correct
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -170,6 +182,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 Examples:
 | order_by          |
@@ -178,6 +191,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when order is invalid
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -202,6 +216,7 @@ Examples:
 
 @revision @list
 Scenario Outline: List revisions when order is correct
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -211,6 +226,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -249,9 +265,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 @revision @list
 Scenario: List revisions when user is admin
+    # list revisions
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -261,9 +279,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 @revision @list
 Scenario: List revisions when user is editor
+    # list revisions
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -273,9 +293,11 @@ Given set request token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 @revision @list
 Scenario: List revisions when user is writer
+    # list revisions
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -285,9 +307,11 @@ Given set request token from global param 'writer_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 @revision @list
 Scenario: List revisions when user is reader
+    # list revisions
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -297,9 +321,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'revisions'
   And response params contain 'revisions_count'
+  And response contains '2' params
 
 @revision @list
 Scenario: List revisions when token is missing
+    # list revisions
 Given delete request token
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

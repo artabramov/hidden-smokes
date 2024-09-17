@@ -1,6 +1,7 @@
 Feature: Select user
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @user @select
 Scenario Outline: Select user when user_id not found
+    # select user
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from value '<user_id>'
  When send 'GET' request to url 'user/:user_id'
@@ -57,9 +59,11 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_signature'
   And response params contain 'user_contacts'
   And response params contain 'userpic_url'
+  And response contains '12' params
 
 @user @select
 Scenario: Select user when user is admin
+    # select user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'admin_id'
  When send 'GET' request to url 'user/:user_id'
@@ -76,9 +80,11 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_signature'
   And response params contain 'user_contacts'
   And response params contain 'userpic_url'
+  And response contains '12' params
 
 @user @select
 Scenario: Select user when user is editor
+    # select user
 Given set request token from global param 'editor_token' 
   And set request placeholder 'user_id' from global param 'editor_id'
  When send 'GET' request to url 'user/:user_id'
@@ -95,9 +101,11 @@ Given set request token from global param 'editor_token'
   And response params contain 'user_signature'
   And response params contain 'user_contacts'
   And response params contain 'userpic_url'
+  And response contains '12' params
 
 @user @select
 Scenario: Select user when user is writer
+    # select user
 Given set request token from global param 'writer_token' 
   And set request placeholder 'user_id' from global param 'writer_id'
  When send 'GET' request to url 'user/:user_id'
@@ -114,9 +122,11 @@ Given set request token from global param 'writer_token'
   And response params contain 'user_signature'
   And response params contain 'user_contacts'
   And response params contain 'userpic_url'
+  And response contains '12' params
 
 @user @select
 Scenario: Select user when user is reader
+    # select user
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from global param 'reader_id'
  When send 'GET' request to url 'user/:user_id'
@@ -133,9 +143,11 @@ Given set request token from global param 'reader_token'
   And response params contain 'user_signature'
   And response params contain 'user_contacts'
   And response params contain 'userpic_url'
+  And response contains '12' params
 
 @user @select
 Scenario: Select user when token is missing
+    # select user
 Given delete request token 
   And set request placeholder 'user_id' from global param 'admin_id'
  When send 'GET' request to url 'user/:user_id'

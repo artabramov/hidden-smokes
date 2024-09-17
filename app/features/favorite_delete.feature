@@ -1,6 +1,7 @@
 Feature: Delete favorite
 
 Background: Authorize users, create collection and document
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -83,6 +84,7 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'favorite/:favorite_id'
  Then response code is '200'
   And response params contain 'favorite_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -105,6 +107,7 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'favorite/:favorite_id'
  Then response code is '200'
   And response params contain 'favorite_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -150,6 +153,7 @@ Given set request token from global param 'editor_token'
  When send 'DELETE' request to url 'favorite/:favorite_id'
  Then response code is '200'
   And response params contain 'favorite_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -172,6 +176,7 @@ Given set request token from global param 'writer_token'
  When send 'DELETE' request to url 'favorite/:favorite_id'
  Then response code is '200'
   And response params contain 'favorite_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -194,6 +199,7 @@ Given set request token from global param 'reader_token'
  When send 'DELETE' request to url 'favorite/:favorite_id'
  Then response code is '200'
   And response params contain 'favorite_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'

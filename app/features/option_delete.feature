@@ -1,6 +1,7 @@
 Feature: Delete option
 
 Background: Authorize users and create option
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -16,6 +17,7 @@ Given set request token from global param 'admin_token'
 
 @option @delete
 Scenario Outline: Delete option when option_key not found
+    # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
  When send 'DELETE' request to url 'option/:option_key'
@@ -28,6 +30,7 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
   Examples:
 | option_key |
@@ -36,6 +39,7 @@ Given set request token from global param 'admin_token'
 
 @option @delete
 Scenario Outline: Delete option when option_key is invalid
+    # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
  When send 'DELETE' request to url 'option/:option_key'
@@ -48,6 +52,7 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
   Examples:
 | option_key | error_type              |
@@ -81,17 +86,21 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
 @option @delete
 Scenario: Delete option when user is admin
+    # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
 @option @delete
 Scenario: Delete option when user is editor
+    # delete option
 Given set request token from global param 'editor_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'DELETE' request to url 'option/:option_key'
@@ -104,9 +113,11 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
 @option @delete
 Scenario: Delete option when user is writer
+    # delete option
 Given set request token from global param 'writer_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'DELETE' request to url 'option/:option_key'
@@ -119,9 +130,11 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
 @option @delete
 Scenario: Delete option when user is reader
+    # delete option
 Given set request token from global param 'reader_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'DELETE' request to url 'option/:option_key'
@@ -134,9 +147,11 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params
 
 @option @delete
 Scenario: Delete option when token is missing
+    # delete option
 Given delete request token
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'DELETE' request to url 'option/:option_key'
@@ -147,3 +162,4 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'option/:option_key'
  Then response code is '200'
   And response params contain 'option_key'
+  And response contains '1' params

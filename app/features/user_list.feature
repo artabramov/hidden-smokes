@@ -1,6 +1,7 @@
 Feature: List users
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @user @list
 Scenario Outline: List users when is_active is invalid
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'is_active__eq' from value '<is_active>'
   And set request param 'offset' from value '0'
@@ -32,6 +34,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when is_active is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'is_active__eq' from value '<is_active>'
   And set request param 'offset' from value '0'
@@ -42,6 +45,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 Examples:
 | is_active |
@@ -63,6 +67,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when user_role is invalid
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'user_role__eq' from value '<user_role>'
   And set request param 'offset' from value '0'
@@ -87,6 +92,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when user_role is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'user_role__eq' from value '<user_role>'
   And set request param 'offset' from value '0'
@@ -97,6 +103,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 Examples:
 | user_role |
@@ -107,6 +114,7 @@ Examples:
 
 @user @list
 Scenario: List users when user_login is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'user_login__ilike' from value 'dummy'
   And set request param 'offset' from value '0'
@@ -117,9 +125,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario: List users when first_name is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'first_name__ilike' from value 'dummy'
   And set request param 'offset' from value '0'
@@ -130,9 +140,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario: List users when last_name is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'last_name__ilike' from value 'dummy'
   And set request param 'offset' from value '0'
@@ -143,9 +155,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario Outline: List users when offset is invalid
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -169,6 +183,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when offset is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -178,6 +193,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -189,6 +205,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when limit is invalid
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -214,6 +231,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when limit is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -223,6 +241,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -233,6 +252,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when order_by is invalid
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -254,6 +274,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when order_by is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -263,6 +284,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 Examples:
 | order_by        |
@@ -278,6 +300,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when order is invalid
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -300,6 +323,7 @@ Examples:
 
 @user @list
 Scenario Outline: List users when order is correct
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -309,6 +333,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -348,9 +373,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario Outline: List users when user is admin
+    # list users
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -360,9 +387,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario Outline: List users when user is editor
+    # list users
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -372,9 +401,11 @@ Given set request token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario Outline: List users when user is writer
+    # list users
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -384,9 +415,11 @@ Given set request token from global param 'writer_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario Outline: List users when user is reader
+    # list users
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -396,9 +429,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'users'
   And response params contain 'users_count'
+  And response contains '2' params
 
 @user @list
 Scenario Outline: List users when token is missing
+    # list users
 Given delete request token 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

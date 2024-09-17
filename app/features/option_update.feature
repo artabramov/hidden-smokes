@@ -1,6 +1,7 @@
 Feature: Insert/update option
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @option @update
 Scenario Outline: Insert/update option when option_key is invalid
+    # update option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
   And set request param 'option_value' from fake 'option_value'
@@ -26,6 +28,7 @@ Examples:
 
 @option @update
 Scenario Outline: Insert/update option when option_key is correct
+    # update option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
   And set request param 'option_value' from fake 'option_value'
@@ -33,6 +36,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'option_key'
   And save response param 'option_key' to global param 'option_key'
+  And response contains '1' params
     # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
@@ -73,6 +77,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'option_key'
   And save response param 'option_key' to global param 'option_key'
+  And response contains '1' params
     # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
@@ -82,6 +87,7 @@ Given set request token from global param 'admin_token'
 
 @option @update
 Scenario: Insert/update option when user is admin
+    # update option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -89,6 +95,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'option_key'
   And save response param 'option_key' to global param 'option_key'
+  And response contains '1' params
     # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
@@ -98,6 +105,7 @@ Given set request token from global param 'admin_token'
 
 @option @update
 Scenario: Insert/update option when user is editor
+    # update option
 Given set request token from global param 'editor_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -108,6 +116,7 @@ Given set request token from global param 'editor_token'
 
 @option @update
 Scenario: Insert/update option when user is writer
+    # update option
 Given set request token from global param 'writer_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -118,6 +127,7 @@ Given set request token from global param 'writer_token'
 
 @option @update
 Scenario: Insert/update option when user is reader
+    # update option
 Given set request token from global param 'reader_token' 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'
@@ -128,6 +138,7 @@ Given set request token from global param 'reader_token'
 
 @option @update
 Scenario: Insert/update option when token is missing
+    # update option
 Given delete request token 
   And set request placeholder 'option_key' from fake 'option_key'
   And set request param 'option_value' from fake 'option_value'

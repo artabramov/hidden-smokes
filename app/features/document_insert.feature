@@ -1,6 +1,7 @@
 Feature: Insert document
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -16,6 +17,7 @@ Given set request token from global param 'admin_token'
 
 @document @insert
 Scenario Outline: Insert document when collection_id not found
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from value '<collection_id>'
   And set request param 'document_name' from fake 'document_name'
@@ -41,6 +43,7 @@ Examples:
 
 @document @insert
 Scenario Outline: Insert document when collection_id is invalid
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from value '<collection_id>'
   And set request param 'document_name' from fake 'document_name'
@@ -70,6 +73,7 @@ Examples:
 
 @document @insert
 Scenario Outline: Insert document when document_name is invalid
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from value '<document_name>'
@@ -93,6 +97,7 @@ Examples:
 
 @document @insert
 Scenario Outline: Insert document when document_name is correct or missing
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from value '<document_name>'
@@ -103,6 +108,7 @@ Given set request token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
+  And response contains '2' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -121,6 +127,7 @@ Examples:
 
 @document @insert
 Scenario Outline: Insert document when document_summary is invalid
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
@@ -144,6 +151,7 @@ Examples:
 
 @document @insert
 Scenario Outline: Insert document when document_summary is correct
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
@@ -154,6 +162,7 @@ Given set request token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
+  And response contains '2' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -241,6 +250,7 @@ Given set request token from global param 'admin_token'
 
 @document @insert
 Scenario: Insert document when user is admin
+    # insert document
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
@@ -251,6 +261,7 @@ Given set request token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
+  And response contains '2' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -260,6 +271,7 @@ Given set request token from global param 'admin_token'
 
 @document @insert
 Scenario: Insert document when user is editor
+    # insert document
 Given set request token from global param 'editor_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
@@ -270,6 +282,7 @@ Given set request token from global param 'editor_token'
  Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
+  And response contains '2' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -279,6 +292,7 @@ Given set request token from global param 'admin_token'
 
 @document @insert
 Scenario: Insert document when user is writer
+    # insert document
 Given set request token from global param 'writer_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
@@ -289,6 +303,7 @@ Given set request token from global param 'writer_token'
  Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
+  And response contains '2' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -298,6 +313,7 @@ Given set request token from global param 'admin_token'
 
 @document @insert
 Scenario: Insert document when user is reader
+    # insert document
 Given set request token from global param 'reader_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
@@ -317,6 +333,7 @@ Given set request token from global param 'admin_token'
 
 @document @insert
 Scenario: Insert document when token is missing
+    # insert document
 Given delete request token
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'

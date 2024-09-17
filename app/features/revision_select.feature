@@ -1,6 +1,7 @@
 Feature: Select revision
 
 Background: Authorize users, create collection and document
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -24,6 +25,7 @@ Given set request token from global param 'admin_token'
 
 @revision @select
 Scenario Outline: Select revision when revision_id is not found
+    # select revision
 Given set request token from global param 'admin_token' 
   And set request placeholder 'revision_id' from value '<revision_id>'
  When send 'GET' request to url 'revision/:revision_id'
@@ -79,6 +81,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'thumbnail_url'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
+  And response contains '12' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -88,6 +91,7 @@ Given set request token from global param 'admin_token'
 
 @revision @select
 Scenario: Select revision when user is admin
+    # select revision
 Given set request token from global param 'admin_token' 
   And set request placeholder 'revision_id' from global param 'revision_id'
  When send 'GET' request to url 'revision/:revision_id'
@@ -104,6 +108,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'thumbnail_url'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
+  And response contains '12' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -113,6 +118,7 @@ Given set request token from global param 'admin_token'
 
 @revision @select
 Scenario: Select revision when user is editor
+    # select revision
 Given set request token from global param 'editor_token' 
   And set request placeholder 'revision_id' from global param 'revision_id'
  When send 'GET' request to url 'revision/:revision_id'
@@ -129,6 +135,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'thumbnail_url'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
+  And response contains '12' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -138,6 +145,7 @@ Given set request token from global param 'admin_token'
 
 @revision @select
 Scenario: Select revision when user is writer
+    # select revision
 Given set request token from global param 'writer_token' 
   And set request placeholder 'revision_id' from global param 'revision_id'
  When send 'GET' request to url 'revision/:revision_id'
@@ -154,6 +162,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'thumbnail_url'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
+  And response contains '12' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -163,6 +172,7 @@ Given set request token from global param 'admin_token'
 
 @revision @select
 Scenario: Select revision when user is reader
+    # select revision
 Given set request token from global param 'reader_token' 
   And set request placeholder 'revision_id' from global param 'revision_id'
  When send 'GET' request to url 'revision/:revision_id'
@@ -179,6 +189,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'thumbnail_url'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
+  And response contains '12' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -188,6 +199,7 @@ Given set request token from global param 'admin_token'
 
 @revision @select
 Scenario: Select revision when token is missing
+    # select revision
 Given delete request token 
   And set request placeholder 'revision_id' from global param 'revision_id'
  When send 'GET' request to url 'revision/:revision_id'

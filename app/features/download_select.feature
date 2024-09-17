@@ -1,6 +1,7 @@
 Feature: Select download
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @download @select
 Scenario Outline: Select download when download_id not found
+    # select download
 Given set request token from global param 'admin_token' 
   And set request placeholder 'download_id' from value '<download_id>'
  When send 'GET' request to url 'download/:download_id'
@@ -88,6 +90,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'download_user'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -145,6 +148,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'download_user'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -154,6 +158,7 @@ Given set request token from global param 'admin_token'
 
 @download @select
 Scenario: Select download when user is editor
+    # select download
 Given set request token from global param 'editor_token' 
   And set request placeholder 'download_id' from value '<download_id>'
  When send 'GET' request to url 'download/:download_id'
@@ -163,6 +168,7 @@ Given set request token from global param 'editor_token'
 
 @download @select
 Scenario: Select download when user is writer
+    # select download
 Given set request token from global param 'writer_token' 
   And set request placeholder 'download_id' from value '<download_id>'
  When send 'GET' request to url 'download/:download_id'
@@ -172,6 +178,7 @@ Given set request token from global param 'writer_token'
 
 @download @select
 Scenario: Select download when user is reader
+    # select download
 Given set request token from global param 'reader_token' 
   And set request placeholder 'download_id' from value '<download_id>'
  When send 'GET' request to url 'download/:download_id'
@@ -181,6 +188,7 @@ Given set request token from global param 'reader_token'
 
 @download @select
 Scenario: Select download when token is missing
+    # select download
 Given delete request token 
   And set request placeholder 'download_id' from value '1'
  When send 'GET' request to url 'download/:download_id'

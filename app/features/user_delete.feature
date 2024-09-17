@@ -1,6 +1,7 @@
 Feature: Delete user
 
 Background: Authorize users, register a new user
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -17,6 +18,7 @@ Given set request param 'user_login' from fake 'user_login'
 
 @user @delete
 Scenario Outline: Delete user when user_id not found
+    # delete user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from value '<user_id>'
  When send 'DELETE' request to url 'user/:user_id'
@@ -61,17 +63,21 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @delete
 Scenario: Delete user when current user is admin
+    # delete user
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @delete
 Scenario: Delete user when current user is editor
+    # delete user
 Given set request token from global param 'editor_token' 
   And set request placeholder 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
@@ -84,9 +90,11 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @delete
 Scenario: Delete user when current user is writer
+    # delete user
 Given set request token from global param 'writer_token' 
   And set request placeholder 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
@@ -99,9 +107,11 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @delete
 Scenario: Delete user when current user is reader
+    # delete user
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
@@ -114,9 +124,11 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @delete
 Scenario: Delete user when token is missing
+    # delete user
 Given delete request token 
   And set request placeholder 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
@@ -127,3 +139,4 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params

@@ -1,6 +1,7 @@
 Feature: List options
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @option @list
 Scenario Outline: List options when offset is invalid
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -31,6 +33,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when offset is correct
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -40,6 +43,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'options'
   And response params contain 'options_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -51,6 +55,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when limit is invalid
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -76,6 +81,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when limit is correct
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -85,6 +91,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'options'
   And response params contain 'options_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -95,6 +102,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when order_by is invalid
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -116,6 +124,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when order_by is correct
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -125,6 +134,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'options'
   And response params contain 'options_count'
+  And response contains '2' params
 
 Examples:
 | order_by     |
@@ -135,6 +145,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when order is invalid
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -159,6 +170,7 @@ Examples:
 
 @option @list
 Scenario Outline: List options when order is correct
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -168,6 +180,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'options'
   And response params contain 'options_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -206,9 +219,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'options'
   And response params contain 'options_count'
+  And response contains '2' params
 
 @option @list
 Scenario: List options when user is admin
+    # list options
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -218,9 +233,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'options'
   And response params contain 'options_count'
+  And response contains '2' params
 
 @option @list
 Scenario: List options when user is editor
+    # list options
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -233,6 +250,7 @@ Given set request token from global param 'editor_token'
 
 @option @list
 Scenario: List options when user is writer
+    # list options
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -245,6 +263,7 @@ Given set request token from global param 'writer_token'
 
 @option @list
 Scenario: List options when user is reader
+    # list options
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -257,6 +276,7 @@ Given set request token from global param 'reader_token'
 
 @option @list
 Scenario: List options when token is missing
+    # list options
 Given delete request token 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

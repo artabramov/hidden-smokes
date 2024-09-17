@@ -1,6 +1,7 @@
 Feature: Retrieve MFA
 
 Background: Authorize admin user
+    # auth users
 Given auth with user role 'admin'
 
 @user @mfa

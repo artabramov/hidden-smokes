@@ -1,6 +1,7 @@
 Feature: List favorites
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @favorite @list
 Scenario Outline: List favorites when offset is invalid
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -31,6 +33,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when offset is correct
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -40,6 +43,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -51,6 +55,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when limit is invalid
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -76,6 +81,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when limit is correct
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -85,6 +91,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -95,6 +102,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when order_by is invalid
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -116,6 +124,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when order_by is correct
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -125,6 +134,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 Examples:
 | order_by        |
@@ -133,6 +143,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when order is invalid
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -155,6 +166,7 @@ Examples:
 
 @favorite @list
 Scenario Outline: List favorites when order is correct
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -164,6 +176,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -203,9 +216,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 @favorite @list
 Scenario: List favorites when user is admin
+    # list favorites
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -215,9 +230,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 @favorite @list
 Scenario: List favorites when user is editor
+    # list favorites
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -227,9 +244,11 @@ Given set request token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 @favorite @list
 Scenario: List favorites when user is writer
+    # list favorites
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -239,9 +258,11 @@ Given set request token from global param 'writer_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 @favorite @list
 Scenario: List favorites when user is reader
+    # list favorites
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -251,9 +272,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'favorites'
   And response params contain 'favorites_count'
+  And response contains '2' params
 
 @favorite @list
 Scenario: List favorites when token is missing
+    # list favorites
 Given delete request token 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

@@ -136,6 +136,7 @@ Given set request token from global param 'admin_token'
  When send 'DELETE' request to url 'comment/:comment_id'
  Then response code is '200'
   And response params contain 'comment_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -160,6 +161,7 @@ Given set request token from global param 'editor_token'
  When send 'DELETE' request to url 'comment/:comment_id'
  Then response code is '200'
   And response params contain 'comment_id'
+  And response contains '1' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'

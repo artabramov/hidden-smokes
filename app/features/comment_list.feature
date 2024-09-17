@@ -40,6 +40,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 Examples:
 | document_id |
@@ -85,6 +86,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -130,6 +132,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -170,6 +173,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 Examples:
 | order_by          |
@@ -211,6 +215,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -261,6 +266,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 @comment @list
 Scenario: List comments when user is editor
@@ -273,6 +279,7 @@ Given set request token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 @comment @list
 Scenario: List comments when user is writer
@@ -285,6 +292,7 @@ Given set request token from global param 'writer_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 @comment @list
 Scenario: List comments when user is reader
@@ -297,6 +305,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'comments'
   And response params contain 'comments_count'
+  And response contains '2' params
 
 @comment @list
 Scenario: List comments when token is missing

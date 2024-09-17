@@ -1,10 +1,12 @@
 Feature: Register user
 
 Background: Authorize admin user
+    # auth users
 Given auth with user role 'admin'
 
 @user @register
 Scenario Outline: Register user when user_login is invalid
+    # register user
 Given set request param 'user_login' from value '<user_login>'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -31,6 +33,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_login is correct
+    # register user
 Given set request param 'user_login' from value '<user_login>'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -42,6 +45,7 @@ Given set request param 'user_login' from value '<user_login>'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -57,6 +61,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_password is invalid
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '<user_password>'
   And set request param 'first_name' from fake 'first_name'
@@ -79,6 +84,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_password is correct
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '<user_password>'
   And set request param 'first_name' from fake 'first_name'
@@ -90,6 +96,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -104,6 +111,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when first_name is invalid
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from value '<first_name>'
@@ -126,6 +134,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when first_name is correct
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from value '<first_name>'
@@ -137,6 +146,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -152,6 +162,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when last_name is invalid
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -174,6 +185,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when last_name is correct
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -185,6 +197,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -200,6 +213,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_signature is invalid
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -217,6 +231,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_signature is correct
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -228,6 +243,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -247,6 +263,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_contacts is invalid
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -264,6 +281,7 @@ Examples:
 
 @user @register
 Scenario Outline: Register user when user_contacts is correct
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -275,6 +293,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -328,6 +347,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 
@@ -338,6 +358,7 @@ Given set request token from global param 'admin_token'
 
 @user @register
 Scenario: Register user
+    # register user
 Given set request param 'user_login' from fake 'user_login'
   And set request param 'user_password' from value '123456'
   And set request param 'first_name' from fake 'first_name'
@@ -349,6 +370,7 @@ Given set request param 'user_login' from fake 'user_login'
   And response params contain 'user_id'
   And response params contain 'mfa_secret'
   And response params contain 'mfa_url'
+  And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
 Given set request token from global param 'admin_token' 

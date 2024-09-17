@@ -1,6 +1,7 @@
 Feature: List collections
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @collection @list
 Scenario Outline: List collections when collection_name is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'collection_name__ilike' from value '<collection_name>'
   And set request param 'offset' from value '0'
@@ -18,6 +20,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | collection_name |
@@ -30,6 +33,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when is_locked is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked__eq' from value '<is_locked>'
   And set request param 'offset' from value '0'
@@ -54,6 +58,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when is_locked is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'is_locked__eq' from value '<is_locked>'
   And set request param 'offset' from value '0'
@@ -64,6 +69,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | is_locked |
@@ -78,6 +84,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_count__ge is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__ge' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -100,6 +107,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_count__ge is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__ge' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -110,6 +118,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | documents_count |
@@ -123,6 +132,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_count__le is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__le' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -145,6 +155,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_count__le is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_count__le' from value '<documents_count>'
   And set request param 'offset' from value '0'
@@ -155,6 +166,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | documents_count |
@@ -168,6 +180,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_size__ge is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__ge' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -190,6 +203,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_size__ge is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__ge' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -200,6 +214,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | documents_size |
@@ -213,6 +228,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_size__le is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__le' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -235,6 +251,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when documents_size__le is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'documents_size__le' from value '<documents_size>'
   And set request param 'offset' from value '0'
@@ -245,6 +262,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | documents_size |
@@ -258,6 +276,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_count__ge is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_count__ge' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -280,6 +299,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_count__ge is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_count__ge' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -290,6 +310,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | revisions_count |
@@ -303,6 +324,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_count__le is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_count__le' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -325,6 +347,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_count__le is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_count__le' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -335,6 +358,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | revisions_count |
@@ -348,6 +372,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_size__ge is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_size__ge' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -370,6 +395,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_size__ge is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_size__ge' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -380,6 +406,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | revisions_size |
@@ -393,6 +420,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_size__le is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_size__le' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -415,6 +443,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when revisions_size__le is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'revisions_size__le' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -425,6 +454,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | revisions_size |
@@ -438,6 +468,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when offset is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -461,6 +492,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when offset is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -470,6 +502,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -481,6 +514,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when limit is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -506,6 +540,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when limit is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -515,6 +550,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -525,6 +561,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when order_by is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -546,6 +583,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when order_by is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -555,6 +593,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | order_by        |
@@ -570,6 +609,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when order is invalid
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -592,6 +632,7 @@ Examples:
 
 @collection @list
 Scenario Outline: List collections when order is correct
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -601,6 +642,7 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -640,9 +682,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 @collection @list
 Scenario: List collections when user is admin
+    # list collections
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -652,9 +696,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 @collection @list
 Scenario: List collections when user is editor
+    # list collections
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -664,9 +710,11 @@ Given set request token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 @collection @list
 Scenario: List collections when user is writer
+    # list collections
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -676,9 +724,11 @@ Given set request token from global param 'writer_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 @collection @list
 Scenario: List collections when user is reader
+    # list collections
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -688,9 +738,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'collections'
   And response params contain 'collections_count'
+  And response contains '2' params
 
 @collection @list
 Scenario: List collections when token is missing
+    # list collections
 Given delete request token 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

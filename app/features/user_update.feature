@@ -1,6 +1,7 @@
 Feature: Update user
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @user @update
 Scenario: Update user when user_id is invalid
+    # update user
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -21,6 +23,7 @@ Given set request token from global param 'admin_token'
 
 @user @update
 Scenario Outline: Update user when first_name is invalid
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from value '<first_name>'
@@ -43,6 +46,7 @@ Examples:
 
 @user @update
 Scenario Outline: Update user when last_name is invalid
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -65,6 +69,7 @@ Examples:
 
 @user @update
 Scenario Outline: Update user when user_signature is invalid
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -82,6 +87,7 @@ Examples:
 
 @user @update
 Scenario Outline: Update user when user_signature is correct
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -91,6 +97,7 @@ Given set request token from global param 'reader_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | user_signature |
@@ -103,6 +110,7 @@ Examples:
 
 @user @update
 Scenario Outline: Update user when user_contacts is invalid
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -120,6 +128,7 @@ Examples:
 
 @user @update
 Scenario Outline: Update user when user_contacts is correct
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -129,6 +138,7 @@ Given set request token from global param 'reader_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | user_contacts |
@@ -172,9 +182,11 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when user is admin
+    # update user
 Given set request token from global param 'admin_token'
   And set request placeholder 'user_id' from global param 'admin_id'
   And set request param 'first_name' from fake 'first_name'
@@ -184,9 +196,11 @@ Given set request token from global param 'admin_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when user is editor
+    # update user
 Given set request token from global param 'editor_token'
   And set request placeholder 'user_id' from global param 'editor_id'
   And set request param 'first_name' from fake 'first_name'
@@ -196,9 +210,11 @@ Given set request token from global param 'editor_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when user is writer
+    # update user
 Given set request token from global param 'writer_token'
   And set request placeholder 'user_id' from global param 'writer_id'
   And set request param 'first_name' from fake 'first_name'
@@ -208,9 +224,11 @@ Given set request token from global param 'writer_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when user is reader
+    # update user
 Given set request token from global param 'reader_token'
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'
@@ -220,9 +238,11 @@ Given set request token from global param 'reader_token'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when token is missing
+    # update user
 Given delete request token
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request param 'first_name' from fake 'first_name'

@@ -1,7 +1,8 @@
-Feature: Systen hello
+Feature: System hello
 
 @system @hello
 Scenario: Execute hello when user token is missing
+   # retrieve hello
 When send 'GET' request to url 'system/hello'
 Then response code is '200'
  And response params contain 'unix_timestamp'

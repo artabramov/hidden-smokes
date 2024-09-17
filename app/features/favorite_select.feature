@@ -1,6 +1,7 @@
 Feature: Select favorite
 
 Background: Authorize users, create collection and document
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -53,23 +54,6 @@ Examples:
 
 @favorite @select
 Scenario: Select favorite when app is locked
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
-    # insert favorite
-Given set request token from global param 'admin_token' 
-  And set request param 'document_id' from global param 'document_id'
- When send 'POST' request to url 'favorite'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
     # insert favorite
 Given set request token from global param 'admin_token' 
   And set request param 'document_id' from global param 'document_id'
@@ -77,6 +61,23 @@ Given set request token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'favorite_id'
   And save response param 'favorite_id' to global param 'favorite_id'
+    # lock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'system/lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+    # select favorite
+Given set request token from global param 'admin_token' 
+  And set request placeholder 'favorite_id' from global param 'favorite_id'
+ When send 'GET' request to url 'favorite/:favorite_id'
+ Then response code is '503'
+    # unlock app
+Given set request token from global param 'admin_token' 
+ When send 'GET' request to url 'system/unlock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
     # select favorite
 Given set request token from global param 'admin_token' 
   And set request placeholder 'favorite_id' from global param 'favorite_id'
@@ -87,6 +88,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'favorite_document'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -113,6 +115,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'favorite_document'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -162,6 +165,7 @@ Given set request token from global param 'editor_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'favorite_document'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -188,6 +192,7 @@ Given set request token from global param 'writer_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'favorite_document'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'
@@ -214,6 +219,7 @@ Given set request token from global param 'reader_token'
   And response params contain 'user_id'
   And response params contain 'document_id'
   And response params contain 'favorite_document'
+  And response contains '5' params
     # delete collection
 Given set request token from global param 'admin_token' 
   And set request placeholder 'collection_id' from global param 'collection_id'

@@ -1,6 +1,7 @@
 Feature: Select option
 
 Background: Authorize users and create option
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -16,6 +17,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario Outline: Select option when option_key not found
+    # select options
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
  When send 'GET' request to url 'option/:option_key'
@@ -36,6 +38,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario Outline: Select option when option_key is invalid
+    # select options
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from value '<option_key>'
  When send 'GET' request to url 'option/:option_key'
@@ -85,6 +88,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'updated_date'
   And response params contain 'option_key'
   And response params contain 'option_value'
+  And response contains '5' params
     # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
@@ -94,6 +98,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario: Select option when user is admin
+    # select options
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'GET' request to url 'option/:option_key'
@@ -103,6 +108,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'updated_date'
   And response params contain 'option_key'
   And response params contain 'option_value'
+  And response contains '5' params
     # delete option
 Given set request token from global param 'admin_token' 
   And set request placeholder 'option_key' from global param 'option_key'
@@ -112,6 +118,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario: Select option when user is editor
+    # select option
 Given set request token from global param 'editor_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'GET' request to url 'option/:option_key'
@@ -127,6 +134,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario: Select option when user is writer
+    # select option
 Given set request token from global param 'writer_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'GET' request to url 'option/:option_key'
@@ -142,6 +150,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario: Select option when user is reader
+    # select option
 Given set request token from global param 'reader_token' 
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'GET' request to url 'option/:option_key'
@@ -157,6 +166,7 @@ Given set request token from global param 'admin_token'
 
 @option @select
 Scenario: Select option when token is missing
+    # select option
 Given delete request token
   And set request placeholder 'option_key' from global param 'option_key'
  When send 'GET' request to url 'option/:option_key'

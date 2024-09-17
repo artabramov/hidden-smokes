@@ -1,6 +1,7 @@
 Feature: List documents
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @document @list
 Scenario Outline: List documents when collection_id is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id__eq' from value '<collection_id>'
   And set request param 'offset' from value '0'
@@ -30,6 +32,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when collection_id is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'collection_id__eq' from value '<collection_id>'
   And set request param 'offset' from value '0'
@@ -40,6 +43,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | collection_id |
@@ -53,6 +57,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when document_name is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'document_name__ilike' from value '<document_name>'
   And set request param 'offset' from value '0'
@@ -63,6 +68,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | document_name |
@@ -75,6 +81,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when document_size__ge is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'document_size__ge' from value '<document_size>'
   And set request param 'offset' from value '0'
@@ -97,6 +104,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when document_size__ge is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'document_size__ge' from value '<document_size>'
   And set request param 'offset' from value '0'
@@ -107,6 +115,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | document_size |
@@ -120,6 +129,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when document_size__le is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'document_size__le' from value '<document_size>'
   And set request param 'offset' from value '0'
@@ -142,6 +152,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when document_size__le is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'document_size__le' from value '<document_size>'
   And set request param 'offset' from value '0'
@@ -152,6 +163,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | document_size |
@@ -165,6 +177,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when document_mimetype is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'document_mimetype__ilike' from value '<document_mimetype>'
   And set request param 'offset' from value '0'
@@ -175,6 +188,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | document_mimetype |
@@ -187,6 +201,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_count__ge is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_count__ge' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -209,6 +224,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_count__ge is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_count__ge' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -219,6 +235,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | revisions_count |
@@ -232,6 +249,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_count__le is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_count__le' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -254,6 +272,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_count__le is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_count__le' from value '<revisions_count>'
   And set request param 'offset' from value '0'
@@ -264,6 +283,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | revisions_count |
@@ -277,6 +297,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_size__ge is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_size__ge' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -299,6 +320,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_size__ge is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_size__ge' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -309,6 +331,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | revisions_size |
@@ -322,6 +345,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_size__le is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_size__le' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -344,6 +368,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when revisions_size__le is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'revisions_size__le' from value '<revisions_size>'
   And set request param 'offset' from value '0'
@@ -354,6 +379,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | revisions_size |
@@ -367,6 +393,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when comments_count__ge is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'comments_count__ge' from value '<comments_count>'
   And set request param 'offset' from value '0'
@@ -389,6 +416,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when comments_count__ge is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'comments_count__ge' from value '<comments_count>'
   And set request param 'offset' from value '0'
@@ -399,6 +427,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | comments_count |
@@ -412,6 +441,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when comments_count__le is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'comments_count__le' from value '<comments_count>'
   And set request param 'offset' from value '0'
@@ -434,6 +464,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when comments_count__le is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'comments_count__le' from value '<comments_count>'
   And set request param 'offset' from value '0'
@@ -444,6 +475,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | comments_count |
@@ -457,6 +489,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when downloads_count__ge is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'downloads_count__ge' from value '<downloads_count>'
   And set request param 'offset' from value '0'
@@ -479,6 +512,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when downloads_count__ge is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'downloads_count__ge' from value '<downloads_count>'
   And set request param 'offset' from value '0'
@@ -489,6 +523,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | downloads_count |
@@ -502,6 +537,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when downloads_count__le is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'downloads_count__le' from value '<downloads_count>'
   And set request param 'offset' from value '0'
@@ -524,6 +560,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when downloads_count__le is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'downloads_count__le' from value '<downloads_count>'
   And set request param 'offset' from value '0'
@@ -534,6 +571,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | downloads_count |
@@ -547,6 +585,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when favorites_count__ge is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'favorites_count__ge' from value '<favorites_count>'
   And set request param 'offset' from value '0'
@@ -569,6 +608,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when favorites_count__ge is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'favorites_count__ge' from value '<favorites_count>'
   And set request param 'offset' from value '0'
@@ -579,6 +619,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | favorites_count |
@@ -592,6 +633,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when favorites_count__le is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'favorites_count__le' from value '<favorites_count>'
   And set request param 'offset' from value '0'
@@ -614,6 +656,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when favorites_count__le is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'favorites_count__le' from value '<favorites_count>'
   And set request param 'offset' from value '0'
@@ -624,6 +667,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | favorites_count |
@@ -637,6 +681,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when tag_value is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'tag_value__eq' from value '<tag_value>'
   And set request param 'offset' from value '0'
@@ -647,6 +692,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | tag_value |
@@ -660,6 +706,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when offset is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -683,6 +730,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when offset is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -692,6 +740,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -703,6 +752,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when limit is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -728,6 +778,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when limit is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -737,6 +788,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -747,6 +799,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when order_by is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -768,6 +821,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when order_by is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -777,6 +831,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | order_by          |
@@ -796,6 +851,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when order is invalid
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -818,6 +874,7 @@ Examples:
 
 @document @list
 Scenario Outline: List documents when order is correct
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -827,6 +884,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -866,9 +924,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 @document @list
 Scenario: List documents when user is admin
+    # list documents
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -878,9 +938,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 @document @list
 Scenario: List documents when user is editor
+    # list documents
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -890,9 +952,11 @@ Given set request token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 @document @list
 Scenario: List documents when user is writer
+    # list documents
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -902,9 +966,11 @@ Given set request token from global param 'writer_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 @document @list
 Scenario: List documents when user is reader
+    # list documents
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -914,9 +980,11 @@ Given set request token from global param 'reader_token'
  Then response code is '200'
   And response params contain 'documents'
   And response params contain 'documents_count'
+  And response contains '2' params
 
 @document @list
 Scenario: List documents when token is missing
+    # list documents
 Given delete request token
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

@@ -1,6 +1,7 @@
 Feature: List downloads
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @download @list
 Scenario Outline: List downloads when document_id is invalid
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'document_id__eq' from value '<document_id>'
   And set request param 'offset' from value '0'
@@ -30,6 +32,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when document_id is correct
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'document_id__eq' from value '<document_id>'
   And set request param 'offset' from value '0'
@@ -40,6 +43,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 Examples:
 | document_id |
@@ -53,6 +57,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when offset is invalid
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -76,6 +81,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when offset is correct
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '<offset>'
   And set request param 'limit' from value '1'
@@ -85,6 +91,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 Examples:
 | offset |
@@ -96,6 +103,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when limit is invalid
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -121,6 +129,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when limit is correct
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '<limit>'
@@ -130,6 +139,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 Examples:
 | limit |
@@ -140,6 +150,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when order_by is invalid
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -161,6 +172,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when order_by is correct
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -170,6 +182,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 Examples:
 | order_by          |
@@ -178,6 +191,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when order is invalid
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -202,6 +216,7 @@ Examples:
 
 @download @list
 Scenario Outline: List downloads when order is correct
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -211,6 +226,7 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 Examples:
 | order |
@@ -249,9 +265,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 @download @list
 Scenario: List downloads when user is admin
+    # list downloads
 Given set request token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -261,9 +279,11 @@ Given set request token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
+  And response contains '2' params
 
 @download @list
 Scenario: List downloads when user is editor
+    # list downloads
 Given set request token from global param 'editor_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -276,6 +296,7 @@ Given set request token from global param 'editor_token'
 
 @download @list
 Scenario: List downloads when user is writer
+    # list downloads
 Given set request token from global param 'writer_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -288,6 +309,7 @@ Given set request token from global param 'writer_token'
 
 @download @list
 Scenario: List downloads when user is reader
+    # list downloads
 Given set request token from global param 'reader_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
@@ -300,6 +322,7 @@ Given set request token from global param 'reader_token'
 
 @download @list
 Scenario: List downloads when token is missing
+    # list downloads
 Given delete request token
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'

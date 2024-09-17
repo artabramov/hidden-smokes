@@ -1,6 +1,7 @@
 Feature: Upload userpic
 
 Background: Authorize users
+    # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
@@ -8,6 +9,7 @@ Given auth with user role 'admin'
 
 @userpic @upload
 Scenario: Upload userpic when user_id is invalid
+    # upload userpic
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request file from sample format 'jpeg'
@@ -18,6 +20,7 @@ Given set request token from global param 'admin_token'
 
 @userpic @upload
 Scenario: Upload userpic when file is invalid
+    # upload userpic
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'admin_id'
   And set request file from sample format 'pdf'
@@ -28,12 +31,14 @@ Given set request token from global param 'admin_token'
 
 @userpic @upload
 Scenario Outline: Upload userpic when file is correct
+    # upload userpic
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'admin_id'
   And set request file from sample format '<file_extension>'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | file_extension |
@@ -69,45 +74,55 @@ Given set request token from global param 'admin_token'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @userpic @upload
 Scenario: Upload userpic when user is admin
+    # upload userpic
 Given set request token from global param 'admin_token' 
   And set request placeholder 'user_id' from global param 'admin_id'
   And set request file from sample format 'jpeg'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @userpic @upload
 Scenario: Upload userpic when user is editor
+    # upload userpic
 Given set request token from global param 'editor_token' 
   And set request placeholder 'user_id' from global param 'editor_id'
   And set request file from sample format 'jpeg'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @userpic @upload
 Scenario: Upload userpic when user is writer
+    # upload userpic
 Given set request token from global param 'writer_token' 
   And set request placeholder 'user_id' from global param 'writer_id'
   And set request file from sample format 'jpeg'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @userpic @upload
 Scenario: Upload userpic when user is reader
+    # upload userpic
 Given set request token from global param 'reader_token' 
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request file from sample format 'jpeg'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 @userpic @upload
 Scenario: Upload userpic when token is missing
+    # upload userpic
 Given delete request token 
   And set request placeholder 'user_id' from global param 'reader_id'
   And set request file from sample format 'jpeg'
