@@ -223,6 +223,24 @@ def _get_actual_value(value: str) -> str:
         return value
 
 
+@when("send request to external url from global param '{global_param}'")
+def step_impl(context, global_param: str):
+    """
+    Sends a GET request to a URL derived from a global parameter by
+    replacing the external base URL with an internal base URL, then
+    stores the response status code and content in the context.
+    """
+    external_url = context.global_params[global_param]
+    internal_url = external_url.replace(
+        context.config_params["external_base_url"],
+        context.config_params["internal_base_url"])
+
+    response = requests.get(internal_url)
+
+    context.response_code = response.status_code
+    context.response_content = response.content
+
+
 @when("send '{request_method}' request to url '{request_url}'")
 def step_impl(context, request_method, request_url):
     """
@@ -234,7 +252,7 @@ def step_impl(context, request_method, request_url):
     the response status code and body are stored in context. The
     request headers and parameters are then cleared from the context.
     """
-    url = context.config_params["base_url"] + request_url
+    url = context.config_params["internal_base_url"] + request_url
     for placeholder in context.request_placeholders:
         url = url.replace(":" + placeholder,
                           str(context.request_placeholders[placeholder]))

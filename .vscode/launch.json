@@ -21,6 +21,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "User mfa",
+            "args": ["--tags", "@user", "--tags", "@mfa", "--tags", "~@demo",
+                     "--no-skipped", "--no-source"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "User auth",
             "args": ["--tags", "@user", "--tags", "@auth", "--tags", "~@demo",
                      "--no-skipped", "--no-source"],
