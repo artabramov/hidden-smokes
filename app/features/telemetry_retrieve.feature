@@ -7,7 +7,7 @@ Given auth with user role 'admin'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
-@system @telemetry
+@telemetry @retrieve
 Scenario: Retrieve telemetry when user is admin
    # retrieve telemetry
 Given set request header token from global param 'admin_token' 
@@ -19,7 +19,7 @@ Given set request header token from global param 'admin_token'
 #   And response params contain 'is_locked'
   And response contains '31' params
 
-@system @telemetry
+@telemetry @retrieve
 Scenario: Retrieve telemetry when user is editor
    # retrieve telemetry
 Given set request header token from global param 'editor_token' 
@@ -29,7 +29,7 @@ Given set request header token from global param 'editor_token'
   And error type is 'user_rejected'
   And response contains '1' params
 
-@system @telemetry
+@telemetry @retrieve
 Scenario: Retrieve telemetry when user is writer
    # retrieve telemetry
 Given set request header token from global param 'writer_token' 
@@ -39,7 +39,7 @@ Given set request header token from global param 'writer_token'
   And error type is 'user_rejected'
   And response contains '1' params
 
-@system @telemetry
+@telemetry @retrieve
 Scenario: Retrieve telemetry when user is reader
    # retrieve telemetry
 Given set request header token from global param 'reader_token' 
@@ -49,7 +49,7 @@ Given set request header token from global param 'reader_token'
   And error type is 'user_rejected'
   And response contains '1' params
 
-@system @telemetry
+@telemetry @retrieve
 Scenario: Retrieve telemetry when token is missing
    # retrieve telemetry
 Given delete request header token 
