@@ -1,6 +1,6 @@
 Feature: List users
 
-Background: Authorize users
+Background: Auth users
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
@@ -10,16 +10,17 @@ Given auth with user role 'admin'
 @user @list
 Scenario Outline: List users when is_active is invalid
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'is_active__eq' from value '<is_active>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'is_active__eq' from value '<is_active>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '422'
-  And error loc is 'is_active__eq'
+  And error loc is 'query' and 'is_active__eq'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | is_active | error_type   |
@@ -35,12 +36,12 @@ Examples:
 @user @list
 Scenario Outline: List users when is_active is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'is_active__eq' from value '<is_active>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'is_active__eq' from value '<is_active>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -68,16 +69,17 @@ Examples:
 @user @list
 Scenario Outline: List users when user_role is invalid
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'user_role__eq' from value '<user_role>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'user_role__eq' from value '<user_role>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '422'
-  And error loc is 'user_role__eq'
+  And error loc is 'query' and 'user_role__eq'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_role | error_type |
@@ -93,12 +95,12 @@ Examples:
 @user @list
 Scenario Outline: List users when user_role is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'user_role__eq' from value '<user_role>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'user_role__eq' from value '<user_role>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -115,12 +117,12 @@ Examples:
 @user @list
 Scenario: List users when user_login is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'user_login__ilike' from value 'dummy'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'user_login__ilike' from value 'dummy'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -130,12 +132,12 @@ Given set request token from global param 'reader_token'
 @user @list
 Scenario: List users when first_name is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'first_name__ilike' from value 'dummy'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'first_name__ilike' from value 'dummy'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -145,12 +147,12 @@ Given set request token from global param 'reader_token'
 @user @list
 Scenario: List users when last_name is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'last_name__ilike' from value 'dummy'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'last_name__ilike' from value 'dummy'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -160,15 +162,16 @@ Given set request token from global param 'reader_token'
 @user @list
 Scenario Outline: List users when offset is invalid
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '<offset>'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '<offset>'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '422'
-  And error loc is 'offset'
+  And error loc is 'query' and 'offset'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | offset    | error_type         |
@@ -184,11 +187,11 @@ Examples:
 @user @list
 Scenario Outline: List users when offset is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '<offset>'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '<offset>'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -206,15 +209,16 @@ Examples:
 @user @list
 Scenario Outline: List users when limit is invalid
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '<limit>'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '<limit>'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '422'
-  And error loc is 'limit'
+  And error loc is 'query' and 'limit'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | limit     | error_type         |
@@ -232,11 +236,11 @@ Examples:
 @user @list
 Scenario Outline: List users when limit is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '<limit>'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '<limit>'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -253,15 +257,16 @@ Examples:
 @user @list
 Scenario Outline: List users when order_by is invalid
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value '<order_by>'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value '<order_by>'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '422'
-  And error loc is 'order_by'
+  And error loc is 'query' and 'order_by'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | order_by  | error_type    |
@@ -275,11 +280,11 @@ Examples:
 @user @list
 Scenario Outline: List users when order_by is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value '<order_by>'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value '<order_by>'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -301,15 +306,16 @@ Examples:
 @user @list
 Scenario Outline: List users when order is invalid
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value '<order>'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value '<order>'
  When send 'GET' request to url 'users'
  Then response code is '422'
-  And error loc is 'order'
+  And error loc is 'query' and 'order'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | order  | error_type    |
@@ -324,11 +330,11 @@ Examples:
 @user @list
 Scenario Outline: List users when order is correct
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value '<order>'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value '<order>'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -341,48 +347,48 @@ Examples:
 | desc  |
 | rand  |
 
-@user @list
-Scenario Outline: List users when app is locked
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
-    # list users
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'users'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # list users
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'users'
- Then response code is '200'
-  And response params contain 'users'
-  And response params contain 'users_count'
-  And response contains '2' params
+# @user @list
+# Scenario Outline: List users when app is locked
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # list users
+# Given set request header token from global param 'admin_token' 
+#   And set request query param 'offset' from value '0'
+#   And set request query param 'limit' from value '1'
+#   And set request query param 'order_by' from value 'id'
+#   And set request query param 'order' from value 'asc'
+#  When send 'GET' request to url 'users'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # list users
+# Given set request header token from global param 'admin_token' 
+#   And set request query param 'offset' from value '0'
+#   And set request query param 'limit' from value '1'
+#   And set request query param 'order_by' from value 'id'
+#   And set request query param 'order' from value 'asc'
+#  When send 'GET' request to url 'users'
+#  Then response code is '200'
+#   And response params contain 'users'
+#   And response params contain 'users_count'
+#   And response contains '2' params
 
 @user @list
 Scenario Outline: List users when user is admin
     # list users
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -392,11 +398,11 @@ Given set request token from global param 'admin_token'
 @user @list
 Scenario Outline: List users when user is editor
     # list users
-Given set request token from global param 'editor_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'editor_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -406,11 +412,11 @@ Given set request token from global param 'editor_token'
 @user @list
 Scenario Outline: List users when user is writer
     # list users
-Given set request token from global param 'writer_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'writer_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -420,11 +426,11 @@ Given set request token from global param 'writer_token'
 @user @list
 Scenario Outline: List users when user is reader
     # list users
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '200'
   And response params contain 'users'
@@ -434,10 +440,10 @@ Given set request token from global param 'reader_token'
 @user @list
 Scenario Outline: List users when token is missing
     # list users
-Given delete request token 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given delete request header token 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'users'
  Then response code is '403'

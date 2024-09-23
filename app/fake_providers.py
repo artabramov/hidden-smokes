@@ -18,7 +18,6 @@ USER_SIGNATURE_WORDS_COUNT = 2
 USER_CONTACTS_WORDS_COUNT = 16
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
-DOCUMENT_NAME_WORDS_NUMBER = 4
 DOCUMENT_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_TAGS_COUNT = 8
 COMMENT_CONTENT_WORDS_NUMBER = 16
@@ -76,11 +75,7 @@ class CollectionSummaryProvider(BaseProvider):
 
 class DocumentNameProvider(BaseProvider):
     def document_name(self):
-        """
-        Generate a document name by creating a random sentence with
-        Faker and removing the trailing period.
-        """
-        return fake.sentence(nb_words=DOCUMENT_NAME_WORDS_NUMBER).rstrip(".")
+        return f"{fake.word()}.{fake.file_extension()}"
 
 
 class DocumentSummaryProvider(BaseProvider):

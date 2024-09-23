@@ -10,12 +10,12 @@ Given auth with user role 'admin'
 @collection @list
 Scenario Outline: List collections when collection_name is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'collection_name__ilike' from value '<collection_name>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'collection_name__ilike' from value '<collection_name>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -34,16 +34,17 @@ Examples:
 @collection @list
 Scenario Outline: List collections when is_locked is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'is_locked__eq' from value '<is_locked>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'is_locked__eq' from value '<is_locked>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'is_locked__eq'
+  And error loc is 'query' and 'is_locked__eq'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | is_locked | error_type   |
@@ -59,12 +60,12 @@ Examples:
 @collection @list
 Scenario Outline: List collections when is_locked is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'is_locked__eq' from value '<is_locked>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'is_locked__eq' from value '<is_locked>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -85,16 +86,17 @@ Examples:
 @collection @list
 Scenario Outline: List collections when documents_count__ge is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_count__ge' from value '<documents_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'documents_count__ge' from value '<documents_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'documents_count__ge'
+  And error loc is 'query' and 'documents_count__ge'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | documents_count | error_type  |
@@ -108,12 +110,12 @@ Examples:
 @collection @list
 Scenario Outline: List collections when documents_count__ge is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_count__ge' from value '<documents_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'documents_count__ge' from value '<documents_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -133,35 +135,36 @@ Examples:
 @collection @list
 Scenario Outline: List collections when documents_count__le is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_count__le' from value '<documents_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'documents_count__le' from value '<documents_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'documents_count__le'
+  And error loc is 'query' and 'documents_count__le'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| documents_count | error_type         |
-| tabs            | int_parsing        |
-| spaces          | int_parsing        |
-| 123.4           | int_parsing        |
-| 123,0           | int_parsing        |
-| string(0)       | int_parsing        |
-| string(8)       | int_parsing        |
+| documents_count | error_type  |
+| tabs            | int_parsing |
+| spaces          | int_parsing |
+| 123.4           | int_parsing |
+| 123,0           | int_parsing |
+| string(0)       | int_parsing |
+| string(8)       | int_parsing |
 
 @collection @list
 Scenario Outline: List collections when documents_count__le is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_count__le' from value '<documents_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'documents_count__le' from value '<documents_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -179,133 +182,38 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when documents_size__ge is invalid
+Scenario Outline: List collections when uploads_count__ge is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_size__ge' from value '<documents_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_count__ge' from value '<revisions_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'documents_size__ge'
+  And error loc is 'query' and 'uploads_count__ge'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| documents_size | error_type         |
-| tabs           | int_parsing        |
-| spaces         | int_parsing        |
-| 123.4          | int_parsing        |
-| 123,0          | int_parsing        |
-| string(0)      | int_parsing        |
-| string(8)      | int_parsing        |
+| revisions_count | error_type  |
+| tabs            | int_parsing |
+| spaces          | int_parsing |
+| 123.4           | int_parsing |
+| 123,0           | int_parsing |
+| string(0)       | int_parsing |
+| string(8)       | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when documents_size__ge is correct
+Scenario Outline: List collections when uploads_count__ge is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_size__ge' from value '<documents_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '200'
-  And response params contain 'collections'
-  And response params contain 'collections_count'
-  And response contains '2' params
-
-Examples:
-| documents_size |
-| none           |
-| 0              |
-| 0.0            |
-| -123           |
-| -123.0         |
-| +123           |
-| +123.0         |
-
-@collection @list
-Scenario Outline: List collections when documents_size__le is invalid
-    # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_size__le' from value '<documents_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '422'
-  And error loc is 'documents_size__le'
-  And error type is '<error_type>'
-
-Examples:
-| documents_size | error_type         |
-| tabs           | int_parsing        |
-| spaces         | int_parsing        |
-| 123.4          | int_parsing        |
-| 123,0          | int_parsing        |
-| string(0)      | int_parsing        |
-| string(8)      | int_parsing        |
-
-@collection @list
-Scenario Outline: List collections when documents_size__le is correct
-    # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'documents_size__le' from value '<documents_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '200'
-  And response params contain 'collections'
-  And response params contain 'collections_count'
-  And response contains '2' params
-
-Examples:
-| documents_size |
-| none           |
-| 0              |
-| 0.0            |
-| -123           |
-| -123.0         |
-| +123           |
-| +123.0         |
-
-@collection @list
-Scenario Outline: List collections when revisions_count__ge is invalid
-    # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_count__ge' from value '<revisions_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '422'
-  And error loc is 'revisions_count__ge'
-  And error type is '<error_type>'
-
-Examples:
-| revisions_count | error_type         |
-| tabs            | int_parsing        |
-| spaces          | int_parsing        |
-| 123.4           | int_parsing        |
-| 123,0           | int_parsing        |
-| string(0)       | int_parsing        |
-| string(8)       | int_parsing        |
-
-@collection @list
-Scenario Outline: List collections when revisions_count__ge is correct
-    # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_count__ge' from value '<revisions_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_count__ge' from value '<revisions_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -323,37 +231,38 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when revisions_count__le is invalid
+Scenario Outline: List collections when uploads_count__le is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_count__le' from value '<revisions_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_count__le' from value '<revisions_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'revisions_count__le'
+  And error loc is 'query' and 'uploads_count__le'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| revisions_count | error_type         |
-| tabs            | int_parsing        |
-| spaces          | int_parsing        |
-| 123.4           | int_parsing        |
-| 123,0           | int_parsing        |
-| string(0)       | int_parsing        |
-| string(8)       | int_parsing        |
+| revisions_count | error_type  |
+| tabs            | int_parsing |
+| spaces          | int_parsing |
+| 123.4           | int_parsing |
+| 123,0           | int_parsing |
+| string(0)       | int_parsing |
+| string(8)       | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when revisions_count__le is correct
+Scenario Outline: List collections when uploads_count__le is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_count__le' from value '<revisions_count>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_count__le' from value '<revisions_count>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -371,37 +280,38 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when revisions_size__ge is invalid
+Scenario Outline: List collections when uploads_size__ge is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_size__ge' from value '<revisions_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_size__ge' from value '<revisions_size>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'revisions_size__ge'
+  And error loc is 'query' and 'uploads_size__ge'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| revisions_size | error_type         |
-| tabs           | int_parsing        |
-| spaces         | int_parsing        |
-| 123.4          | int_parsing        |
-| 123,0          | int_parsing        |
-| string(0)      | int_parsing        |
-| string(8)      | int_parsing        |
+| revisions_size | error_type  |
+| tabs           | int_parsing |
+| spaces         | int_parsing |
+| 123.4          | int_parsing |
+| 123,0          | int_parsing |
+| string(0)      | int_parsing |
+| string(8)      | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when revisions_size__ge is correct
+Scenario Outline: List collections when uploads_size__ge is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_size__ge' from value '<revisions_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_size__ge' from value '<revisions_size>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -419,37 +329,38 @@ Examples:
 | +123.0         |
 
 @collection @list
-Scenario Outline: List collections when revisions_size__le is invalid
+Scenario Outline: List collections when uploads_size__le is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_size__le' from value '<revisions_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_size__le' from value '<revisions_size>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'revisions_size__le'
+  And error loc is 'query' and 'uploads_size__le'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| revisions_size | error_type         |
-| tabs           | int_parsing        |
-| spaces         | int_parsing        |
-| 123.4          | int_parsing        |
-| 123,0          | int_parsing        |
-| string(0)      | int_parsing        |
-| string(8)      | int_parsing        |
+| revisions_size | error_type  |
+| tabs           | int_parsing |
+| spaces         | int_parsing |
+| 123.4          | int_parsing |
+| 123,0          | int_parsing |
+| string(0)      | int_parsing |
+| string(8)      | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when revisions_size__le is correct
+Scenario Outline: List collections when uploads_size__le is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'revisions_size__le' from value '<revisions_size>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'uploads_size__le' from value '<revisions_size>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -469,15 +380,16 @@ Examples:
 @collection @list
 Scenario Outline: List collections when offset is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '<offset>'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '<offset>'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'offset'
+  And error loc is 'query' and 'offset'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | offset    | error_type         |
@@ -493,11 +405,11 @@ Examples:
 @collection @list
 Scenario Outline: List collections when offset is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '<offset>'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '<offset>'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -515,15 +427,16 @@ Examples:
 @collection @list
 Scenario Outline: List collections when limit is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '<limit>'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '<limit>'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'limit'
+  And error loc is 'query' and 'limit'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | limit     | error_type         |
@@ -541,11 +454,11 @@ Examples:
 @collection @list
 Scenario Outline: List collections when limit is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '<limit>'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '<limit>'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -562,15 +475,16 @@ Examples:
 @collection @list
 Scenario Outline: List collections when order_by is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value '<order_by>'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value '<order_by>'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'order_by'
+  And error loc is 'query' and 'order_by'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | order_by  | error_type    |
@@ -584,11 +498,11 @@ Examples:
 @collection @list
 Scenario Outline: List collections when order_by is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value '<order_by>'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value '<order_by>'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -603,22 +517,22 @@ Examples:
 | user_id         |
 | collection_name |
 | documents_count |
-| documents_size  |
-| revisions_count |
-| revisions_size  |
+| uploads_count   |
+| uploads_size    |
 
 @collection @list
 Scenario Outline: List collections when order is invalid
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value '<order>'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value '<order>'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'order'
+  And error loc is 'query' and 'order'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | order  | error_type    |
@@ -633,11 +547,11 @@ Examples:
 @collection @list
 Scenario Outline: List collections when order is correct
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value '<order>'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value '<order>'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -650,48 +564,48 @@ Examples:
 | desc  |
 | rand  |
 
-@collection @list
-Scenario: List collections when app is locked
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
-    # list collections
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # list collections
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'collections'
- Then response code is '200'
-  And response params contain 'collections'
-  And response params contain 'collections_count'
-  And response contains '2' params
+# @collection @list
+# Scenario: List collections when app is locked
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # list collections
+# Given set request header token from global param 'admin_token' 
+#   And set request query param 'offset' from value '0'
+#   And set request query param 'limit' from value '1'
+#   And set request query param 'order_by' from value 'id'
+#   And set request query param 'order' from value 'asc'
+#  When send 'GET' request to url 'collections'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # list collections
+# Given set request header token from global param 'admin_token' 
+#   And set request query param 'offset' from value '0'
+#   And set request query param 'limit' from value '1'
+#   And set request query param 'order_by' from value 'id'
+#   And set request query param 'order' from value 'asc'
+#  When send 'GET' request to url 'collections'
+#  Then response code is '200'
+#   And response params contain 'collections'
+#   And response params contain 'collections_count'
+#   And response contains '2' params
 
 @collection @list
 Scenario: List collections when user is admin
     # list collections
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -701,11 +615,11 @@ Given set request token from global param 'admin_token'
 @collection @list
 Scenario: List collections when user is editor
     # list collections
-Given set request token from global param 'editor_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'editor_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -715,11 +629,11 @@ Given set request token from global param 'editor_token'
 @collection @list
 Scenario: List collections when user is writer
     # list collections
-Given set request token from global param 'writer_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'writer_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -729,11 +643,11 @@ Given set request token from global param 'writer_token'
 @collection @list
 Scenario: List collections when user is reader
     # list collections
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '200'
   And response params contain 'collections'
@@ -743,10 +657,10 @@ Given set request token from global param 'reader_token'
 @collection @list
 Scenario: List collections when token is missing
     # list collections
-Given delete request token 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given delete request header token 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '403'

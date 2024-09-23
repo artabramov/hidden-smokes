@@ -15,11 +15,14 @@ def before_all(context):
 
 
 def before_scenario(context, scenario):
+    # reset request body param
     context.request_headers = {}
-    context.request_placeholders = {}
-    context.request_params = {}
+    context.request_path = {}
+    context.request_query = {}
+    context.request_body = {}
     context.request_files = {}
 
+    # reset response data
     context.response_code = 0
     context.response_params = {}
     context.response_content = None

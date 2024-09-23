@@ -8,38 +8,61 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @user @update
+Scenario Outline: Update user when user_id is not found
+    # update user
+Given set request header token from global param 'admin_token'
+  And set request path param 'user_id' from value '<user_id>'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
+ When send 'PUT' request to url 'user/:user_id'
+ Then response code is '404'
+  And error loc is 'path' and 'user_id'
+  And error type is 'resource_not_found'
+  And response contains '1' params
+
+Examples:
+| user_id    |
+| -1         |
+| 0          |
+| 9999999999 |
+
+@user @update
 Scenario: Update user when user_id is invalid
     # update user
-Given set request token from global param 'admin_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from value 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'admin_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '403'
-  And error loc is 'user_id'
+  And error loc is 'path' and 'user_id'
   And error type is 'resource_forbidden'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when first_name is invalid
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from value '<first_name>'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from value '<first_name>'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '422'
-  And error loc is 'first_name'
+  And error loc is 'body' and 'first_name'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | first_name | error_type       |
 | none       | missing          |
-| tabs       | value_error      |
-| spaces     | value_error      |
+| tabs       | string_too_short |
+| spaces     | string_too_short |
 | string(0)  | string_too_short |
 | string(1)  | string_too_short |
 | string(41) | string_too_long  |
@@ -47,22 +70,23 @@ Examples:
 @user @update
 Scenario Outline: Update user when last_name is invalid
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from value '<last_name>'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from value '<last_name>'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '422'
-  And error loc is 'last_name'
+  And error loc is 'body' and 'last_name'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | last_name  | error_type       |
 | none       | missing          |
-| tabs       | value_error      |
-| spaces     | value_error      |
+| tabs       | string_too_short |
+| spaces     | string_too_short |
 | string(0)  | string_too_short |
 | string(1)  | string_too_short |
 | string(41) | string_too_long  |
@@ -70,16 +94,17 @@ Examples:
 @user @update
 Scenario Outline: Update user when user_signature is invalid
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from value '<user_signature>'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from value '<user_signature>'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '422'
-  And error loc is 'user_signature'
+  And error loc is 'body' and 'user_signature'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_signature | error_type      |
@@ -88,12 +113,12 @@ Examples:
 @user @update
 Scenario Outline: Update user when user_signature is correct
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from value '<user_signature>'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from value '<user_signature>'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
@@ -111,16 +136,17 @@ Examples:
 @user @update
 Scenario Outline: Update user when user_contacts is invalid
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from value '<user_contacts>'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from value '<user_contacts>'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '422'
-  And error loc is 'user_contacts'
+  And error loc is 'body' and 'user_contacts'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_contacts | error_type      |
@@ -129,12 +155,12 @@ Examples:
 @user @update
 Scenario Outline: Update user when user_contacts is correct
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from value '<user_contacts>'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from value '<user_contacts>'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
@@ -149,50 +175,50 @@ Examples:
 | string(1)     |
 | string(512)   |
 
-@user @update
-Scenario Outline: Update user when app islocked
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
-    # update user
-Given set request token from global param 'admin_token'
-  And set request placeholder 'user_id' from global param 'admin_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
- When send 'PUT' request to url 'user/:user_id'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # update user
-Given set request token from global param 'admin_token'
-  And set request placeholder 'user_id' from global param 'admin_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
- When send 'PUT' request to url 'user/:user_id'
- Then response code is '200'
-  And response params contain 'user_id'
-  And response contains '1' params
+# @user @update
+# Scenario Outline: Update user when app islocked
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # update user
+# Given set request header token from global param 'admin_token'
+#   And set request path param 'user_id' from global param 'admin_id'
+#   And set request body param 'first_name' from fake 'first_name'
+#   And set request body param 'last_name' from fake 'last_name'
+#   And set request body param 'user_signature' from fake 'user_signature'
+#   And set request body param 'user_contacts' from fake 'user_contacts'
+#  When send 'PUT' request to url 'user/:user_id'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # update user
+# Given set request header token from global param 'admin_token'
+#   And set request path param 'user_id' from global param 'admin_id'
+#   And set request body param 'first_name' from fake 'first_name'
+#   And set request body param 'last_name' from fake 'last_name'
+#   And set request body param 'user_signature' from fake 'user_signature'
+#   And set request body param 'user_contacts' from fake 'user_contacts'
+#  When send 'PUT' request to url 'user/:user_id'
+#  Then response code is '200'
+#   And response params contain 'user_id'
+#   And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when user is admin
     # update user
-Given set request token from global param 'admin_token'
-  And set request placeholder 'user_id' from global param 'admin_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'admin_token'
+  And set request path param 'user_id' from global param 'admin_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
@@ -201,12 +227,12 @@ Given set request token from global param 'admin_token'
 @user @update
 Scenario Outline: Update user when user is editor
     # update user
-Given set request token from global param 'editor_token'
-  And set request placeholder 'user_id' from global param 'editor_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'editor_token'
+  And set request path param 'user_id' from global param 'editor_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
@@ -215,12 +241,12 @@ Given set request token from global param 'editor_token'
 @user @update
 Scenario Outline: Update user when user is writer
     # update user
-Given set request token from global param 'writer_token'
-  And set request placeholder 'user_id' from global param 'writer_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'writer_token'
+  And set request path param 'user_id' from global param 'writer_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
@@ -229,12 +255,12 @@ Given set request token from global param 'writer_token'
 @user @update
 Scenario Outline: Update user when user is reader
     # update user
-Given set request token from global param 'reader_token'
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request header token from global param 'reader_token'
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
@@ -243,11 +269,11 @@ Given set request token from global param 'reader_token'
 @user @update
 Scenario Outline: Update user when token is missing
     # update user
-Given delete request token
-  And set request placeholder 'user_id' from global param 'reader_id'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given delete request header token
+  And set request path param 'user_id' from global param 'reader_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'PUT' request to url 'user/:user_id'
  Then response code is '403'

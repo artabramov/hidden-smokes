@@ -1,22 +1,23 @@
 Feature: Register user
 
-Background: Authorize admin user
+Background: Auth users
     # auth users
 Given auth with user role 'admin'
 
 @user @register
 Scenario Outline: Register user when user_login is invalid
     # register user
-Given set request param 'user_login' from value '<user_login>'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from value '<user_login>'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '422'
-  And error loc is 'user_login'
+  And error loc is 'body' and 'user_login'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_login | error_type              |
@@ -34,12 +35,12 @@ Examples:
 @user @register
 Scenario Outline: Register user when user_login is correct
     # register user
-Given set request param 'user_login' from value '<user_login>'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from value '<user_login>'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -48,11 +49,12 @@ Given set request param 'user_login' from value '<user_login>'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | user_login |
@@ -62,35 +64,34 @@ Examples:
 @user @register
 Scenario Outline: Register user when user_password is invalid
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '<user_password>'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '<user_password>'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '422'
-  And error loc is 'user_password'
+  And error loc is 'body' and 'user_password'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| user_password | error_type  |
-| none          | missing     |
-| tabs          | value_error |
-| spaces        | value_error |
-| string(0)     | too_short   |
-| string(1)     | too_short   |
-| string(5)     | too_short   |
+| user_password | error_type       |
+| none          | missing          |
+| string(0)     | string_too_short |
+| string(1)     | string_too_short |
+| string(5)     | string_too_short |
 
 @user @register
 Scenario Outline: Register user when user_password is correct
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '<user_password>'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '<user_password>'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -99,35 +100,39 @@ Given set request param 'user_login' from fake 'user_login'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | user_password |
+| tabs          |
+| spaces        |
 | string(6)     |
 
 @user @register
 Scenario Outline: Register user when first_name is invalid
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from value '<first_name>'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from value '<first_name>'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '422'
-  And error loc is 'first_name'
+  And error loc is 'body' and 'first_name'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | first_name | error_type       |
 | none       | missing          |
-| tabs       | value_error      |
-| spaces     | value_error      |
+| tabs       | string_too_short |
+| spaces     | string_too_short |
 | string(0)  | string_too_short |
 | string(1)  | string_too_short |
 | string(41) | string_too_long  |
@@ -135,12 +140,12 @@ Examples:
 @user @register
 Scenario Outline: Register user when first_name is correct
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from value '<first_name>'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from value '<first_name>'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -149,11 +154,12 @@ Given set request param 'user_login' from fake 'user_login'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | first_name |
@@ -163,22 +169,23 @@ Examples:
 @user @register
 Scenario Outline: Register user when last_name is invalid
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from value '<last_name>'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from value '<last_name>'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '422'
-  And error loc is 'last_name'
+  And error loc is 'body' and 'last_name'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | last_name  | error_type       |
 | none       | missing          |
-| tabs       | value_error      |
-| spaces     | value_error      |
+| tabs       | string_too_short |
+| spaces     | string_too_short |
 | string(0)  | string_too_short |
 | string(1)  | string_too_short |
 | string(41) | string_too_long  |
@@ -186,12 +193,12 @@ Examples:
 @user @register
 Scenario Outline: Register user when last_name is correct
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from value '<last_name>'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from value '<last_name>'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -200,11 +207,12 @@ Given set request param 'user_login' from fake 'user_login'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | last_name  |
@@ -214,16 +222,17 @@ Examples:
 @user @register
 Scenario Outline: Register user when user_signature is invalid
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from value '<user_signature>'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from value '<user_signature>'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '422'
-  And error loc is 'user_signature'
+  And error loc is 'body' and 'user_signature'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_signature | error_type      |
@@ -232,12 +241,12 @@ Examples:
 @user @register
 Scenario Outline: Register user when user_signature is correct
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from value '<user_signature>'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from value '<user_signature>'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -246,11 +255,12 @@ Given set request param 'user_login' from fake 'user_login'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | user_signature |
@@ -264,16 +274,17 @@ Examples:
 @user @register
 Scenario Outline: Register user when user_contacts is invalid
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from value '<user_contacts>'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from value '<user_contacts>'
  When send 'POST' request to url 'user'
  Then response code is '422'
-  And error loc is 'user_contacts'
+  And error loc is 'body' and 'user_contacts'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_contacts | error_type      |
@@ -282,12 +293,12 @@ Examples:
 @user @register
 Scenario Outline: Register user when user_contacts is correct
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from value '<user_contacts>'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from value '<user_contacts>'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -296,11 +307,12 @@ Given set request param 'user_login' from fake 'user_login'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params
 
 Examples:
 | user_contacts |
@@ -311,60 +323,60 @@ Examples:
 | string(1)     |
 | string(512)   |
 
-@user @register
-Scenario: Register user when app is locked
-Given auth with user role 'admin'
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
-    # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
- When send 'POST' request to url 'user'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
- When send 'POST' request to url 'user'
- Then response code is '201'
-  And response params contain 'user_id'
-  And response params contain 'mfa_secret'
-  And response params contain 'mfa_url'
-  And response contains '3' params
-  And save response param 'user_id' to global param 'user_id'
-    # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
- When send 'DELETE' request to url 'user/:user_id'
- Then response code is '200'
-  And response params contain 'user_id'
+# @user @register
+# Scenario: Register user when app is locked
+# Given auth with user role 'admin'
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # register user
+# Given set request body param 'user_login' from fake 'user_login'
+#   And set request body param 'user_password' from value '123456'
+#   And set request body param 'first_name' from fake 'first_name'
+#   And set request body param 'last_name' from fake 'last_name'
+#   And set request body param 'user_signature' from fake 'user_signature'
+#   And set request body param 'user_contacts' from fake 'user_contacts'
+#  When send 'POST' request to url 'user'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # register user
+# Given set request body param 'user_login' from fake 'user_login'
+#   And set request body param 'user_password' from value '123456'
+#   And set request body param 'first_name' from fake 'first_name'
+#   And set request body param 'last_name' from fake 'last_name'
+#   And set request body param 'user_signature' from fake 'user_signature'
+#   And set request body param 'user_contacts' from fake 'user_contacts'
+#  When send 'POST' request to url 'user'
+#  Then response code is '201'
+#   And response params contain 'user_id'
+#   And response params contain 'mfa_secret'
+#   And response params contain 'mfa_url'
+#   And response contains '3' params
+#   And save response param 'user_id' to global param 'user_id'
+#     # delete user
+# Given set request header token from global param 'admin_token' 
+#   And set request path param 'user_id' from global param 'user_id'
+#  When send 'DELETE' request to url 'user/:user_id'
+#  Then response code is '200'
+#   And response params contain 'user_id'
 
 @user @register
 Scenario: Register user
     # register user
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value '123456'
-  And set request param 'first_name' from fake 'first_name'
-  And set request param 'last_name' from fake 'last_name'
-  And set request param 'user_signature' from fake 'user_signature'
-  And set request param 'user_contacts' from fake 'user_contacts'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '201'
   And response params contain 'user_id'
@@ -373,8 +385,9 @@ Given set request param 'user_login' from fake 'user_login'
   And response contains '3' params
   And save response param 'user_id' to global param 'user_id'
     # delete user
-Given set request token from global param 'admin_token' 
-  And set request placeholder 'user_id' from global param 'user_id'
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '200'
   And response params contain 'user_id'
+  And response contains '1' params

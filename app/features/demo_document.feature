@@ -6,7 +6,7 @@ Given auth with user role 'admin'
 @document @demo
 Scenario: Create demo document
     # select random collection
-Given set request token from global param 'admin_token' 
+Given set request header token from global param 'admin_token' 
   And set request param 'offset' from value '0'
   And set request param 'limit' from value '1'
   And set request param 'order_by' from value 'id'
@@ -16,7 +16,7 @@ Given set request token from global param 'admin_token'
   And response params contain 'collections'
   And save id from response list 'collections' to global param 'collection_id'
     # insert document
-Given set request token from global param 'admin_token' 
+Given set request header token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
   And set request param 'document_name' from fake 'document_name'
   And set request param 'document_summary' from fake 'document_summary'

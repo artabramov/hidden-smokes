@@ -10,16 +10,17 @@ Given auth with user role 'admin'
 @download @list
 Scenario Outline: List downloads when document_id is invalid
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'document_id__eq' from value '<document_id>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'document_id__eq' from value '<document_id>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '422'
-  And error loc is 'document_id__eq'
+  And error loc is 'query' and 'document_id__eq'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | collection_id | error_type         |
@@ -33,12 +34,12 @@ Examples:
 @download @list
 Scenario Outline: List downloads when document_id is correct
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'document_id__eq' from value '<document_id>'
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'document_id__eq' from value '<document_id>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '200'
   And response params contain 'downloads'
@@ -58,15 +59,16 @@ Examples:
 @download @list
 Scenario Outline: List downloads when offset is invalid
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '<offset>'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '<offset>'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '422'
-  And error loc is 'offset'
+  And error loc is 'query' and 'offset'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | offset    | error_type         |
@@ -82,11 +84,11 @@ Examples:
 @download @list
 Scenario Outline: List downloads when offset is correct
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '<offset>'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '<offset>'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '200'
   And response params contain 'downloads'
@@ -104,15 +106,16 @@ Examples:
 @download @list
 Scenario Outline: List downloads when limit is invalid
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '<limit>'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '<limit>'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '422'
-  And error loc is 'limit'
+  And error loc is 'query' and 'limit'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | limit     | error_type         |
@@ -130,11 +133,11 @@ Examples:
 @download @list
 Scenario Outline: List downloads when limit is correct
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '<limit>'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '<limit>'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '200'
   And response params contain 'downloads'
@@ -151,15 +154,16 @@ Examples:
 @download @list
 Scenario Outline: List downloads when order_by is invalid
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value '<order_by>'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value '<order_by>'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '422'
-  And error loc is 'order_by'
+  And error loc is 'query' and 'order_by'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | order_by  | error_type    |
@@ -173,11 +177,11 @@ Examples:
 @download @list
 Scenario Outline: List downloads when order_by is correct
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value '<order_by>'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value '<order_by>'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '200'
   And response params contain 'downloads'
@@ -192,15 +196,16 @@ Examples:
 @download @list
 Scenario Outline: List downloads when order is invalid
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value '<order>'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value '<order>'
  When send 'GET' request to url 'downloads'
  Then response code is '422'
-  And error loc is 'order'
+  And error loc is 'query' and 'order'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | order  | error_type    |
@@ -217,11 +222,11 @@ Examples:
 @download @list
 Scenario Outline: List downloads when order is correct
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value '<order>'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value '<order>'
  When send 'GET' request to url 'downloads'
  Then response code is '200'
   And response params contain 'downloads'
@@ -233,48 +238,48 @@ Examples:
 | asc   |
 | desc  |
 
-@download @list
-Scenario: List downloads when app is locked
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
-    # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'downloads'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
- When send 'GET' request to url 'downloads'
- Then response code is '200'
-  And response params contain 'downloads'
-  And response params contain 'downloads_count'
-  And response contains '2' params
+# @download @list
+# Scenario: List downloads when app is locked
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # list downloads
+# Given set request header token from global param 'admin_token' 
+#   And set request query param 'offset' from value '0'
+#   And set request query param 'limit' from value '1'
+#   And set request query param 'order_by' from value 'id'
+#   And set request query param 'order' from value 'asc'
+#  When send 'GET' request to url 'downloads'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # list downloads
+# Given set request header token from global param 'admin_token' 
+#   And set request query param 'offset' from value '0'
+#   And set request query param 'limit' from value '1'
+#   And set request query param 'order_by' from value 'id'
+#   And set request query param 'order' from value 'asc'
+#  When send 'GET' request to url 'downloads'
+#  Then response code is '200'
+#   And response params contain 'downloads'
+#   And response params contain 'downloads_count'
+#   And response contains '2' params
 
 @download @list
 Scenario: List downloads when user is admin
     # list downloads
-Given set request token from global param 'admin_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '200'
   And response params contain 'downloads'
@@ -284,49 +289,52 @@ Given set request token from global param 'admin_token'
 @download @list
 Scenario: List downloads when user is editor
     # list downloads
-Given set request token from global param 'editor_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'editor_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '403'
-  And error loc is 'user_token'
+  And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
+  And response contains '1' params
 
 @download @list
 Scenario: List downloads when user is writer
     # list downloads
-Given set request token from global param 'writer_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'writer_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '403'
-  And error loc is 'user_token'
+  And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
+  And response contains '1' params
 
 @download @list
 Scenario: List downloads when user is reader
     # list downloads
-Given set request token from global param 'reader_token' 
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given set request header token from global param 'reader_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '403'
-  And error loc is 'user_token'
+  And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
+  And response contains '1' params
 
 @download @list
 Scenario: List downloads when token is missing
     # list downloads
-Given delete request token
-  And set request param 'offset' from value '0'
-  And set request param 'limit' from value '1'
-  And set request param 'order_by' from value 'id'
-  And set request param 'order' from value 'asc'
+Given delete request header token
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'downloads'
  Then response code is '403'

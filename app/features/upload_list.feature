@@ -1,4 +1,4 @@
-Feature: List comments
+Feature: List uploads
 
 Background: Auth users
     # auth users
@@ -7,16 +7,16 @@ Given auth with user role 'admin'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
-@comment @list
-Scenario Outline: List comments when document_id is invalid
-    # list comments
+@upload @list
+Scenario Outline: List uploads when document_id is invalid
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'document_id__eq' from value '<document_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '422'
   And error loc is 'query' and 'document_id__eq'
   And error type is '<error_type>'
@@ -31,19 +31,19 @@ Examples:
 | string(0)     | int_parsing        |
 | string(8)     | int_parsing        |
 
-@comment @list
-Scenario Outline: List comments when document_id is correct
-    # list comments
+@upload @list
+Scenario Outline: List uploads when document_id is correct
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'document_id__eq' from value '<document_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
 Examples:
@@ -56,15 +56,15 @@ Examples:
 | +123        |
 | +123.0      |
 
-@comment @list
-Scenario Outline: List comments when offset is invalid
-    # list comments
+@upload @list
+Scenario Outline: List uploads when offset is invalid
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '<offset>'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '422'
   And error loc is 'query' and 'offset'
   And error type is '<error_type>'
@@ -81,18 +81,18 @@ Examples:
 | string(0) | int_parsing        |
 | string(8) | int_parsing        |
 
-@comment @list
-Scenario Outline: List comments when offset is correct
-    # list comments
+@upload @list
+Scenario Outline: List uploads when offset is correct
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '<offset>'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
 Examples:
@@ -103,15 +103,15 @@ Examples:
 | 123.0  |
 | +123   |
 
-@comment @list
-Scenario Outline: List comments when limit is invalid
-    # list comments
+@upload @list
+Scenario Outline: List uploads when limit is invalid
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '<limit>'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '422'
   And error loc is 'query' and 'limit'
   And error type is '<error_type>'
@@ -130,18 +130,18 @@ Examples:
 | string(0) | int_parsing        |
 | string(8) | int_parsing        |
 
-@comment @list
-Scenario Outline: List comments when limit is correct
-    # list comments
+@upload @list
+Scenario Outline: List uploads when limit is correct
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '<limit>'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
 Examples:
@@ -151,15 +151,15 @@ Examples:
 | 123.0 |
 | +123  |
 
-@comment @list
-Scenario Outline: List comments when order_by is invalid
-    # list comments
+@upload @list
+Scenario Outline: List uploads when order_by is invalid
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value '<order_by>'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '422'
   And error loc is 'query' and 'order_by'
   And error type is '<error_type>'
@@ -174,18 +174,18 @@ Examples:
 | 123       | literal_error |
 | string(8) | literal_error |
 
-@comment @list
-Scenario Outline: List comments when order_by is correct
-    # list comments
+@upload @list
+Scenario Outline: List uploads when order_by is correct
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value '<order_by>'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
 Examples:
@@ -193,15 +193,15 @@ Examples:
 | id                |
 | created_date      |
 
-@comment @list
-Scenario Outline: List comments when order is invalid
-    # list comments
+@upload @list
+Scenario Outline: List uploads when order is invalid
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value '<order>'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '422'
   And error loc is 'query' and 'order'
   And error type is '<error_type>'
@@ -219,18 +219,18 @@ Examples:
 | RAND   | literal_error |
 | rand   | literal_error |
 
-@comment @list
-Scenario Outline: List comments when order is correct
-    # list comments
+@upload @list
+Scenario Outline: List uploads when order is correct
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value '<order>'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
 Examples:
@@ -238,21 +238,21 @@ Examples:
 | asc   |
 | desc  |
 
-# @comment @list
-# Scenario: List comments when app is locked
+# @upload @list
+# Scenario: List uploads when app is locked
 #     # lock app
 # Given set request header token from global param 'admin_token' 
 #  When send 'GET' request to url 'system/lock'
 #  Then response code is '200'
 #   And response params contain 'is_locked'
 #   And response param 'is_locked' equals 'True'
-#     # list comments
+#     # list uploads
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'comments'
+#  When send 'GET' request to url 'uploads'
 #  Then response code is '503'
 #     # unlock app
 # Given set request header token from global param 'admin_token' 
@@ -260,80 +260,81 @@ Examples:
 #  Then response code is '200'
 #   And response params contain 'is_locked'
 #   And response param 'is_locked' equals 'False'
-#     # list comments
+#     # list uploads
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'comments'
+#  When send 'GET' request to url 'uploads'
 #  Then response code is '200'
-#   And response params contain 'comments'
-#   And response params contain 'comments_count'
+#   And response params contain 'uploads'
+#   And response params contain 'uploads_count'
+#   And response contains '2' params
 
-@comment @list
-Scenario: List comments when user is admin
-    # list comments
+@upload @list
+Scenario: List uploads when user is admin
+    # list uploads
 Given set request header token from global param 'admin_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
-@comment @list
-Scenario: List comments when user is editor
-    # list comments
+@upload @list
+Scenario: List uploads when user is editor
+    # list uploads
 Given set request header token from global param 'editor_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
-@comment @list
-Scenario: List comments when user is writer
-    # list comments
+@upload @list
+Scenario: List uploads when user is writer
+    # list uploads
 Given set request header token from global param 'writer_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
-@comment @list
-Scenario: List comments when user is reader
-    # list comments
+@upload @list
+Scenario: List uploads when user is reader
+    # list uploads
 Given set request header token from global param 'reader_token' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '200'
-  And response params contain 'comments'
-  And response params contain 'comments_count'
+  And response params contain 'uploads'
+  And response params contain 'uploads_count'
   And response contains '2' params
 
-@comment @list
-Scenario: List comments when token is missing
-    # list comments
+@upload @list
+Scenario: List uploads when token is missing
+    # list uploads
 Given delete request header token
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'comments'
+ When send 'GET' request to url 'uploads'
  Then response code is '403'

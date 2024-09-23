@@ -31,12 +31,13 @@ def step_impl(context, user_role):
     """
     if user_role + "_token" not in context.global_params:
         # user login
-        url = context.config_params["internal_base_url"] + "auth/login/"
-        params = {
+        url = context.config_params["internal_base_url"] + "auth/login"
+        body_params = {
             "user_login": context.config_params[user_role + "_login"],
             "user_password": context.config_params[user_role + "_password"],
         }
-        response = requests.get(url, headers=REQUEST_HEADERS, params=params)
+        response = requests.post(url, headers=REQUEST_HEADERS,
+                                 json=body_params)
 
         # retrieve token
         url = context.config_params["internal_base_url"] + "auth/token/"

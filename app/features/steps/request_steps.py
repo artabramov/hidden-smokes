@@ -24,135 +24,171 @@ AUTH_PREFIX = "Bearer "
 STRING_CHARACTERS = string.ascii_letters
 
 
-@given("set request token from global param '{global_param}'")
-def step_impl(context, global_param):
+@given("set request header token from global param '{global_param}'")
+def step_impl(context, global_param: str):
     """
-    Sets the request token in request_headers by prefixing the value
-    from global_params associated with global_param with AUTH_PREFIX,
-    and then storing the result under the AUTH_HEADER key.
+    Sets the request token in the headers by prefixing a value from
+    global parameters with a predefined prefix. The resulting token
+    is then stored in the request headers.
     """
     auth_header = AUTH_PREFIX + context.global_params[global_param]
     context.request_headers[AUTH_HEADER] = auth_header
 
 
-@given("set request token from response param '{response_param}'")
-def step_impl(context, response_param):
+@given("set request header token from response param '{response_param}'")
+def step_impl(context, response_param: str):
     """
-    Sets the request token in request_headers using a value
-    from response_params, by prefixing the value associated with
-    response_param with AUTH_PREFIX and storing it under the
-    AUTH_HEADER key.
+    Sets the request token in the headers using a value from the
+    response parameters. The value is prefixed with a predefined
+    string and then stored in the request headers.
     """
     auth_header = AUTH_PREFIX + context.response_params[response_param]
     context.request_headers[AUTH_HEADER] = auth_header
 
 
-@given("delete request token")
+@given("delete request header token")
 def step_impl(context):
     """
-    Removes the authentication token from the request_headers in the
-    context if it exists, by deleting the entry associated with the 
-    corresponding key.
+    Removes the authentication token from the request headers in
+    the context, if it exists, by deleting the entry associated
+    with the relevant key.
     """
     if AUTH_HEADER in context.request_headers:
         del context.request_headers[AUTH_HEADER]
 
 
-@given("set request placeholder '{request_placeholder}' from config param '{config_param}'")
-def step_impl(context, request_placeholder, config_param):
+@given("set request path param '{path_param}' from config param '{config_param}'")
+def step_impl(context, path_param: str, config_param: str):
     """
-    Sets a request placeholder in the context with a value retrieved
-    from config parameters, updating the request_placeholders dict using
-    the specified config parameter key to get the corresponding value
-    from config_params.
+    Sets a request path parameter in the context using a value retrieved
+    from the configuration parameters. The specified configuration key
+    is used to obtain the corresponding value, which is then updated
+    in the request path.
     """
-    param = context.config_params[config_param]
-    context.request_placeholders[request_placeholder] = param
+    context.request_path[path_param] = context.config_params[config_param]
 
 
-@given("set request placeholder '{request_placeholder}' from global param '{global_param}'")
-def step_impl(context, request_placeholder, global_param):
+@given("set request query param '{query_param}' from config param '{config_param}'")
+def step_impl(context, query_param: str, config_param: str):
+    context.request_query[query_param] = context.config_params[config_param]
+
+
+@given("set request path param '{path_param}' from global param '{global_param}'")
+def step_impl(context, path_param: str, global_param: str):
     """
-    Sets a request placeholder in the context with a value retrieved
-    from global parameters, updating the request_placeholders dict using
-    the specified global parameter key to get the corresponding value
-    from global_params.
+    Sets a request path parameter in the context using a value retrieved 
+    from global parameters. The specified global parameter key is used
+    to obtain the corresponding value, which updates the request path.
     """
     param = context.global_params[global_param]
-    context.request_placeholders[request_placeholder] = param
+    context.request_path[path_param] = param
 
 
-@given("set request placeholder '{request_placeholder}' from value '{value}'")
-def step_impl(context, request_placeholder, value):
+@given("set request path param '{path_param}' from value '{value}'")
+def step_impl(context, path_param: str, value: str):
     """
-    Sets a value for a request placeholder in the context, allowing for
-    dynamic data assignment in BDD scenarios. This step updates the
-    request_placeholders dict in the context with the given placeholder
-    key and its corresponding value.
+    Sets a request path parameter in the context based on the provided
+    value. If the value is "none," the corresponding entry is removed
+    from the request path. Otherwise, the value is processed and stored
+    in the request path.
     """
     if value == "none":
-        if value in context.request_placeholders:
-            del context.request_placeholders[request_placeholder]
+        if value in context.request_path:
+            del context.request_path[path_param]
     
     else:
-        context.request_placeholders[request_placeholder] = _get_actual_value(value)
+        context.request_path[path_param] = _get_actual_value(value)
 
 
-@given("set request placeholder '{request_placeholder}' from fake '{fake_provider}'")
-def step_impl(context, request_placeholder, fake_provider):
+@given("set request path param '{path_param}' from fake '{fake_provider}'")
+def step_impl(context, path_param: str, fake_provider: str):
     """
-    Sets a request placeholder in request_placeholders using a value
-    generated by a fake data provider. The function retrieves the fake
-    provider function from the Fake module and invokes it to generate
-    the value to be assigned to the specified request placeholder.
+    Sets a request path parameter using a value generated by a fake
+    data provider. This function retrieves the appropriate fake provider
+    function and invokes it to generate the value assigned to the
+    specified request path parameter.
     """
-    context.request_placeholders[request_placeholder] = getattr(fake, fake_provider)()
+    context.request_path[path_param] = getattr(fake, fake_provider)()
 
 
-@given("set request param '{request_param}' from value '{value}'")
-def step_impl(context, request_param, value):
+@given("set request body param '{body_param}' from value '{value}'")
+def step_impl(context, body_param: str, value: str):
     """
-    Sets or modifies a request parameter in request_params based on the
-    specified value.
+    Sets a request body parameter based on the provided value.
+    If the value is "none," the corresponding entry is removed
+    from the request body. Otherwise, the value is processed and
+    assigned to the specified body parameter.
     """
     if value == "none":
-        if request_param in context.request_params:
-            del context.request_params[request_param]
+        if body_param in context.request_body:
+            del context.request_body[body_param]
 
     else:
-        context.request_params[request_param] = _get_actual_value(value)
+        context.request_body[body_param] = _get_actual_value(value)
 
 
-@given("set request param '{request_param}' from fake '{fake_provider}'")
-def step_impl(context, request_param, fake_provider):
+@given("set request body param '{body_param}' from fake '{fake_provider}'")
+def step_impl(context, body_param: str, fake_provider: str):
     """
-    Sets a request parameter in request_params using a value generated
-    by a fake data provider. The function retrieves the fake provider
-    function from the fake module using getattr and invokes it to
-    generate the value to be assigned to the specified request_param.
+    Sets a request body parameter using a value generated by a fake
+    data provider. The appropriate fake provider function is retrieved
+    and invoked to generate the value assigned to the specified body
+    parameter.
     """
-    context.request_params[request_param] = getattr(fake, fake_provider)()
-
-@given("set request param '{request_param}' from config param '{config_param}'")
-def step_impl(context, request_param, config_param):
-    """
-    Sets a request parameter in request_params using the value of a
-    configuration parameter from config_params. The function assigns
-    the value associated with config_param in context.config_params
-    to the specified request_param in context.request_params.
-    """
-    context.request_params[request_param] = context.config_params[config_param]
+    context.request_body[body_param] = getattr(fake, fake_provider)()
 
 
-@given("set request param '{request_param}' from global param '{global_param}'")
-def step_impl(context, request_param, global_param):
+@given("set request body param '{body_param}' from global param '{global_param}'")
+def step_impl(context, body_param: str, global_param: str):
     """
-    Sets a request parameter from a global parameter value. The function
-    retrieves the value of a global parameter from the context and
-    assigns it to a request parameter in the context.
+    Sets a request body parameter using a value from global parameters. 
+    The specified global parameter is used to retrieve the value, which
+    is then assigned to the specified body parameter.
     """
-    param = context.global_params[global_param]
-    context.request_params[request_param] = param
+    context.request_body[body_param] = context.global_params[global_param]
+
+
+@given("set request query param '{query_param}' from value '{value}'")
+def step_impl(context, query_param: str, value: str):
+    """
+    Sets a request query parameter based on the provided value. If the
+    value is "none," the corresponding entry is removed from the request
+    query. Otherwise, the value is processed and assigned to the
+    specified query parameter.
+    """
+    if value == "none":
+        if query_param in context.request_query:
+            del context.request_query[query_param]
+
+    else:
+        context.request_query[query_param] = _get_actual_value(value)
+
+
+@given("set request query param '{query_param}' from fake '{fake_provider}'")
+def step_impl(context, query_param: str, fake_provider: str):
+    """
+    Sets a request query parameter using a value generated by a fake
+    data provider. The appropriate fake provider function is retrieved
+    and invoked to generate the value assigned to the specified query
+    parameter.
+    """
+    context.request_query[query_param] = getattr(fake, fake_provider)()
+
+
+@given("set request body param '{body_param}' from config param '{config_param}'")
+def step_impl(context, body_param, config_param):
+    context.request_body[body_param] = context.config_params[config_param]
+
+
+# @given("set request param '{request_param}' from global param '{global_param}'")
+# def step_impl(context, request_param, global_param):
+#     """
+#     Sets a request parameter from a global parameter value. The function
+#     retrieves the value of a global parameter from the context and
+#     assigns it to a request parameter in the context.
+#     """
+#     param = context.global_params[global_param]
+#     context.request_params[request_param] = param
 
 
 @given("set request file from sample format '{file_extension}'")
@@ -173,7 +209,12 @@ def step_impl(context, file_extension: str):
     context.request_files = {"file": (filename, file_data, mimetype)}
 
 
-@given("generate request param 'user_totp' from config param '{config_param}'")
+@given("delete request file")
+def step_impl(context):
+    context.request_files = {}
+
+
+@given("generate request query param 'user_totp' from config param '{config_param}'")
 def step_impl(context, config_param):
     """
     Generates a user_totp request parameter using a time-based one-time
@@ -183,7 +224,7 @@ def step_impl(context, config_param):
     the current TOTP value to context.request_params.
     """
     mfa_key = context.config_params[config_param]
-    context.request_params["user_totp"] = pyotp.TOTP(mfa_key).now()
+    context.request_query["user_totp"] = pyotp.TOTP(mfa_key).now()
 
 
 @then("delete global param '{global_param}'")
@@ -247,32 +288,38 @@ def step_impl(context, request_method, request_url):
     Sends an HTTP request of the specified method (GET, POST, PUT,
     DELETE) to a constructed URL. The URL is built using a base URL
     from config_params and any placeholders in the request URL are
-    replaced with values from request_placeholders. The request is
+    replaced with values from request_path. The request is
     sent with headers, parameters, and files from the context, and
     the response status code and body are stored in context. The
     request headers and parameters are then cleared from the context.
     """
     url = context.config_params["internal_base_url"] + request_url
-    for placeholder in context.request_placeholders:
+    for placeholder in context.request_path:
         url = url.replace(":" + placeholder,
-                          str(context.request_placeholders[placeholder]))
+                          str(context.request_path[placeholder]))
 
     headers = context.request_headers
     headers["accept"] = "application/json"
-    params = context.request_params
 
-    if request_method == "POST":
-        response = requests.post(url, headers=headers, params=params,
-                                 files=context.request_files)
+    if request_method == "POST" and context.request_files:
+        response = requests.post(
+            url, headers=headers, files=context.request_files)
+
+    elif request_method == "POST":
+        response = requests.post(
+            url, json=context.request_body, headers=headers)
 
     elif request_method == "GET":
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(
+            url, headers=headers, params=context.request_query)
 
     elif request_method == "PUT":
-        response = requests.put(url, headers=headers, params=params)
+        response = requests.put(
+            url, json=context.request_body, headers=headers)
 
     elif request_method == "DELETE":
-        response = requests.delete(url, headers=headers, params=params)
+        response = requests.delete(
+            url, headers=headers, params=context.request_query)
 
     context.response_code = response.status_code
     context.response_content = response.content
@@ -283,4 +330,4 @@ def step_impl(context, request_method, request_url):
         context.response_params = {}
 
     context.request_headers = {}
-    context.request_params = {}
+    context.request_query = {}

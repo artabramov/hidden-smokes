@@ -26,8 +26,8 @@ def step_impl(context, code):
         raise e
 
 
-@then("error loc is '{error_loc}'")
-def step_impl(context, error_loc):
+@then("error loc is '{error_loc}' and '{error_type}'")
+def step_impl(context, error_loc: str, error_type: str):
     """
     Asserts that the detail field in context.response_params contains
     exactly one error and that the specified error_loc is present in
@@ -35,8 +35,12 @@ def step_impl(context, error_loc):
     length of the detail list is 1 and verifies that error_loc is
     included in the loc field of the first error in the list.
     """
-    assert len(context.response_params["detail"]) == 1
-    assert error_loc in context.response_params["detail"][0]["loc"]
+    try:
+        assert len(context.response_params["detail"]) == 1
+        assert context.response_params["detail"][0]["loc"][0] == error_loc
+        assert context.response_params["detail"][0]["loc"][1] == error_type
+    except Exception as e:
+        raise e
 
 
 @then("error type is '{error_type}'")
@@ -69,7 +73,7 @@ def step_impl(context, param_count):
     expected count. It converts the expected count from a string to an
     integer and compares it with the length of response_params.
     """
-    len(context.response_params) == int(param_count)
+    assert len(context.response_params) == int(param_count)
 
 
 @then("response param '{key}' equals '{value}'")

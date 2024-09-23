@@ -1,14 +1,15 @@
-Feature: Authorize user
+Feature: Auth user
 
 @user @auth
-Scenario Outline: Authorize user when user_login is invalid (on first step)
-    # user login
-Given set request param 'user_login' from value '<user_login>'
-  And set request param 'user_password' from value 'fake_password'
- When send 'GET' request to url 'auth/login/'
+Scenario Outline: Auth user when user_login is invalid (on first step)
+    # login user
+Given set request body param 'user_login' from value '<user_login>'
+  And set request body param 'user_password' from value 'fake_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '422'
-  And error loc is 'user_login'
+  And error loc is 'body' and 'user_login'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_login | error_type              |
@@ -24,60 +25,64 @@ Examples:
 | иванов     | string_pattern_mismatch |
 
 @user @auth
-Scenario: Authorize user when user_login not found (on first step)
+Scenario: Auth user when user_login not found (on first step)
     # user login
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_password' from value 'fake_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value 'fake_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '404'
-  And error loc is 'user_login'
+  And error loc is 'body' and 'user_login'
   And error type is 'resource_not_found'
+  And response contains '1' params
 
 @user @auth
-Scenario Outline: Authorize user when user_password is invalid (on first step)
+Scenario Outline: Auth user when user_password is invalid (on first step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from value '<user_password>'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from value '<user_password>'
+ When send 'POST' request to url 'auth/login'
  Then response code is '422'
-  And error loc is 'user_password'
+  And error loc is 'body' and 'user_password'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| user_password | error_type  |
-| none          | missing     |
-| tabs          | value_error |
-| spaces        | value_error |
-| string(0)     | too_short   |
-| string(1)     | too_short   |
-| string(5)     | too_short   |
+| user_password | error_type       |
+| none          | missing          |
+| tabs          | value_invalid    |
+| spaces        | value_invalid    |
+| string(0)     | string_too_short |
+| string(1)     | string_too_short |
+| string(5)     | string_too_short |
 
 @user @auth
-Scenario: Authorize user when user_password is not matched (on first step)
+Scenario: Auth user when user_password is not matched (on first step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from value 'fake_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from value 'fake_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '422'
-  And error loc is 'user_password'
+  And error loc is 'body' and 'user_password'
   And error type is 'value_invalid'
+  And response contains '1' params
 
 @user @auth
-Scenario Outline: Authorize user when user_login is invalid (on second step)
+Scenario Outline: Auth user when user_login is invalid (on second step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from config param 'reader_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from value '<user_login>'
-  And generate request param 'user_totp' from config param 'reader_mfa_secret'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from value '<user_login>'
+  And generate request query param 'user_totp' from config param 'reader_mfa_secret'
+ When send 'GET' request to url 'auth/token'
  Then response code is '422'
-  And error loc is 'user_login'
+  And error loc is 'query' and 'user_login'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_login | error_type              |
@@ -93,31 +98,33 @@ Examples:
 | иванов     | string_pattern_mismatch |
 
 @user @auth
-Scenario: Authorize user when user_login not found (on second step)
+Scenario: Auth user when user_login not found (on second step)
     # token retrieve
-Given set request param 'user_login' from fake 'user_login'
-  And set request param 'user_totp' from value '123456'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from fake 'user_login'
+  And set request query param 'user_totp' from value '123456'
+ When send 'GET' request to url 'auth/token'
  Then response code is '404'
-  And error loc is 'user_login'
+  And error loc is 'query' and 'user_login'
   And error type is 'resource_not_found'
+  And response contains '1' params
 
 @user @auth
-Scenario Outline: Authorize user when user_totp is invalid (on second step)
+Scenario Outline: Auth user when user_totp is invalid (on second step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from config param 'reader_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_totp' from value '<user_totp>'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'reader_login'
+  And set request query param 'user_totp' from value '<user_totp>'
+ When send 'GET' request to url 'auth/token'
  Then response code is '422'
-  And error loc is 'user_totp'
+  And error loc is 'query' and 'user_totp'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
 | user_totp | error_type       |
@@ -129,70 +136,74 @@ Examples:
 | string(5) | string_too_short |
 
 @user @auth
-Scenario: Authorize user when user_totp is not matched (on second step)
+Scenario: Auth user when user_totp is not matched (on second step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from config param 'reader_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_totp' from value '000000'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'reader_login'
+  And set request query param 'user_totp' from value '000000'
+ When send 'GET' request to url 'auth/token'
  Then response code is '422'
-  And error loc is 'user_totp'
+  And error loc is 'query' and 'user_totp'
   And error type is 'value_invalid'
+  And response contains '1' params
 
 @user @auth
-Scenario Outline: Authorize user when token_exp is invalid (on second step)
+Scenario Outline: Auth user when token_exp is invalid (on second step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from config param 'reader_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'reader_login'
-  And generate request param 'user_totp' from config param 'reader_mfa_secret'
-  And set request param 'token_exp' from value '<token_exp>'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'reader_login'
+  And generate request query param 'user_totp' from config param 'reader_mfa_secret'
+  And set request query param 'token_exp' from value '<token_exp>'
+ When send 'GET' request to url 'auth/token'
  Then response code is '422'
-  And error loc is 'token_exp'
+  And error loc is 'query' and 'token_exp'
   And error type is '<error_type>'
+  And response contains '1' params
 
 Examples:
-| token_exp  | error_type  |
-| tabs       | int_parsing |
-| spaces     | int_parsing |
-| string(0)  | int_parsing |
-| string(1)  | int_parsing |
-| 0          | value_error |
-| -1         | value_error |
+| token_exp  | error_type         |
+| tabs       | int_parsing        |
+| spaces     | int_parsing        |
+| string(0)  | int_parsing        |
+| string(1)  | int_parsing        |
+| 0          | greater_than_equal |
+| -1         | greater_than_equal |
 
 @user @auth
-Scenario Outline: Authorize user when token_exp is correct (on second step)
+Scenario Outline: Auth user when token_exp is correct (on second step)
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from config param 'reader_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'reader_login'
-  And generate request param 'user_totp' from config param 'reader_mfa_secret'
-  And set request param 'token_exp' from value '<token_exp>'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'reader_login'
+  And generate request query param 'user_totp' from config param 'reader_mfa_secret'
+  And set request query param 'token_exp' from value '<token_exp>'
+ When send 'GET' request to url 'auth/token'
  Then response code is '200'
   And response params contain 'user_token'
   And response contains '1' params
     # token invalidate
-Given set request token from response param 'user_token'
- When send 'DELETE' request to url 'auth/token/'
+Given set request header token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token'
  Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
     # delete outdated auth data
  Then delete global param 'reader_token'
   And delete global param 'reader_id'
@@ -203,157 +214,165 @@ Examples:
 | 4102430400   |
 | 4102430400.0 |
 
+# @user @auth
+# Scenario: Auth user when app is locked
+# Given auth with user role 'admin'
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # user login
+# Given set request body param 'user_login' from config param 'admin_login'
+#   And set request body param 'user_password' from config param 'admin_password'
+#  When send 'POST' request to url 'auth/login'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # user login
+# Given set request body param 'user_login' from config param 'admin_login'
+#   And set request body param 'user_password' from config param 'admin_password'
+#  When send 'POST' request to url 'auth/login'
+#  Then response code is '200'
+#   And response params contain 'password_accepted'
+#   And response contains '1' params
+#     # lock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/lock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'True'
+#     # token retrieve
+# Given set request body param 'user_login' from config param 'admin_login'
+#   And generate request param 'user_totp' from config param 'admin_mfa_secret'
+#  When send 'GET' request to url 'auth/token'
+#  Then response code is '503'
+#     # unlock app
+# Given set request header token from global param 'admin_token' 
+#  When send 'GET' request to url 'system/unlock'
+#  Then response code is '200'
+#   And response params contain 'is_locked'
+#   And response param 'is_locked' equals 'False'
+#     # token retrieve
+# Given set request body param 'user_login' from config param 'admin_login'
+#   And generate request param 'user_totp' from config param 'admin_mfa_secret'
+#  When send 'GET' request to url 'auth/token'
+#  Then response code is '200'
+#   And response params contain 'user_token'
+#   And response contains '1' params
+#     # token invalidate
+# Given set request header token from response param 'user_token'
+#  When send 'DELETE' request to url 'auth/token'
+#  Then response code is '200'
+#     # delete outdated auth data
+#  Then delete global param 'admin_token'
+#   And delete global param 'admin_id'
+
 @user @auth
-Scenario: Authorize user when app is locked
-Given auth with user role 'admin'
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
+Scenario: Auth user when user_role is admin
     # user login
-Given set request param 'user_login' from config param 'admin_login'
-  And set request param 'user_password' from config param 'admin_password'
- When send 'GET' request to url 'auth/login/'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # user login
-Given set request param 'user_login' from config param 'admin_login'
-  And set request param 'user_password' from config param 'admin_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'admin_login'
+  And set request body param 'user_password' from config param 'admin_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
-    # lock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/lock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
     # token retrieve
-Given set request param 'user_login' from config param 'admin_login'
-  And generate request param 'user_totp' from config param 'admin_mfa_secret'
- When send 'GET' request to url 'auth/token/'
- Then response code is '503'
-    # unlock app
-Given set request token from global param 'admin_token' 
- When send 'GET' request to url 'system/unlock'
- Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
-    # token retrieve
-Given set request param 'user_login' from config param 'admin_login'
-  And generate request param 'user_totp' from config param 'admin_mfa_secret'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'admin_login'
+  And generate request query param 'user_totp' from config param 'admin_mfa_secret'
+ When send 'GET' request to url 'auth/token'
  Then response code is '200'
   And response params contain 'user_token'
   And response contains '1' params
     # token invalidate
-Given set request token from response param 'user_token'
- When send 'DELETE' request to url 'auth/token/'
+Given set request header token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token'
  Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
     # delete outdated auth data
  Then delete global param 'admin_token'
   And delete global param 'admin_id'
 
 @user @auth
-Scenario: Authorize user when user_role is admin
+Scenario: Auth user when user_role is editor
     # user login
-Given set request param 'user_login' from config param 'admin_login'
-  And set request param 'user_password' from config param 'admin_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'editor_login'
+  And set request body param 'user_password' from config param 'editor_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'admin_login'
-  And generate request param 'user_totp' from config param 'admin_mfa_secret'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'editor_login'
+  And generate request query param 'user_totp' from config param 'editor_mfa_secret'
+ When send 'GET' request to url 'auth/token'
  Then response code is '200'
   And response params contain 'user_token'
   And response contains '1' params
     # token invalidate
-Given set request token from response param 'user_token'
- When send 'DELETE' request to url 'auth/token/'
+Given set request header token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token'
  Then response code is '200'
-    # delete outdated auth data
- Then delete global param 'admin_token'
-  And delete global param 'admin_id'
-
-@user @auth
-Scenario: Authorize user when user_role is editor
-    # user login
-Given set request param 'user_login' from config param 'editor_login'
-  And set request param 'user_password' from config param 'editor_password'
- When send 'GET' request to url 'auth/login/'
- Then response code is '200'
-  And response params contain 'password_accepted'
+  And response params contain 'user_id'
   And response contains '1' params
-    # token retrieve
-Given set request param 'user_login' from config param 'editor_login'
-  And generate request param 'user_totp' from config param 'editor_mfa_secret'
- When send 'GET' request to url 'auth/token/'
- Then response code is '200'
-  And response params contain 'user_token'
-  And response contains '1' params
-    # token invalidate
-Given set request token from response param 'user_token'
- When send 'DELETE' request to url 'auth/token/'
- Then response code is '200'
     # delete outdated auth data
  Then delete global param 'editor_token'
   And delete global param 'editor_id'
 
 @user @auth
-Scenario: Authorize user when user_role is writer
+Scenario: Auth user when user_role is writer
     # user login
-Given set request param 'user_login' from config param 'writer_login'
-  And set request param 'user_password' from config param 'writer_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'writer_login'
+  And set request body param 'user_password' from config param 'writer_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'writer_login'
-  And generate request param 'user_totp' from config param 'writer_mfa_secret'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'writer_login'
+  And generate request query param 'user_totp' from config param 'writer_mfa_secret'
+ When send 'GET' request to url 'auth/token'
  Then response code is '200'
   And response params contain 'user_token'
   And response contains '1' params
     # token invalidate
-Given set request token from response param 'user_token'
- When send 'DELETE' request to url 'auth/token/'
+Given set request header token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token'
  Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
     # delete outdated auth data
  Then delete global param 'writer_token'
   And delete global param 'writer_id'
 
 @user @auth
-Scenario: Authorize user when user_role is reader
+Scenario: Auth user when user_role is reader
     # user login
-Given set request param 'user_login' from config param 'reader_login'
-  And set request param 'user_password' from config param 'reader_password'
- When send 'GET' request to url 'auth/login/'
+Given set request body param 'user_login' from config param 'reader_login'
+  And set request body param 'user_password' from config param 'reader_password'
+ When send 'POST' request to url 'auth/login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
     # token retrieve
-Given set request param 'user_login' from config param 'reader_login'
-  And generate request param 'user_totp' from config param 'reader_mfa_secret'
- When send 'GET' request to url 'auth/token/'
+Given set request query param 'user_login' from config param 'reader_login'
+  And generate request query param 'user_totp' from config param 'reader_mfa_secret'
+ When send 'GET' request to url 'auth/token'
  Then response code is '200'
   And response params contain 'user_token'
   And response contains '1' params
     # token invalidate
-Given set request token from response param 'user_token'
- When send 'DELETE' request to url 'auth/token/'
+Given set request header token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token'
  Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
     # delete outdated auth data
  Then delete global param 'reader_token'
   And delete global param 'reader_id'
