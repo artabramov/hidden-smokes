@@ -21,7 +21,7 @@ Given set request header token from global param 'admin_token'
  When send 'GET' request to url 'lock'
  Then response code is '200'
   And response params contain 'is_locked'
-  And response params contain 'locked_time'
+  And response params contain 'lock_time'
   And response param 'is_locked' equals 'True'
   And response contains '2' params
     # delete lock
@@ -36,9 +36,9 @@ Given set request header token from global param 'admin_token'
  When send 'GET' request to url 'lock'
  Then response code is '200'
   And response params contain 'is_locked'
-  And response params contain 'locked_time'
+  And response params contain 'lock_time'
   And response param 'is_locked' equals 'False'
-  And response param 'locked_time' equals '0'
+  And response param 'lock_time' equals '0'
   And response contains '2' params
 
 @lock @retrieve
@@ -77,68 +77,3 @@ Scenario: Retrieve the lock when token is missing
 Given delete request header token 
  When send 'GET' request to url 'lock'
  Then response code is '403'
-
-# @lock @retrieve
-# Scenario: Unlock app when user is editor
-#     # delete lock
-# Given set request header token from global param 'editor_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '403'
-#   And error loc is 'header' and 'user_token'
-#   And error type is 'user_rejected'
-#   And response contains '1' params
-#     # delete lock
-# Given set request header token from global param 'admin_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#   And response contains '1' params
-
-# @lock @retrieve
-# Scenario: Unlock app when user is writer
-#     # delete lock
-# Given set request header token from global param 'writer_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '403'
-#   And error loc is 'header' and 'user_token'
-#   And error type is 'user_rejected'
-#   And response contains '1' params
-#     # delete lock
-# Given set request header token from global param 'admin_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#   And response contains '1' params
-
-# @lock @retrieve
-# Scenario: Unlock app when user is reader
-#     # delete lock
-# Given set request header token from global param 'reader_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '403'
-#   And error loc is 'header' and 'user_token'
-#   And error type is 'user_rejected'
-#   And response contains '1' params
-#     # delete lock
-# Given set request header token from global param 'admin_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#   And response contains '1' params
-
-# @lock @retrieve
-# Scenario: Lock app when token is missing
-#     # delete lock
-# Given delete request header token 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '403'
-#     # delete lock
-# Given set request header token from global param 'admin_token' 
-#  When send 'DELETE' request to url 'lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#   And response contains '1' params
