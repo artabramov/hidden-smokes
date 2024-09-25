@@ -254,6 +254,9 @@ def _get_actual_value(value: str) -> str:
 
     elif value == "tabs":
         return "   " * 8
+    
+    elif value == "dict":
+        return {}
 
     elif value.startswith("string(") and value.endswith(")"):
         string_len = int(value[len("string("):-1])

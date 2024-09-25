@@ -385,6 +385,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Custom execute",
+            "args": ["--tags", "@custom", "--tags", "@execute", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Demo collection",
             "args": [
                 "--tags", "@collection", "--tags", "@demo",
