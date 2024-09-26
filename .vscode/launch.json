@@ -21,7 +21,7 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "User mfa",
+            "name": "MFA retrieve",
             "args": ["--tags", "@user", "--tags", "@mfa", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
@@ -61,7 +61,7 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "User role",
+            "name": "Role change",
             "args": ["--tags", "@user", "--tags", "@role", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
@@ -69,7 +69,7 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "User password",
+            "name": "Password change",
             "args": ["--tags", "@user", "--tags", "@password", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
@@ -268,8 +268,6 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
-        
         {
             "name": "Favorite insert",
             "args": ["--tags", "@favorite", "--tags", "@insert", "--tags", "~@demo",
@@ -302,8 +300,6 @@
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
-
-
         {
             "name": "Option insert",
             "args": ["--tags", "@option", "--tags", "@insert", "--tags", "~@demo",
@@ -361,24 +357,24 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Lock create",
-            "args": ["--tags", "@lock", "--tags", "@create", "--tags", "~@demo",
+            "name": "Lockdown create",
+            "args": ["--tags", "@lockdowndown", "--tags", "@create", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Lock retrieve",
-            "args": ["--tags", "@lock", "--tags", "@retrieve", "--tags", "~@demo",
+            "name": "Lockdown retrieve",
+            "args": ["--tags", "@lockdowndown", "--tags", "@retrieve", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Lock delete",
-            "args": ["--tags", "@lock", "--tags", "@delete", "--tags", "~@demo",
+            "name": "Lockdown delete",
+            "args": ["--tags", "@lockdowndown", "--tags", "@delete", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
