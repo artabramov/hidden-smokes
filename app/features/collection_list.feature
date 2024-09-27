@@ -84,22 +84,22 @@ Examples:
 | 0         |
 
 @collection @list
-Scenario Outline: List collections when documents_count__ge is invalid
+Scenario Outline: List collections when mediafiles_count__ge is invalid
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'documents_count__ge' from value '<documents_count>'
+  And set request query param 'mediafiles_count__ge' from value '<mediafiles_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'query' and 'documents_count__ge'
+  And error loc is 'query' and 'mediafiles_count__ge'
   And error type is '<error_type>'
   And response contains '1' params
 
 Examples:
-| documents_count | error_type  |
+| mediafiles_count | error_type  |
 | tabs            | int_parsing |
 | spaces          | int_parsing |
 | 123.4           | int_parsing |
@@ -108,10 +108,10 @@ Examples:
 | string(8)       | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when documents_count__ge is correct
+Scenario Outline: List collections when mediafiles_count__ge is correct
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'documents_count__ge' from value '<documents_count>'
+  And set request query param 'mediafiles_count__ge' from value '<mediafiles_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -123,7 +123,7 @@ Given set request header token from global param 'reader_token'
   And response contains '2' params
 
 Examples:
-| documents_count |
+| mediafiles_count |
 | none            |
 | 0               |
 | 0.0             |
@@ -133,22 +133,22 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when documents_count__le is invalid
+Scenario Outline: List collections when mediafiles_count__le is invalid
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'documents_count__le' from value '<documents_count>'
+  And set request query param 'mediafiles_count__le' from value '<mediafiles_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'query' and 'documents_count__le'
+  And error loc is 'query' and 'mediafiles_count__le'
   And error type is '<error_type>'
   And response contains '1' params
 
 Examples:
-| documents_count | error_type  |
+| mediafiles_count | error_type  |
 | tabs            | int_parsing |
 | spaces          | int_parsing |
 | 123.4           | int_parsing |
@@ -157,10 +157,10 @@ Examples:
 | string(8)       | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when documents_count__le is correct
+Scenario Outline: List collections when mediafiles_count__le is correct
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'documents_count__le' from value '<documents_count>'
+  And set request query param 'mediafiles_count__le' from value '<mediafiles_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -172,7 +172,7 @@ Given set request header token from global param 'reader_token'
   And response contains '2' params
 
 Examples:
-| documents_count |
+| mediafiles_count |
 | none            |
 | 0               |
 | 0.0             |
@@ -516,7 +516,7 @@ Examples:
 | updated_date    |
 | user_id         |
 | collection_name |
-| documents_count |
+| mediafiles_count |
 | revisions_count   |
 | revisions_size    |
 

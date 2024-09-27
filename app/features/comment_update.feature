@@ -1,20 +1,20 @@
 Feature: Update comment
 
-Background: Auth users, upload document and insert comment
+Background: Auth users, upload mediafile and insert comment
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload document
+    # upload mediafile
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'document'
+ When send 'POST' request to url 'mediafile'
  Then response code is '201'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response params contain 'revision_id'
   And response contains '2' params
-  And save response param 'document_id' to global param 'document_id'
+  And save response param 'mediafile_id' to global param 'mediafile_id'
     # remove file from request
 Given delete request file
 
@@ -29,12 +29,12 @@ Given set request header token from global param 'admin_token'
   And error loc is 'path' and 'comment_id'
   And error type is 'resource_not_found'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 Examples:
@@ -47,7 +47,7 @@ Examples:
 Scenario Outline: Update comment when comment_content is invalid
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -63,12 +63,12 @@ Given set request header token from global param 'admin_token'
   And error loc is 'body' and 'comment_content'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 Examples:
@@ -83,7 +83,7 @@ Examples:
 Scenario Outline: Update comment when comment_content is correct
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -98,16 +98,16 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comment_id'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 Examples:
-| document_name |
+| mediafile_name |
 | string(1)     |
 | string(512)   |
 
@@ -115,7 +115,7 @@ Examples:
 # Scenario: Update comment when collection is locked
 #     # insert comment
 # Given set request header token from global param 'admin_token' 
-#   And set request body param 'document_id' from global param 'document_id'
+#   And set request body param 'mediafile_id' from global param 'mediafile_id'
 #   And set request body param 'comment_content' from fake 'comment_content'
 #  When send 'POST' request to url 'comment'
 #  Then response code is '201'
@@ -149,7 +149,7 @@ Examples:
 # Scenario: Update comment when app is locked
 #     # insert comment
 # Given set request header token from global param 'admin_token' 
-#   And set request body param 'document_id' from global param 'document_id'
+#   And set request body param 'mediafile_id' from global param 'mediafile_id'
 #   And set request body param 'comment_content' from fake 'comment_content'
 #  When send 'POST' request to url 'comment'
 #  Then response code is '201'
@@ -192,7 +192,7 @@ Examples:
 Scenario: Update comment when user is admin
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -207,19 +207,19 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'comment_id'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @comment @update
 Scenario: Update comment when user is editor
     # insert comment
 Given set request header token from global param 'editor_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -234,19 +234,19 @@ Given set request header token from global param 'editor_token'
  Then response code is '200'
   And response params contain 'comment_id'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @comment @update
 Scenario: Update comment when user is writer
     # insert comment
 Given set request header token from global param 'writer_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -262,19 +262,19 @@ Given set request header token from global param 'writer_token'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @comment @update
 Scenario: Update comment when user is writer-to-reader
     # insert comment
 Given set request header token from global param 'writer_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -290,19 +290,19 @@ Given set request header token from global param 'reader_token'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @comment @update
 Scenario: Update comment when user is writer-to-admin
     # insert comment
 Given set request header token from global param 'writer_token' 
-  And set request body param 'document_id' from global param 'document_id'
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -318,12 +318,12 @@ Given set request header token from global param 'admin_token'
   And error loc is 'path' and 'comment_id'
   And error type is 'resource_forbidden'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @comment @update
@@ -334,10 +334,10 @@ Given delete request header token
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'PUT' request to url 'comment/:comment_id'
  Then response code is '403'
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params

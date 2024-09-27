@@ -1,4 +1,4 @@
-Feature: List documents
+Feature: List mediafiles
 
 Background: Auth users
     # auth users
@@ -7,16 +7,16 @@ Given auth with user role 'admin'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
-@document @list
-Scenario Outline: List documents when collection_id is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when collection_id is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token'
   And set request query param 'collection_id__eq' from value '<collection_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'collection_id__eq'
   And error type is '<error_type>'
@@ -31,19 +31,19 @@ Examples:
 | string(0)     | int_parsing |
 | string(8)     | int_parsing |
 
-@document @list
-Scenario Outline: List documents when collection_id is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when collection_id is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'collection_id__eq' from value '<collection_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -56,16 +56,16 @@ Examples:
 | +123          |
 | +123.0        |
 
-@document @list
-Scenario Outline: List documents when comments_count__ge is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when comments_count__ge is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'comments_count__ge' from value '<comments_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'comments_count__ge'
   And error type is '<error_type>'
@@ -80,19 +80,19 @@ Examples:
 | string(0)      | int_parsing |
 | string(8)      | int_parsing |
 
-@document @list
-Scenario Outline: List documents when comments_count__ge is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when comments_count__ge is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'comments_count__ge' from value '<comments_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -105,16 +105,16 @@ Examples:
 | +123           |
 | +123.0         |
 
-@document @list
-Scenario Outline: List documents when comments_count__le is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when comments_count__le is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'comments_count__le' from value '<comments_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'comments_count__le'
   And error type is '<error_type>'
@@ -129,19 +129,19 @@ Examples:
 | string(0)      | int_parsing |
 | string(8)      | int_parsing |
 
-@document @list
-Scenario Outline: List documents when comments_count__le is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when comments_count__le is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'comments_count__le' from value '<comments_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -154,16 +154,16 @@ Examples:
 | +123           |
 | +123.0         |
 
-@document @list
-Scenario Outline: List documents when revisions_count__ge is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_count__ge is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_count__ge' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'revisions_count__ge'
   And error type is '<error_type>'
@@ -178,19 +178,19 @@ Examples:
 | string(0)     | int_parsing |
 | string(8)     | int_parsing |
 
-@document @list
-Scenario Outline: List documents when revisions_count__ge is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_count__ge is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_count__ge' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -203,16 +203,16 @@ Examples:
 | +123          |
 | +123.0        |
 
-@document @list
-Scenario Outline: List documents when revisions_count__le is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_count__le is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_count__le' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'revisions_count__le'
   And error type is '<error_type>'
@@ -227,19 +227,19 @@ Examples:
 | string(0)     | int_parsing |
 | string(8)     | int_parsing |
 
-@document @list
-Scenario Outline: List documents when revisions_count__le is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_count__le is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_count__le' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -252,16 +252,16 @@ Examples:
 | +123          |
 | +123.0        |
 
-@document @list
-Scenario Outline: List documents when revisions_size__ge is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_size__ge is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_size__ge' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'revisions_size__ge'
   And error type is '<error_type>'
@@ -276,19 +276,19 @@ Examples:
 | string(0)    | int_parsing |
 | string(8)    | int_parsing |
 
-@document @list
-Scenario Outline: List documents when revisions_size__ge is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_size__ge is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_size__ge' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -301,16 +301,16 @@ Examples:
 | +123         |
 | +123.0       |
 
-@document @list
-Scenario Outline: List documents when revisions_size__le is invalid
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_size__le is invalid
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_size__le' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '422'
   And error loc is 'query' and 'revisions_size__le'
   And error type is '<error_type>'
@@ -325,19 +325,19 @@ Examples:
 | string(0)    | int_parsing |
 | string(8)    | int_parsing |
 
-@document @list
-Scenario Outline: List documents when revisions_size__le is correct
-    # list documents
+@mediafile @list
+Scenario Outline: List mediafiles when revisions_size__le is correct
+    # list mediafiles
 Given set request header token from global param 'admin_token' 
   And set request query param 'revisions_size__le' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
+ When send 'GET' request to url 'mediafiles'
  Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
+  And response params contain 'mediafiles'
+  And response params contain 'mediafiles_count'
   And response contains '2' params
 
 Examples:
@@ -350,16 +350,16 @@ Examples:
 | +123         |
 | +123.0       |
 
-# @document @list
-# Scenario Outline: List documents when downloads_count__ge is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when downloads_count__ge is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'downloads_count__ge' from value '<downloads_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'downloads_count__ge'
 #   And error type is '<error_type>'
@@ -373,19 +373,19 @@ Examples:
 # | string(0)       | int_parsing |
 # | string(8)       | int_parsing |
 
-# @document @list
-# Scenario Outline: List documents when downloads_count__ge is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when downloads_count__ge is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'downloads_count__ge' from value '<downloads_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -398,16 +398,16 @@ Examples:
 # | +123            |
 # | +123.0          |
 
-# @document @list
-# Scenario Outline: List documents when downloads_count__le is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when downloads_count__le is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'downloads_count__le' from value '<downloads_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'downloads_count__le'
 #   And error type is '<error_type>'
@@ -421,19 +421,19 @@ Examples:
 # | string(0)       | int_parsing |
 # | string(8)       | int_parsing |
 
-# @document @list
-# Scenario Outline: List documents when downloads_count__le is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when downloads_count__le is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'downloads_count__le' from value '<downloads_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -446,16 +446,16 @@ Examples:
 # | +123            |
 # | +123.0          |
 
-# @document @list
-# Scenario Outline: List documents when favorites_count__ge is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when favorites_count__ge is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'favorites_count__ge' from value '<favorites_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'favorites_count__ge'
 #   And error type is '<error_type>'
@@ -469,19 +469,19 @@ Examples:
 # | string(0)       | int_parsing |
 # | string(8)       | int_parsing |
 
-# @document @list
-# Scenario Outline: List documents when favorites_count__ge is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when favorites_count__ge is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'favorites_count__ge' from value '<favorites_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -494,16 +494,16 @@ Examples:
 # | +123            |
 # | +123.0          |
 
-# @document @list
-# Scenario Outline: List documents when favorites_count__le is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when favorites_count__le is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'favorites_count__le' from value '<favorites_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'favorites_count__le'
 #   And error type is '<error_type>'
@@ -517,19 +517,19 @@ Examples:
 # | string(0)       | int_parsing |
 # | string(8)       | int_parsing |
 
-# @document @list
-# Scenario Outline: List documents when favorites_count__le is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when favorites_count__le is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'favorites_count__le' from value '<favorites_count>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -542,19 +542,19 @@ Examples:
 # | +123            |
 # | +123.0          |
 
-# @document @list
-# Scenario Outline: List documents when tag_value is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when tag_value is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'tag_value__eq' from value '<tag_value>'
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -567,15 +567,15 @@ Examples:
 # | string(0) |
 # | string(8) |
 
-# @document @list
-# Scenario Outline: List documents when offset is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when offset is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '<offset>'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'offset'
 #   And error type is '<error_type>'
@@ -591,18 +591,18 @@ Examples:
 # | string(0) | int_parsing        |
 # | string(8) | int_parsing        |
 
-# @document @list
-# Scenario Outline: List documents when offset is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when offset is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '<offset>'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -613,15 +613,15 @@ Examples:
 # | 123.0  |
 # | +123   |
 
-# @document @list
-# Scenario Outline: List documents when limit is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when limit is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '<limit>'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'limit'
 #   And error type is '<error_type>'
@@ -639,18 +639,18 @@ Examples:
 # | string(0) | int_parsing        |
 # | string(8) | int_parsing        |
 
-# @document @list
-# Scenario Outline: List documents when limit is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when limit is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '<limit>'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -660,15 +660,15 @@ Examples:
 # | 123.0 |
 # | +123  |
 
-# @document @list
-# Scenario Outline: List documents when order_by is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when order_by is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value '<order_by>'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'order_by'
 #   And error type is '<error_type>'
@@ -682,18 +682,18 @@ Examples:
 # | 123       | literal_error |
 # | string(8) | literal_error |
 
-# @document @list
-# Scenario Outline: List documents when order_by is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when order_by is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value '<order_by>'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -703,22 +703,22 @@ Examples:
 # | updated_date      |
 # | user_id           |
 # | collection_id     |
-# | document_name     |
+# | mediafile_name     |
 # | revisions_count   |
 # | revisions_size    |
 # | comments_count    |
 # | downloads_count   |
 # | favorites_count   |
 
-# @document @list
-# Scenario Outline: List documents when order is invalid
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when order is invalid
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value '<order>'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '422'
 #   And error loc is 'order'
 #   And error type is '<error_type>'
@@ -733,18 +733,18 @@ Examples:
 # | ASC    | literal_error |
 # | DESC   | literal_error |
 
-# @document @list
-# Scenario Outline: List documents when order is correct
-#     # list documents
+# @mediafile @list
+# Scenario Outline: List mediafiles when order is correct
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value '<order>'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
 # Examples:
@@ -753,21 +753,21 @@ Examples:
 # | desc  |
 # | rand  |
 
-# @document @list
-# Scenario: List documents when user is admin
+# @mediafile @list
+# Scenario: List mediafiles when user is admin
 #     # lock app
 # Given set request header token from global param 'admin_token' 
 #  When send 'GET' request to url 'system/lock'
 #  Then response code is '200'
 #   And response params contain 'is_locked'
 #   And response param 'is_locked' equals 'True'
-#     # list documents
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '503'
 #     # unlock app
 # Given set request header token from global param 'admin_token' 
@@ -775,81 +775,81 @@ Examples:
 #  Then response code is '200'
 #   And response params contain 'is_locked'
 #   And response param 'is_locked' equals 'False'
-#     # list documents
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
-# @document @list
-# Scenario: List documents when user is admin
-#     # list documents
+# @mediafile @list
+# Scenario: List mediafiles when user is admin
+#     # list mediafiles
 # Given set request header token from global param 'admin_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
-# @document @list
-# Scenario: List documents when user is editor
-#     # list documents
+# @mediafile @list
+# Scenario: List mediafiles when user is editor
+#     # list mediafiles
 # Given set request header token from global param 'editor_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
-# @document @list
-# Scenario: List documents when user is writer
-#     # list documents
+# @mediafile @list
+# Scenario: List mediafiles when user is writer
+#     # list mediafiles
 # Given set request header token from global param 'writer_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
-# @document @list
-# Scenario: List documents when user is reader
-#     # list documents
+# @mediafile @list
+# Scenario: List mediafiles when user is reader
+#     # list mediafiles
 # Given set request header token from global param 'reader_token' 
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '200'
-#   And response params contain 'documents'
-#   And response params contain 'documents_count'
+#   And response params contain 'mediafiles'
+#   And response params contain 'mediafiles_count'
 #   And response contains '2' params
 
-# @document @list
-# Scenario: List documents when token is missing
-#     # list documents
+# @mediafile @list
+# Scenario: List mediafiles when token is missing
+#     # list mediafiles
 # Given delete request header token
 #   And set request query param 'offset' from value '0'
 #   And set request query param 'limit' from value '1'
 #   And set request query param 'order_by' from value 'id'
 #   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'documents'
+#  When send 'GET' request to url 'mediafiles'
 #  Then response code is '403'

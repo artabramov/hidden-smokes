@@ -1,20 +1,20 @@
 Feature: Select revision
 
-Background: Auth users and upload document
+Background: Auth users and upload mediafile
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload document
+    # upload mediafile
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'document'
+ When send 'POST' request to url 'mediafile'
  Then response code is '201'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response params contain 'revision_id'
   And response contains '2' params
-  And save response param 'document_id' to global param 'document_id'
+  And save response param 'mediafile_id' to global param 'mediafile_id'
   And save response param 'revision_id' to global param 'revision_id'
     # remove file from request
 Given delete request file
@@ -29,12 +29,12 @@ Given set request header token from global param 'admin_token'
   And error loc is 'path' and 'revision_id'
   And error type is 'resource_not_found'
   And response contains '1' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 Examples:
@@ -70,7 +70,7 @@ Examples:
 #   And response params contain 'id'
 #   And response params contain 'created_date'
 #   And response params contain 'user_id'
-#   And response params contain 'document_id'
+#   And response params contain 'mediafile_id'
 #   And response params contain 'is_latest'
 #   And response params contain 'revision_size'
 #   And response params contain 'original_filename'
@@ -97,7 +97,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'id'
   And response params contain 'created_date'
   And response params contain 'user_id'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response params contain 'is_latest'
   And response params contain 'revision_size'
   And response params contain 'original_filename'
@@ -107,12 +107,12 @@ Given set request header token from global param 'admin_token'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
   And response contains '12' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @revision @select
@@ -125,7 +125,7 @@ Given set request header token from global param 'editor_token'
   And response params contain 'id'
   And response params contain 'created_date'
   And response params contain 'user_id'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response params contain 'is_latest'
   And response params contain 'revision_size'
   And response params contain 'original_filename'
@@ -135,12 +135,12 @@ Given set request header token from global param 'editor_token'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
   And response contains '12' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @revision @select
@@ -153,7 +153,7 @@ Given set request header token from global param 'writer_token'
   And response params contain 'id'
   And response params contain 'created_date'
   And response params contain 'user_id'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response params contain 'is_latest'
   And response params contain 'revision_size'
   And response params contain 'original_filename'
@@ -163,12 +163,12 @@ Given set request header token from global param 'writer_token'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
   And response contains '12' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @revision @select
@@ -181,7 +181,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'id'
   And response params contain 'created_date'
   And response params contain 'user_id'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response params contain 'is_latest'
   And response params contain 'revision_size'
   And response params contain 'original_filename'
@@ -191,12 +191,12 @@ Given set request header token from global param 'reader_token'
   And response params contain 'downloads_count'
   And response params contain 'revision_user'
   And response contains '12' params
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @revision @select
@@ -206,10 +206,10 @@ Given delete request header token
   And set request path param 'revision_id' from global param 'revision_id'
  When send 'GET' request to url 'revision/:revision_id'
  Then response code is '403'
-    # delete document
+    # delete mediafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'mediafile_id'
   And response contains '1' params

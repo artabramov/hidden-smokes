@@ -8,17 +8,17 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @revision @list
-Scenario Outline: List revisions when document_id is invalid
+Scenario Outline: List revisions when mediafile_id is invalid
     # list revisions
 Given set request header token from global param 'admin_token' 
-  And set request query param 'document_id__eq' from value '<document_id>'
+  And set request query param 'mediafile_id__eq' from value '<mediafile_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'revisions'
  Then response code is '422'
-  And error loc is 'query' and 'document_id__eq'
+  And error loc is 'query' and 'mediafile_id__eq'
   And error type is '<error_type>'
   And response contains '1' params
 
@@ -32,10 +32,10 @@ Examples:
 | string(8)     | int_parsing        |
 
 @revision @list
-Scenario Outline: List revisions when document_id is correct
+Scenario Outline: List revisions when mediafile_id is correct
     # list revisions
 Given set request header token from global param 'admin_token' 
-  And set request query param 'document_id__eq' from value '<document_id>'
+  And set request query param 'mediafile_id__eq' from value '<mediafile_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -47,7 +47,7 @@ Given set request header token from global param 'admin_token'
   And response contains '2' params
 
 Examples:
-| document_id |
+| mediafile_id |
 | none        |
 | 0           |
 | 0.0         |
