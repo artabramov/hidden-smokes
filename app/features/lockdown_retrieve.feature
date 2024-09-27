@@ -21,7 +21,7 @@ Given set request header token from global param 'admin_token'
  When send 'GET' request to url 'lockdown'
  Then response code is '200'
   And response params contain 'is_locked'
-  And response params contain 'lock_time'
+  And response params contain 'lockdown_time'
   And response param 'is_locked' equals 'True'
   And response contains '2' params
     # delete lock
@@ -36,9 +36,9 @@ Given set request header token from global param 'admin_token'
  When send 'GET' request to url 'lockdown'
  Then response code is '200'
   And response params contain 'is_locked'
-  And response params contain 'lock_time'
+  And response params contain 'lockdown_time'
   And response param 'is_locked' equals 'False'
-  And response param 'lock_time' equals '0'
+  And response param 'lockdown_time' equals '0'
   And response contains '2' params
 
 @lockdown @retrieve
