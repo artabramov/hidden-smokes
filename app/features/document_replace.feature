@@ -12,7 +12,7 @@ Given set request header token from global param 'admin_token'
  When send 'POST' request to url 'document'
  Then response code is '201'
   And response params contain 'document_id'
-  And response params contain 'upload_id'
+  And response params contain 'revision_id'
   And response contains '2' params
   And save response param 'document_id' to global param 'document_id'
 
@@ -143,7 +143,7 @@ Given set request header token from global param 'admin_token'
  When send 'POST' request to url 'document/:document_id'
  Then response code is '201'
   And response params contain 'document_id'
-  And response params contain 'upload_id'
+  And response params contain 'revision_id'
   And response contains '2' params
     # delete document
 Given set request header token from global param 'admin_token' 
@@ -162,7 +162,7 @@ Given set request header token from global param 'editor_token'
  When send 'POST' request to url 'document/:document_id'
  Then response code is '201'
   And response params contain 'document_id'
-  And response params contain 'upload_id'
+  And response params contain 'revision_id'
   And response contains '2' params
     # delete document
 Given set request header token from global param 'admin_token' 

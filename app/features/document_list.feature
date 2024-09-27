@@ -155,22 +155,22 @@ Examples:
 | +123.0         |
 
 @document @list
-Scenario Outline: List documents when uploads_count__ge is invalid
+Scenario Outline: List documents when revisions_count__ge is invalid
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_count__ge' from value '<uploads_count>'
+  And set request query param 'revisions_count__ge' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'documents'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_count__ge'
+  And error loc is 'query' and 'revisions_count__ge'
   And error type is '<error_type>'
   And response contains '1' params
 
 Examples:
-| uploads_count | error_type  |
+| revisions_count | error_type  |
 | tabs          | int_parsing |
 | spaces        | int_parsing |
 | 123.4         | int_parsing |
@@ -179,10 +179,10 @@ Examples:
 | string(8)     | int_parsing |
 
 @document @list
-Scenario Outline: List documents when uploads_count__ge is correct
+Scenario Outline: List documents when revisions_count__ge is correct
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_count__ge' from value '<uploads_count>'
+  And set request query param 'revisions_count__ge' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -194,7 +194,7 @@ Given set request header token from global param 'admin_token'
   And response contains '2' params
 
 Examples:
-| uploads_count |
+| revisions_count |
 | none          |
 | 0             |
 | 0.0           |
@@ -204,22 +204,22 @@ Examples:
 | +123.0        |
 
 @document @list
-Scenario Outline: List documents when uploads_count__le is invalid
+Scenario Outline: List documents when revisions_count__le is invalid
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_count__le' from value '<uploads_count>'
+  And set request query param 'revisions_count__le' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'documents'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_count__le'
+  And error loc is 'query' and 'revisions_count__le'
   And error type is '<error_type>'
   And response contains '1' params
 
 Examples:
-| uploads_count | error_type  |
+| revisions_count | error_type  |
 | tabs          | int_parsing |
 | spaces        | int_parsing |
 | 123.4         | int_parsing |
@@ -228,10 +228,10 @@ Examples:
 | string(8)     | int_parsing |
 
 @document @list
-Scenario Outline: List documents when uploads_count__le is correct
+Scenario Outline: List documents when revisions_count__le is correct
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_count__le' from value '<uploads_count>'
+  And set request query param 'revisions_count__le' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -243,7 +243,7 @@ Given set request header token from global param 'admin_token'
   And response contains '2' params
 
 Examples:
-| uploads_count |
+| revisions_count |
 | none          |
 | 0             |
 | 0.0           |
@@ -253,22 +253,22 @@ Examples:
 | +123.0        |
 
 @document @list
-Scenario Outline: List documents when uploads_size__ge is invalid
+Scenario Outline: List documents when revisions_size__ge is invalid
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_size__ge' from value '<uploads_size>'
+  And set request query param 'revisions_size__ge' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'documents'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_size__ge'
+  And error loc is 'query' and 'revisions_size__ge'
   And error type is '<error_type>'
   And response contains '1' params
 
 Examples:
-| uploads_size | error_type  |
+| revisions_size | error_type  |
 | tabs         | int_parsing |
 | spaces       | int_parsing |
 | 123.4        | int_parsing |
@@ -277,10 +277,10 @@ Examples:
 | string(8)    | int_parsing |
 
 @document @list
-Scenario Outline: List documents when uploads_size__ge is correct
+Scenario Outline: List documents when revisions_size__ge is correct
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_size__ge' from value '<uploads_size>'
+  And set request query param 'revisions_size__ge' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -292,7 +292,7 @@ Given set request header token from global param 'admin_token'
   And response contains '2' params
 
 Examples:
-| uploads_size |
+| revisions_size |
 | none         |
 | 0            |
 | 0.0          |
@@ -302,22 +302,22 @@ Examples:
 | +123.0       |
 
 @document @list
-Scenario Outline: List documents when uploads_size__le is invalid
+Scenario Outline: List documents when revisions_size__le is invalid
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_size__le' from value '<uploads_size>'
+  And set request query param 'revisions_size__le' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'documents'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_size__le'
+  And error loc is 'query' and 'revisions_size__le'
   And error type is '<error_type>'
   And response contains '1' params
 
 Examples:
-| uploads_size | error_type  |
+| revisions_size | error_type  |
 | tabs         | int_parsing |
 | spaces       | int_parsing |
 | 123.4        | int_parsing |
@@ -326,10 +326,10 @@ Examples:
 | string(8)    | int_parsing |
 
 @document @list
-Scenario Outline: List documents when uploads_size__le is correct
+Scenario Outline: List documents when revisions_size__le is correct
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'uploads_size__le' from value '<uploads_size>'
+  And set request query param 'revisions_size__le' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -341,7 +341,7 @@ Given set request header token from global param 'admin_token'
   And response contains '2' params
 
 Examples:
-| uploads_size |
+| revisions_size |
 | none         |
 | 0            |
 | 0.0          |
@@ -704,8 +704,8 @@ Examples:
 # | user_id           |
 # | collection_id     |
 # | document_name     |
-# | uploads_count   |
-# | uploads_size    |
+# | revisions_count   |
+# | revisions_size    |
 # | comments_count    |
 # | downloads_count   |
 # | favorites_count   |

@@ -182,17 +182,17 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when uploads_count__ge is invalid
+Scenario Outline: List collections when revisions_count__ge is invalid
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_count__ge' from value '<revisions_count>'
+  And set request query param 'revisions_count__ge' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_count__ge'
+  And error loc is 'query' and 'revisions_count__ge'
   And error type is '<error_type>'
   And response contains '1' params
 
@@ -206,10 +206,10 @@ Examples:
 | string(8)       | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when uploads_count__ge is correct
+Scenario Outline: List collections when revisions_count__ge is correct
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_count__ge' from value '<revisions_count>'
+  And set request query param 'revisions_count__ge' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -231,17 +231,17 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when uploads_count__le is invalid
+Scenario Outline: List collections when revisions_count__le is invalid
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_count__le' from value '<revisions_count>'
+  And set request query param 'revisions_count__le' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_count__le'
+  And error loc is 'query' and 'revisions_count__le'
   And error type is '<error_type>'
   And response contains '1' params
 
@@ -255,10 +255,10 @@ Examples:
 | string(8)       | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when uploads_count__le is correct
+Scenario Outline: List collections when revisions_count__le is correct
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_count__le' from value '<revisions_count>'
+  And set request query param 'revisions_count__le' from value '<revisions_count>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -280,17 +280,17 @@ Examples:
 | +123.0          |
 
 @collection @list
-Scenario Outline: List collections when uploads_size__ge is invalid
+Scenario Outline: List collections when revisions_size__ge is invalid
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_size__ge' from value '<revisions_size>'
+  And set request query param 'revisions_size__ge' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_size__ge'
+  And error loc is 'query' and 'revisions_size__ge'
   And error type is '<error_type>'
   And response contains '1' params
 
@@ -304,10 +304,10 @@ Examples:
 | string(8)      | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when uploads_size__ge is correct
+Scenario Outline: List collections when revisions_size__ge is correct
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_size__ge' from value '<revisions_size>'
+  And set request query param 'revisions_size__ge' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -329,17 +329,17 @@ Examples:
 | +123.0         |
 
 @collection @list
-Scenario Outline: List collections when uploads_size__le is invalid
+Scenario Outline: List collections when revisions_size__le is invalid
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_size__le' from value '<revisions_size>'
+  And set request query param 'revisions_size__le' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'collections'
  Then response code is '422'
-  And error loc is 'query' and 'uploads_size__le'
+  And error loc is 'query' and 'revisions_size__le'
   And error type is '<error_type>'
   And response contains '1' params
 
@@ -353,10 +353,10 @@ Examples:
 | string(8)      | int_parsing |
 
 @collection @list
-Scenario Outline: List collections when uploads_size__le is correct
+Scenario Outline: List collections when revisions_size__le is correct
     # list collections
 Given set request header token from global param 'reader_token' 
-  And set request query param 'uploads_size__le' from value '<revisions_size>'
+  And set request query param 'revisions_size__le' from value '<revisions_size>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -517,8 +517,8 @@ Examples:
 | user_id         |
 | collection_name |
 | documents_count |
-| uploads_count   |
-| uploads_size    |
+| revisions_count   |
+| revisions_size    |
 
 @collection @list
 Scenario Outline: List collections when order is invalid

@@ -1,6 +1,6 @@
 Feature: Select download
 
-Background: Auth users, upload and download a document
+Background: Auth users, upload a document, download revision
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
@@ -12,16 +12,16 @@ Given set request header token from global param 'admin_token'
  When send 'POST' request to url 'document'
  Then response code is '201'
   And response params contain 'document_id'
-  And response params contain 'upload_id'
+  And response params contain 'revision_id'
   And response contains '2' params
   And save response param 'document_id' to global param 'document_id'
-  And save response param 'upload_id' to global param 'upload_id'
+  And save response param 'revision_id' to global param 'revision_id'
     # remove file from request
 Given delete request file
-    # download upload
+    # download revision
 Given set request header token from global param 'admin_token' 
-  And set request path param 'upload_id' from global param 'upload_id'
- When send 'GET' request to url 'upload/:upload_id/download'
+  And set request path param 'revision_id' from global param 'revision_id'
+ When send 'GET' request to url 'revision/:revision_id/download'
  Then response code is '200'
   And response content is not empty
 
