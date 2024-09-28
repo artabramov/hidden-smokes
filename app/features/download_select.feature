@@ -27,11 +27,12 @@ Given set request header token from global param 'admin_token'
   And response content is not empty
 
 @download @select
-Scenario Outline: Select download when download_id not found
+Scenario Outline: Select download when download_id is incorrect
     # select download
-Given set request header token from global param 'admin_token' 
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id' 
   And set request path param 'download_id' from value '<download_id>'
- When send 'GET' request to url 'download/:download_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
  Then response code is '404'
   And error loc is 'path' and 'download_id'
   And error type is 'resource_not_found'
@@ -49,6 +50,44 @@ Examples:
 | -1          |
 | 0           |
 | 9999999999  |
+
+@download @select
+Scenario Outline: Select download when mediafile_id is incorrect
+    # list downloads
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'desc'
+ When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ Then response code is '200'
+  And response params contain 'downloads'
+  And response params contain 'downloads_count'
+  And response contains '2' params
+  And save id from response list 'downloads' to global param 'download_id'
+    # select download
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from value '<mediafile_id>' 
+  And set request path param 'download_id' from global param 'download_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
+ Then response code is '404'
+  And error loc is 'path' and 'download_id'
+  And error type is 'resource_not_found'
+  And response contains '1' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
+
+Examples:
+| mediafile_id |
+| -1           |
+| 0            |
+| 9999999999   |
 
 # @download @select
 # Scenario: Select download when app is locked
@@ -128,21 +167,23 @@ Examples:
 @download @select
 Scenario: Select download when user is admin
     # list downloads
-Given set request header token from global param 'admin_token' 
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id' 
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'desc'
- When send 'GET' request to url 'downloads'
+ When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
   And save id from response list 'downloads' to global param 'download_id'
     # select dowload
-Given set request header token from global param 'admin_token' 
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'download_id' from global param 'download_id'
- When send 'GET' request to url 'download/:download_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
  Then response code is '200'
   And response params contain 'id'
   And response params contain 'created_date'
@@ -161,40 +202,72 @@ Given set request header token from global param 'admin_token'
 @download @select
 Scenario: Select download when user is editor
     # select download
-Given set request header token from global param 'editor_token' 
-  And set request path param 'download_id' from value '<download_id>'
- When send 'GET' request to url 'download/:download_id'
+Given set request header token from global param 'editor_token'
+  And set request path param 'mdiafile_id' from global param 'mediafile_id'
+  And set request path param 'download_id' from value '123'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
+  And response contains '1' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @download @select
 Scenario: Select download when user is writer
     # select download
 Given set request header token from global param 'writer_token' 
-  And set request path param 'download_id' from value '<download_id>'
- When send 'GET' request to url 'download/:download_id'
+  And set request path param 'mdiafile_id' from global param 'mediafile_id'
+  And set request path param 'download_id' from value '123'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
+  And response contains '1' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @download @select
 Scenario: Select download when user is reader
     # select download
 Given set request header token from global param 'reader_token' 
-  And set request path param 'download_id' from value '<download_id>'
- When send 'GET' request to url 'download/:download_id'
+  And set request path param 'mdiafile_id' from global param 'mediafile_id'
+  And set request path param 'download_id' from value '123'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
+  And response contains '1' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
   And response contains '1' params
 
 @download @select
 Scenario: Select download when token is missing
     # select download
 Given delete request header token 
-  And set request path param 'download_id' from value '1'
- When send 'GET' request to url 'download/:download_id'
+  And set request path param 'mdiafile_id' from global param 'mediafile_id'
+  And set request path param 'download_id' from value '123'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
  Then response code is '403'
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
