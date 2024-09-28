@@ -20,11 +20,12 @@ Given set request header token from global param 'admin_token'
 Given delete request file
 
 @revision @select
-Scenario Outline: Select revision when revision_id is not found
+Scenario Outline: Select revision when revision_id is incorrect
     # select revision
 Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from value '<revision_id>'
- When send 'GET' request to url 'revision/:revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
  Then response code is '404'
   And error loc is 'path' and 'revision_id'
   And error type is 'resource_not_found'
@@ -42,6 +43,31 @@ Examples:
 | -1          |
 | 0           |
 | 9999999999  |
+
+@revision @select
+Scenario Outline: Select revision when mediafile_id is incorrect
+    # select revision
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from value '<mediafile_id>'
+  And set request path param 'revision_id' from global param 'revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
+ Then response code is '404'
+  And error loc is 'path' and 'revision_id'
+  And error type is 'resource_not_found'
+  And response contains '1' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
+
+Examples:
+| mediafile_id |
+| -1           |
+| 0            |
+| 9999999999   |
 
 # @revision @select
 # Scenario: Select revision when app is locked
@@ -89,9 +115,10 @@ Examples:
 @revision @select
 Scenario: Select revision when user is admin
     # select revision
-Given set request header token from global param 'admin_token' 
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'revision/:revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
  Then response code is '200'
   And response params contain 'id'
   And response params contain 'created_date'
@@ -116,9 +143,10 @@ Given set request header token from global param 'admin_token'
 @revision @select
 Scenario: Select revision when user is editor
     # select revision
-Given set request header token from global param 'editor_token' 
+Given set request header token from global param 'editor_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'revision/:revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
  Then response code is '200'
   And response params contain 'id'
   And response params contain 'created_date'
@@ -143,9 +171,10 @@ Given set request header token from global param 'admin_token'
 @revision @select
 Scenario: Select revision when user is writer
     # select revision
-Given set request header token from global param 'writer_token' 
+Given set request header token from global param 'writer_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'revision/:revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
  Then response code is '200'
   And response params contain 'id'
   And response params contain 'created_date'
@@ -170,9 +199,10 @@ Given set request header token from global param 'admin_token'
 @revision @select
 Scenario: Select revision when user is reader
     # select revision
-Given set request header token from global param 'reader_token' 
+Given set request header token from global param 'reader_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'revision/:revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
  Then response code is '200'
   And response params contain 'id'
   And response params contain 'created_date'
@@ -197,9 +227,10 @@ Given set request header token from global param 'admin_token'
 @revision @select
 Scenario: Select revision when token is missing
     # select revision
-Given delete request header token 
+Given delete request header token
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'revision/:revision_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id'
  Then response code is '403'
     # delete mediafile
 Given set request header token from global param 'admin_token' 

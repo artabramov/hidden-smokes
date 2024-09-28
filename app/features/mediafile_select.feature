@@ -38,9 +38,9 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | mediafile_id |
-| -1          |
-| 0           |
-| 9999999999  |
+| -1           |
+| 0            |
+| 9999999999   |
 
 @mediafile @select
 Scenario Outline: Select mediafile when mediafile_id is invalid

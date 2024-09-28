@@ -19,9 +19,10 @@ Given set request header token from global param 'admin_token'
     # remove file from request
 Given delete request file
     # download revision
-Given set request header token from global param 'admin_token' 
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'revision/:revision_id/download'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revision/:revision_id/download'
  Then response code is '200'
   And response content is not empty
 
