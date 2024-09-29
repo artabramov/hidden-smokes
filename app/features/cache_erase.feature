@@ -1,4 +1,4 @@
-Feature: System telemetry
+Feature: Erase the cache
 
 Background: Auth users
     # auth users
@@ -7,47 +7,47 @@ Given auth with user role 'admin'
   And auth with user role 'writer'
   And auth with user role 'reader'
 
-@telemetry @retrieve
-Scenario: Retrieve telemetry when user is admin
-   # retrieve telemetry
+@cache @erase
+Scenario: Erase cache when user is admin
+   # erase cache
 Given set request header token from global param 'admin_token' 
- When send 'GET' request to url 'telemetry'
+ When send 'DELETE' request to url 'cache'
  Then response code is '200'
-  And response contains '31' params
+  And response contains '0' params
 
-@telemetry @retrieve
-Scenario: Retrieve telemetry when user is editor
-   # retrieve telemetry
+@cache @erase
+Scenario: Erase cache when user is editor
+   # erase cache
 Given set request header token from global param 'editor_token' 
- When send 'GET' request to url 'telemetry'
+ When send 'DELETE' request to url 'cache'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
 
-@telemetry @retrieve
-Scenario: Retrieve telemetry when user is writer
-   # retrieve telemetry
+@cache @erase
+Scenario: Erase cache when user is writer
+   # erase cache
 Given set request header token from global param 'writer_token' 
- When send 'GET' request to url 'telemetry'
+ When send 'DELETE' request to url 'cache'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
 
-@telemetry @retrieve
-Scenario: Retrieve telemetry when user is reader
-   # retrieve telemetry
+@cache @erase
+Scenario: Erase cache when user is reader
+   # erase cache
 Given set request header token from global param 'reader_token' 
- When send 'GET' request to url 'telemetry'
+ When send 'DELETE' request to url 'cache'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
 
-@telemetry @retrieve
-Scenario: Retrieve telemetry when token is missing
-   # retrieve telemetry
+@cache @erase
+Scenario: Erase cache when token is missing
+   # erase cache
 Given delete request header token 
- When send 'GET' request to url 'telemetry'
+ When send 'DELETE' request to url 'cache'
  Then response code is '403'

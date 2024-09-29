@@ -389,6 +389,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Cache erase",
+            "args": ["--tags", "@cache", "--tags", "@erase", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Custom execute",
             "args": ["--tags", "@custom", "--tags", "@execute", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
