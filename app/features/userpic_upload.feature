@@ -67,34 +67,37 @@ Examples:
 | png            |
 | gif            |
 
-# @userpic @upload
-# Scenario: Upload userpic when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # upload userpic
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'user_id' from global param 'admin_id'
-#   And set request file from sample format 'jpeg'
-#  When send 'POST' request to url 'user/:user_id/userpic'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # upload userpic
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'user_id' from global param 'admin_id'
-#   And set request file from sample format 'jpeg'
-#  When send 'POST' request to url 'user/:user_id/userpic'
-#  Then response code is '200'
-#   And response params contain 'user_id'
-#   And response contains '1' params
+@userpic @upload
+Scenario: Upload userpic when app is locked
+    # lock app
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # upload userpic
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'admin_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'user/:user_id/userpic'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # upload userpic
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'admin_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'user/:user_id/userpic'
+ Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
 
 @userpic @upload
 Scenario: Upload userpic when user is admin

@@ -39,49 +39,50 @@ Examples:
 | 0             |
 | 9999999999    |
 
-# @collection @select
-# Scenario: Select collection when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # select collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#  When send 'GET' request to url 'collection/:collection_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # select collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#  When send 'GET' request to url 'collection/:collection_id'
-#  Then response code is '200'
-#   And response params contain 'id'
-#   And response params contain 'created_date'
-#   And response params contain 'updated_date'
-#   And response params contain 'user_id'
-#   And response params contain 'is_locked'
-#   And response params contain 'collection_name'
-#   And response params contain 'collection_summary'
-#   And response params contain 'mediafiles_count'
-#   And response params contain 'mediafiles_size'
-#   And response params contain 'revisions_count'
-#   And response params contain 'revisions_size'
-#   And response params contain 'collection_user'
-#   And response contains '12' params
-#     # delete collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#  When send 'DELETE' request to url 'collection/:collection_id'
-#  Then response code is '200'
-#   And response params contain 'collection_id'
+@collection @select
+Scenario: Select collection when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # select collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # select collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'GET' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'is_locked'
+  And response params contain 'collection_name'
+  And response params contain 'collection_summary'
+  And response params contain 'mediafiles_count'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'collection_user'
+  And response contains '11' params
+    # delete collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @collection @select
 Scenario: Select collection when user is admin

@@ -238,38 +238,40 @@ Examples:
 | asc   |
 | desc  |
 
-# @comment @list
-# Scenario: List comments when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # list comments
-# Given set request header token from global param 'admin_token' 
-#   And set request query param 'offset' from value '0'
-#   And set request query param 'limit' from value '1'
-#   And set request query param 'order_by' from value 'id'
-#   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'comments'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # list comments
-# Given set request header token from global param 'admin_token' 
-#   And set request query param 'offset' from value '0'
-#   And set request query param 'limit' from value '1'
-#   And set request query param 'order_by' from value 'id'
-#   And set request query param 'order' from value 'asc'
-#  When send 'GET' request to url 'comments'
-#  Then response code is '200'
-#   And response params contain 'comments'
-#   And response params contain 'comments_count'
+@comment @list
+Scenario: List comments when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # list comments
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'comments'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # list comments
+Given set request header token from global param 'admin_token' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'comments'
+ Then response code is '200'
+  And response params contain 'comments'
+  And response params contain 'comments_count'
 
 @comment @list
 Scenario: List comments when user is admin

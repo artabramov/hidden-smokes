@@ -175,40 +175,42 @@ Examples:
 | string(1)     |
 | string(512)   |
 
-# @user @update
-# Scenario Outline: Update user when app islocked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # update user
-# Given set request header token from global param 'admin_token'
-#   And set request path param 'user_id' from global param 'admin_id'
-#   And set request body param 'first_name' from fake 'first_name'
-#   And set request body param 'last_name' from fake 'last_name'
-#   And set request body param 'user_signature' from fake 'user_signature'
-#   And set request body param 'user_contacts' from fake 'user_contacts'
-#  When send 'PUT' request to url 'user/:user_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # update user
-# Given set request header token from global param 'admin_token'
-#   And set request path param 'user_id' from global param 'admin_id'
-#   And set request body param 'first_name' from fake 'first_name'
-#   And set request body param 'last_name' from fake 'last_name'
-#   And set request body param 'user_signature' from fake 'user_signature'
-#   And set request body param 'user_contacts' from fake 'user_contacts'
-#  When send 'PUT' request to url 'user/:user_id'
-#  Then response code is '200'
-#   And response params contain 'user_id'
-#   And response contains '1' params
+@user @update
+Scenario Outline: Update user when app islocked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # update user
+Given set request header token from global param 'admin_token'
+  And set request path param 'user_id' from global param 'admin_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
+ When send 'PUT' request to url 'user/:user_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # update user
+Given set request header token from global param 'admin_token'
+  And set request path param 'user_id' from global param 'admin_id'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
+ When send 'PUT' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
 
 @user @update
 Scenario Outline: Update user when user is admin

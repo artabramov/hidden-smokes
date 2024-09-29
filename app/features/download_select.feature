@@ -89,80 +89,60 @@ Examples:
 | 0            |
 | 9999999999   |
 
-# @download @select
-# Scenario: Select download when app is locked
-#     # insert collection
-# Given set request header token from global param 'admin_token' 
-#   And set request param 'is_locked' from value '0'
-#   And set request param 'collection_name' from fake 'collection_name'
-#   And set request param 'collection_summary' from fake 'collection_summary'
-#  When send 'POST' request to url 'collection'
-#  Then response code is '201'
-#   And response params contain 'collection_id'
-#   And save response param 'collection_id' to global param 'collection_id'
-#     # insert mediafile
-# Given set request header token from global param 'admin_token' 
-#   And set request param 'collection_id' from global param 'collection_id'
-#   And set request param 'mediafile_name' from fake 'mediafile_name'
-#   And set request param 'mediafile_summary' from fake 'mediafile_summary'
-#   And set request param 'tags' from fake 'mediafile_tags'
-#   And set request file from sample format 'pdf'
-#  When send 'POST' request to url 'mediafile'
-#  Then response code is '201'
-#   And response params contain 'mediafile_id'
-#   And response params contain 'revision_id'
-#   And save response param 'revision_id' to global param 'revision_id'
-#     # download revision
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'revision_id' from global param 'revision_id'
-#  When send 'GET' request to url 'revision/:revision_id/download'
-#  Then response code is '200'
-#   And response content is not empty
-#     # list downloads
-# Given set request header token from global param 'admin_token' 
-#   And set request param 'offset' from value '0'
-#   And set request param 'limit' from value '1'
-#   And set request param 'order_by' from value 'id'
-#   And set request param 'order' from value 'desc'
-#  When send 'GET' request to url 'downloads'
-#  Then response code is '200'
-#   And response params contain 'downloads'
-#   And response params contain 'downloads_count'
-#   And save id from response list 'downloads' to global param 'download_id'
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # select dowload
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'download_id' from global param 'download_id'
-#  When send 'GET' request to url 'download/:download_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # select dowload
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'download_id' from global param 'download_id'
-#  When send 'GET' request to url 'download/:download_id'
-#  Then response code is '200'
-#   And response params contain 'id'
-#   And response params contain 'created_date'
-#   And response params contain 'user_id'
-#   And response params contain 'mediafile_id'
-#   And response params contain 'download_user'
-#   And response contains '5' params
-#     # delete collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#  When send 'DELETE' request to url 'collection/:collection_id'
-#  Then response code is '200'
-#   And response params contain 'collection_id'
+@download @select
+Scenario: Select download when app is locked
+    # list downloads
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id' 
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'desc'
+ When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ Then response code is '200'
+  And response params contain 'downloads'
+  And response params contain 'downloads_count'
+  And response contains '2' params
+  And save id from response list 'downloads' to global param 'download_id'
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # select dowload
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'download_id' from global param 'download_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # select dowload
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'download_id' from global param 'download_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download/:download_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'user_id'
+  And response params contain 'mediafile_id'
+  And response params contain 'download_user'
+  And response contains '5' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
 
 @download @select
 Scenario: Select download when user is admin

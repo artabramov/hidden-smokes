@@ -95,7 +95,6 @@ Examples:
 #   And response params contain 'revisions_count'
 #   And response params contain 'revisions_size'
 #   And response params contain 'downloads_count'
-#   And response params contain 'downloads_size'
 #   And response params contain 'mediafile_tags'
 #   And response params contain 'mediafile_user'
 #   And response params contain 'latest_revision'
@@ -108,51 +107,54 @@ Examples:
 #   And response params contain 'mediafile_id'
 #   And response contains '1' params
 
-# @mediafile @select
-# Scenario: Select mediafile when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # select mediafile
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'mediafile_id' from global param 'mediafile_id'
-#  When send 'GET' request to url 'mediafile/:mediafile_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # select mediafile
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'mediafile_id' from global param 'mediafile_id'
-#  When send 'GET' request to url 'mediafile/:mediafile_id'
-#  Then response code is '200'
-#   And response params contain 'id'
-#   And response params contain 'created_date'
-#   And response params contain 'updated_date'
-#   And response params contain 'user_id'
-#   And response params contain 'collection_id'
-#   And response params contain 'mediafile_name'
-#   And response params contain 'mediafile_summary'
-#   And response params contain 'revisions_count'
-#   And response params contain 'revisions_size'
-#   And response params contain 'comments_count'
-#   And response params contain 'downloads_count'
-#   And response params contain 'favorites_count'
-#   And response params contain 'mediafile_tags'
-#   And response params contain 'mediafile_revision'
-#   And response contains '14' params
-#     # delete collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#  When send 'DELETE' request to url 'collection/:collection_id'
-#  Then response code is '200'
-#   And response params contain 'collection_id'
+@mediafile @select
+Scenario: Select mediafile when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # select mediafile
+Given set request header token from global param 'reader_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # select mediafile
+Given set request header token from global param 'reader_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'collection_id'
+  And response params contain 'mediafile_name'
+  And response params contain 'mediafile_summary'
+  And response params contain 'comments_count'
+  And response params contain 'revisions_count'
+  And response params contain 'revisions_size'
+  And response params contain 'downloads_count'
+  And response params contain 'mediafile_tags'
+  And response params contain 'mediafile_user'
+  And response params contain 'latest_revision'
+  And response contains '14' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
 
 @mediafile @select
 Scenario: Select mediafile when user is admin
@@ -172,11 +174,10 @@ Given set request header token from global param 'reader_token'
   And response params contain 'revisions_count'
   And response params contain 'revisions_size'
   And response params contain 'downloads_count'
-  And response params contain 'downloads_size'
   And response params contain 'mediafile_tags'
   And response params contain 'mediafile_user'
   And response params contain 'latest_revision'
-  And response contains '15' params
+  And response contains '14' params
     # delete mediafile
 Given set request header token from global param 'admin_token' 
   And set request path param 'mediafile_id' from global param 'mediafile_id'
@@ -203,11 +204,10 @@ Given set request header token from global param 'reader_token'
   And response params contain 'revisions_count'
   And response params contain 'revisions_size'
   And response params contain 'downloads_count'
-  And response params contain 'downloads_size'
   And response params contain 'mediafile_tags'
   And response params contain 'mediafile_user'
   And response params contain 'latest_revision'
-  And response contains '15' params
+  And response contains '14' params
     # delete mediafile
 Given set request header token from global param 'admin_token' 
   And set request path param 'mediafile_id' from global param 'mediafile_id'
@@ -234,11 +234,10 @@ Given set request header token from global param 'reader_token'
   And response params contain 'revisions_count'
   And response params contain 'revisions_size'
   And response params contain 'downloads_count'
-  And response params contain 'downloads_size'
   And response params contain 'mediafile_tags'
   And response params contain 'mediafile_user'
   And response params contain 'latest_revision'
-  And response contains '15' params
+  And response contains '14' params
     # delete mediafile
 Given set request header token from global param 'admin_token' 
   And set request path param 'mediafile_id' from global param 'mediafile_id'
@@ -265,11 +264,10 @@ Given set request header token from global param 'reader_token'
   And response params contain 'revisions_count'
   And response params contain 'revisions_size'
   And response params contain 'downloads_count'
-  And response params contain 'downloads_size'
   And response params contain 'mediafile_tags'
   And response params contain 'mediafile_user'
   And response params contain 'latest_revision'
-  And response contains '15' params
+  And response contains '14' params
     # delete mediafile
 Given set request header token from global param 'admin_token' 
   And set request path param 'mediafile_id' from global param 'mediafile_id'

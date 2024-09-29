@@ -323,50 +323,52 @@ Examples:
 | string(1)     |
 | string(512)   |
 
-# @user @register
-# Scenario: Register user when app is locked
-# Given auth with user role 'admin'
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # register user
-# Given set request body param 'user_login' from fake 'user_login'
-#   And set request body param 'user_password' from value '123456'
-#   And set request body param 'first_name' from fake 'first_name'
-#   And set request body param 'last_name' from fake 'last_name'
-#   And set request body param 'user_signature' from fake 'user_signature'
-#   And set request body param 'user_contacts' from fake 'user_contacts'
-#  When send 'POST' request to url 'user'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # register user
-# Given set request body param 'user_login' from fake 'user_login'
-#   And set request body param 'user_password' from value '123456'
-#   And set request body param 'first_name' from fake 'first_name'
-#   And set request body param 'last_name' from fake 'last_name'
-#   And set request body param 'user_signature' from fake 'user_signature'
-#   And set request body param 'user_contacts' from fake 'user_contacts'
-#  When send 'POST' request to url 'user'
-#  Then response code is '201'
-#   And response params contain 'user_id'
-#   And response params contain 'mfa_secret'
-#   And response params contain 'mfa_url'
-#   And response contains '3' params
-#   And save response param 'user_id' to global param 'user_id'
-#     # delete user
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'user_id' from global param 'user_id'
-#  When send 'DELETE' request to url 'user/:user_id'
-#  Then response code is '200'
-#   And response params contain 'user_id'
+@user @register
+Scenario: Register user when app is locked
+Given auth with user role 'admin'
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # register user
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
+ When send 'POST' request to url 'user'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # register user
+Given set request body param 'user_login' from fake 'user_login'
+  And set request body param 'user_password' from value '123456'
+  And set request body param 'first_name' from fake 'first_name'
+  And set request body param 'last_name' from fake 'last_name'
+  And set request body param 'user_signature' from fake 'user_signature'
+  And set request body param 'user_contacts' from fake 'user_contacts'
+ When send 'POST' request to url 'user'
+ Then response code is '201'
+  And response params contain 'user_id'
+  And response params contain 'mfa_secret'
+  And response params contain 'mfa_url'
+  And response contains '3' params
+  And save response param 'user_id' to global param 'user_id'
+    # delete user
+Given set request header token from global param 'admin_token' 
+  And set request path param 'user_id' from global param 'user_id'
+ When send 'DELETE' request to url 'user/:user_id'
+ Then response code is '200'
+  And response params contain 'user_id'
 
 @user @register
 Scenario: Register user

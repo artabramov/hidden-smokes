@@ -222,44 +222,46 @@ Examples:
 | string(1)          |
 | string(512)        |
 
-# @collection @update
-# Scenario Outline: Update collection when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # update collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#   And set request body param 'is_locked' from value '0'
-#   And set request body param 'collection_name' from fake 'collection_name'
-#   And set request body param 'collection_summary' from fake 'collection_summary'
-#  When send 'PUT' request to url 'collection/:collection_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # update collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#   And set request body param 'is_locked' from value '0'
-#   And set request body param 'collection_name' from fake 'collection_name'
-#   And set request body param 'collection_summary' from fake 'collection_summary'
-#  When send 'PUT' request to url 'collection/:collection_id'
-#  Then response code is '200'
-#   And response params contain 'collection_id'
-#   And response contains '1' params
-#     # delete collection
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'collection_id' from global param 'collection_id'
-#  When send 'DELETE' request to url 'collection/:collection_id'
-#  Then response code is '200'
-#   And response params contain 'collection_id'
+@collection @update
+Scenario Outline: Update collection when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # update collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_locked' from value '0'
+  And set request body param 'collection_name' from fake 'collection_name'
+  And set request body param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # update collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_locked' from value '0'
+  And set request body param 'collection_name' from fake 'collection_name'
+  And set request body param 'collection_summary' from fake 'collection_summary'
+ When send 'PUT' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
 
 @collection @update
 Scenario Outline: Update collection when user is admin

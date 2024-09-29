@@ -50,50 +50,53 @@ Examples:
 | 0           |
 | 9999999999  |
 
-# @favorite @select
-# Scenario: Select favorite when app is locked
-#     # insert favorite
-# Given set request header token from global param 'admin_token' 
-#   And set request param 'mediafile_id' from global param 'mediafile_id'
-#  When send 'POST' request to url 'favorite'
-#  Then response code is '201'
-#   And response params contain 'favorite_id'
-#   And save response param 'favorite_id' to global param 'favorite_id'
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # select favorite
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'favorite_id' from global param 'favorite_id'
-#  When send 'GET' request to url 'favorite/:favorite_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # select favorite
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'favorite_id' from global param 'favorite_id'
-#  When send 'GET' request to url 'favorite/:favorite_id'
-#  Then response code is '200'
-#   And response params contain 'id'
-#   And response params contain 'created_date'
-#   And response params contain 'user_id'
-#   And response params contain 'mediafile_id'
-#   And response params contain 'favorite_mediafile'
-#   And response contains '5' params
-#     # delete mediafile
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'mediafile_id' from global param 'mediafile_id'
-#  When send 'DELETE' request to url 'mediafile/:mediafile_id'
-#  Then response code is '200'
-#   And response params contain 'mediafile_id'
-#   And response contains '1' params
+@favorite @select
+Scenario: Select favorite when app is locked
+    # insert favorite
+Given set request header token from global param 'admin_token' 
+  And set request body param 'mediafile_id' from global param 'mediafile_id'
+ When send 'POST' request to url 'favorite'
+ Then response code is '201'
+  And response params contain 'favorite_id'
+  And response contains '1' params
+  And save response param 'favorite_id' to global param 'favorite_id'
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # select favorite
+Given set request header token from global param 'admin_token' 
+  And set request path param 'favorite_id' from global param 'favorite_id'
+ When send 'GET' request to url 'favorite/:favorite_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # select favorite
+Given set request header token from global param 'admin_token' 
+  And set request path param 'favorite_id' from global param 'favorite_id'
+ When send 'GET' request to url 'favorite/:favorite_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'user_id'
+  And response params contain 'mediafile_id'
+  And response params contain 'favorite_mediafile'
+  And response contains '5' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
 
 @favorite @select
 Scenario: Select favorite when user is admin

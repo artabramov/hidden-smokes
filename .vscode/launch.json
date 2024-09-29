@@ -6,7 +6,7 @@
     "configurations": [
         
         {
-            "name": "Run all tests",
+            "name": "Run all",
             "args": [ "--tags", "~@demo", "--format", "progress"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

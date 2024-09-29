@@ -314,39 +314,50 @@ Examples:
 | asc   |
 | desc  |
 
-# # @revision @list
-# # Scenario: List revisions when app is locked
-# #     # lock app
-# # Given set request header token from global param 'admin_token' 
-# #  When send 'GET' request to url 'system/lock'
-# #  Then response code is '200'
-# #   And response params contain 'is_locked'
-# #   And response param 'is_locked' equals 'True'
-# #     # list revisions
-# # Given set request header token from global param 'admin_token' 
-# #   And set request query param 'offset' from value '0'
-# #   And set request query param 'limit' from value '1'
-# #   And set request query param 'order_by' from value 'id'
-# #   And set request query param 'order' from value 'asc'
-# #  When send 'GET' request to url 'revisions'
-# #  Then response code is '503'
-# #     # unlock app
-# # Given set request header token from global param 'admin_token' 
-# #  When send 'GET' request to url 'system/unlock'
-# #  Then response code is '200'
-# #   And response params contain 'is_locked'
-# #   And response param 'is_locked' equals 'False'
-# #     # list revisions
-# # Given set request header token from global param 'admin_token' 
-# #   And set request query param 'offset' from value '0'
-# #   And set request query param 'limit' from value '1'
-# #   And set request query param 'order_by' from value 'id'
-# #   And set request query param 'order' from value 'asc'
-# #  When send 'GET' request to url 'revisions'
-# #  Then response code is '200'
-# #   And response params contain 'revisions'
-# #   And response params contain 'revisions_count'
-# #   And response contains '2' params
+@revision @list
+Scenario: List revisions when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # list revisions
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revisions'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # list revisions
+Given set request header token from global param 'admin_token'
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'mediafile/:mediafile_id/revisions'
+ Then response code is '200'
+  And response params contain 'revisions'
+  And response params contain 'revisions_count'
+  And response contains '2' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
 
 @revision @list
 Scenario: List revisions when user is admin

@@ -79,41 +79,44 @@ Examples:
 | string(2)  |
 | string(40) |
 
-# @option @insert
-# Scenario: Insert option when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # insert option
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'option_key' from fake 'option_key'
-#   And set request param 'option_value' from fake 'option_value'
-#  When send 'PUT' request to url 'option/:option_key'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # insert option
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'option_key' from fake 'option_key'
-#   And set request param 'option_value' from fake 'option_value'
-#  When send 'PUT' request to url 'option/:option_key'
-#  Then response code is '200'
-#   And response params contain 'option_key'
-#   And save response param 'option_key' to global param 'option_key'
-#   And response contains '1' params
-#     # delete option
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'option_key' from global param 'option_key'
-#  When send 'DELETE' request to url 'option/:option_key'
-#  Then response code is '200'
-#   And response params contain 'option_key'
+@option @insert
+Scenario: Insert option when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # insert option
+Given set request header token from global param 'admin_token' 
+  And set request body param 'option_key' from fake 'option_key'
+  And set request body param 'option_value' from fake 'option_value'
+ When send 'POST' request to url 'option'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # insert option
+Given set request header token from global param 'admin_token' 
+  And set request body param 'option_key' from fake 'option_key'
+  And set request body param 'option_value' from fake 'option_value'
+ When send 'POST' request to url 'option'
+ Then response code is '200'
+  And response params contain 'option_key'
+  And response contains '1' params
+  And save response param 'option_key' to global param 'option_key'
+    # delete option
+Given set request header token from global param 'admin_token' 
+  And set request path param 'option_key' from global param 'option_key'
+ When send 'DELETE' request to url 'option/:option_key'
+ Then response code is '200'
+  And response params contain 'option_key'
+  And response contains '1' params
 
 @option @insert
 Scenario: Insert option when user is admin

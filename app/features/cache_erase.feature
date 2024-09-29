@@ -8,6 +8,32 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @cache @erase
+Scenario: Erase cache when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+   # erase cache
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'cache'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+   # erase cache
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'cache'
+ Then response code is '200'
+  And response contains '0' params
+
+@cache @erase
 Scenario: Erase cache when user is admin
    # erase cache
 Given set request header token from global param 'admin_token' 

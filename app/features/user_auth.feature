@@ -214,64 +214,70 @@ Examples:
 | 4102430400   |
 | 4102430400.0 |
 
-# @user @auth
-# Scenario: Auth user when app is locked
-# Given auth with user role 'admin'
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # user login
-# Given set request body param 'user_login' from config param 'admin_login'
-#   And set request body param 'user_password' from config param 'admin_password'
-#  When send 'POST' request to url 'auth/login'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # user login
-# Given set request body param 'user_login' from config param 'admin_login'
-#   And set request body param 'user_password' from config param 'admin_password'
-#  When send 'POST' request to url 'auth/login'
-#  Then response code is '200'
-#   And response params contain 'password_accepted'
-#   And response contains '1' params
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # token retrieve
-# Given set request body param 'user_login' from config param 'admin_login'
-#   And generate request param 'user_totp' from config param 'admin_mfa_secret'
-#  When send 'GET' request to url 'auth/token'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # token retrieve
-# Given set request body param 'user_login' from config param 'admin_login'
-#   And generate request param 'user_totp' from config param 'admin_mfa_secret'
-#  When send 'GET' request to url 'auth/token'
-#  Then response code is '200'
-#   And response params contain 'user_token'
-#   And response contains '1' params
-#     # token invalidate
-# Given set request header token from response param 'user_token'
-#  When send 'DELETE' request to url 'auth/token'
-#  Then response code is '200'
-#     # delete outdated auth data
-#  Then delete global param 'admin_token'
-#   And delete global param 'admin_id'
+@user @auth
+Scenario: Auth user when app is locked
+Given auth with user role 'admin'
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # user login
+Given set request body param 'user_login' from config param 'admin_login'
+  And set request body param 'user_password' from config param 'admin_password'
+ When send 'POST' request to url 'auth/login'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # user login
+Given set request body param 'user_login' from config param 'admin_login'
+  And set request body param 'user_password' from config param 'admin_password'
+ When send 'POST' request to url 'auth/login'
+ Then response code is '200'
+  And response params contain 'password_accepted'
+  And response contains '1' params
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # token retrieve
+Given set request query param 'user_login' from config param 'admin_login'
+  And generate request query param 'user_totp' from config param 'admin_mfa_secret'
+ When send 'GET' request to url 'auth/token'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # token retrieve
+Given set request query param 'user_login' from config param 'admin_login'
+  And generate request query param 'user_totp' from config param 'admin_mfa_secret'
+ When send 'GET' request to url 'auth/token'
+ Then response code is '200'
+  And response params contain 'user_token'
+  And response contains '1' params
+    # token invalidate
+Given set request header token from response param 'user_token'
+ When send 'DELETE' request to url 'auth/token'
+ Then response code is '200'
+  And response params contain 'user_id'
+  And response contains '1' params
+    # delete outdated auth data
+ Then delete global param 'admin_token'
+  And delete global param 'admin_id'
 
 @user @auth
 Scenario: Auth user when user_role is admin

@@ -2,7 +2,7 @@ Feature: Retrieve current time
 
 @time @retrieve
 Scenario: Retrieve time
-   # retrieve hello
+   # retrieve time
 When send 'GET' request to url 'time'
 Then response code is '200'
  And response params contain 'unix_timestamp'

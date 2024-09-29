@@ -29,6 +29,7 @@ Given set request header token from global param 'admin_token'
 
 @comment @select
 Scenario Outline: Select comment when mediafile_id not found
+    # select comment
 Given set request header token from global param 'admin_token' 
   And set request path param 'comment_id' from value '<comment_id>'
  When send 'GET' request to url 'comment/:comment_id'
@@ -50,48 +51,51 @@ Examples:
 | 0          |
 | 9999999999 |
 
-# @comment @select
-# Scenario: Select comment when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # select comment
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'comment_id' from global param 'comment_id'
-#  When send 'GET' request to url 'comment/:comment_id'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # select comment
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'comment_id' from global param 'comment_id'
-#  When send 'GET' request to url 'comment/:comment_id'
-#  Then response code is '200'
-#   And response params contain 'id'
-#   And response params contain 'created_date'
-#   And response params contain 'updated_date'
-#   And response params contain 'user_id'
-#   And response params contain 'mediafile_id'
-#   And response params contain 'comment_content'
-#   And response params contain 'comment_user'
-#   And response contains '7' params
-#     # delete mediafile
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'mediafile_id' from global param 'mediafile_id'
-#  When send 'DELETE' request to url 'mediafile/:mediafile_id'
-#  Then response code is '200'
-#   And response params contain 'mediafile_id'
-#   And response contains '1' params
+@comment @select
+Scenario: Select comment when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # select comment
+Given set request header token from global param 'admin_token' 
+  And set request path param 'comment_id' from global param 'comment_id'
+ When send 'GET' request to url 'comment/:comment_id'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # select comment
+Given set request header token from global param 'admin_token' 
+  And set request path param 'comment_id' from global param 'comment_id'
+ When send 'GET' request to url 'comment/:comment_id'
+ Then response code is '200'
+  And response params contain 'id'
+  And response params contain 'created_date'
+  And response params contain 'updated_date'
+  And response params contain 'user_id'
+  And response params contain 'mediafile_id'
+  And response params contain 'comment_content'
+  And response params contain 'comment_user'
+  And response contains '7' params
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
 
 @comment @select
 Scenario: Select comment when user is admin
+    # select comment
 Given set request header token from global param 'admin_token' 
   And set request path param 'comment_id' from global param 'comment_id'
  When send 'GET' request to url 'comment/:comment_id'
@@ -114,6 +118,7 @@ Given set request header token from global param 'admin_token'
 
 @comment @select
 Scenario: Select comment when user is editor
+    # select comment
 Given set request header token from global param 'editor_token' 
   And set request path param 'comment_id' from global param 'comment_id'
  When send 'GET' request to url 'comment/:comment_id'
@@ -136,6 +141,7 @@ Given set request header token from global param 'admin_token'
 
 @comment @select
 Scenario: Select comment when user is writer
+    # select comment
 Given set request header token from global param 'writer_token' 
   And set request path param 'comment_id' from global param 'comment_id'
  When send 'GET' request to url 'comment/:comment_id'
@@ -158,6 +164,7 @@ Given set request header token from global param 'admin_token'
 
 @comment @select
 Scenario: Select comment when user is reader
+    # select comment
 Given set request header token from global param 'reader_token' 
   And set request path param 'comment_id' from global param 'comment_id'
  When send 'GET' request to url 'comment/:comment_id'
@@ -180,6 +187,7 @@ Given set request header token from global param 'admin_token'
 
 @comment @select
 Scenario: Select comment when token is missing
+    # select comment
 Given delete request header token 
   And set request path param 'comment_id' from global param 'comment_id'
  When send 'GET' request to url 'comment/:comment_id'

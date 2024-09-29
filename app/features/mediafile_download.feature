@@ -51,38 +51,40 @@ Examples:
 | 0            |
 | 9999999999   |
 
-# @mediafile @download
-# Scenario: Download revision when app is locked
-#     # lock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/lock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'True'
-#     # download revision
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'revision_id' from global param 'revision_id'
-#  When send 'GET' request to url 'revision/:revision_id/download'
-#  Then response code is '503'
-#     # unlock app
-# Given set request header token from global param 'admin_token' 
-#  When send 'GET' request to url 'system/unlock'
-#  Then response code is '200'
-#   And response params contain 'is_locked'
-#   And response param 'is_locked' equals 'False'
-#     # download revision
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'revision_id' from global param 'revision_id'
-#  When send 'GET' request to url 'revision/:revision_id/download'
-#  Then response code is '200'
-#   And response content is not empty
-#     # delete mediafile
-# Given set request header token from global param 'admin_token' 
-#   And set request path param 'mediafile_id' from global param 'mediafile_id'
-#  When send 'DELETE' request to url 'mediafile/:mediafile_id'
-#  Then response code is '200'
-#   And response params contain 'mediafile_id'
-#   And response contains '1' params
+@mediafile @download
+Scenario: Download revision when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # download mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # download mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'GET' request to url 'mediafile/:mediafile_id/download'
+ Then response code is '200'
+  And response content is not empty
+    # delete mediafile
+Given set request header token from global param 'admin_token' 
+  And set request path param 'mediafile_id' from global param 'mediafile_id'
+ When send 'DELETE' request to url 'mediafile/:mediafile_id'
+ Then response code is '200'
+  And response params contain 'mediafile_id'
+  And response contains '1' params
 
 @mediafile @download
 Scenario: Download mediafile when user is admin
