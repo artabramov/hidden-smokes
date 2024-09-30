@@ -1,1 +1,1 @@
-# hide-smokes
+# hidden-smokes

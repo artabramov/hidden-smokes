@@ -1,3 +1,3 @@
 install:
-	docker build --no-cache -t hide-smokes .
-	docker run --name hide-smokes -dit hide-smokes
+	docker build --no-cache -t hidden-smokes .
+	docker run --name hidden-smokes -dit hidden-smokes
