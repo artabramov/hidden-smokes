@@ -40,7 +40,7 @@ def step_impl(context, user_role):
                                  json=body_params)
 
         # retrieve token
-        url = context.config_params["internal_base_url"] + "auth/token/"
+        url = context.config_params["internal_base_url"] + "auth/token"
         mfa_secret = context.config_params[user_role + "_mfa_secret"]
         user_totp = pyotp.TOTP(mfa_secret).now()
         params = {

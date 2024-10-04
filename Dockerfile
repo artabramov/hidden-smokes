@@ -12,4 +12,7 @@ RUN pip3 install Faker==24.11.0
 RUN pip3 install shortuuid==1.0.13
 RUN pip3 freeze > /smokes/requirements.txt
 
+RUN git config --global user.email "notdepot@gmail.com"
+RUN git config --global user.name "Artem Abramov"
+
 CMD tail -f /dev/null
