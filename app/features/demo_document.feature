@@ -1,10 +1,10 @@
-Feature: Create demo mediafile
+Feature: Create demo datafile
 
 Background: Authorize users
 Given auth with user role 'admin'
 
-@mediafile @demo
-Scenario: Create demo mediafile
+@datafile @demo
+Scenario: Create demo datafile
     # select random collection
 Given set request header token from global param 'admin_token' 
   And set request param 'offset' from value '0'
@@ -15,12 +15,12 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collections'
   And save id from response list 'collections' to global param 'collection_id'
-    # insert mediafile
+    # insert datafile
 Given set request header token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
-  And set request param 'mediafile_name' from fake 'mediafile_name'
-  And set request param 'mediafile_summary' from fake 'mediafile_summary'
-  And set request param 'tags' from fake 'mediafile_tags'
+  And set request param 'datafile_name' from fake 'datafile_name'
+  And set request param 'datafile_summary' from fake 'datafile_summary'
+  And set request param 'tags' from fake 'datafile_tags'
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'mediafile'
+ When send 'POST' request to url 'datafile'
  Then response code is '201'

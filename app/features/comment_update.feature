@@ -1,20 +1,20 @@
 Feature: Update comment
 
-Background: Auth users, create collection and upload mediafile
+Background: Auth users, create collection and upload datafile
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload mediafile
+    # upload datafile
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'mediafile'
+ When send 'POST' request to url 'datafile'
  Then response code is '201'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response params contain 'revision_id'
   And response contains '2' params
-  And save response param 'mediafile_id' to global param 'mediafile_id'
+  And save response param 'datafile_id' to global param 'datafile_id'
     # remove file from request
 Given delete request file
     # create collection
@@ -27,14 +27,14 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
   And save response param 'collection_id' to global param 'collection_id'
-    # relate mediafile to collection
+    # relate datafile to collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request body param 'collection_id' from global param 'collection_id'
-  And set request body param 'mediafile_name' from fake 'mediafile_name'
- When send 'PUT' request to url 'mediafile/:mediafile_id'
+  And set request body param 'datafile_name' from fake 'datafile_name'
+ When send 'PUT' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response params contain 'revision_id'
   And response contains '2' params
 
@@ -67,7 +67,7 @@ Examples:
 Scenario Outline: Update comment when comment_content is invalid
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -103,7 +103,7 @@ Examples:
 Scenario Outline: Update comment when comment_content is correct
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -127,7 +127,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| mediafile_name |
+| datafile_name |
 | string(1)     |
 | string(512)   |
 
@@ -135,7 +135,7 @@ Examples:
 Scenario: Update comment when collection is locked
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -191,7 +191,7 @@ Given set request header token from global param 'admin_token'
 Scenario: Update comment when app is locked
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -238,7 +238,7 @@ Given set request header token from global param 'admin_token'
 Scenario: Update comment when user is admin
     # insert comment
 Given set request header token from global param 'admin_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -265,7 +265,7 @@ Given set request header token from global param 'admin_token'
 Scenario: Update comment when user is editor
     # insert comment
 Given set request header token from global param 'editor_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -292,7 +292,7 @@ Given set request header token from global param 'admin_token'
 Scenario: Update comment when user is writer
     # insert comment
 Given set request header token from global param 'writer_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -320,7 +320,7 @@ Given set request header token from global param 'admin_token'
 Scenario: Update comment when user is writer-to-reader
     # insert comment
 Given set request header token from global param 'writer_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'
@@ -348,7 +348,7 @@ Given set request header token from global param 'admin_token'
 Scenario: Update comment when user is writer-to-admin
     # insert comment
 Given set request header token from global param 'writer_token' 
-  And set request body param 'mediafile_id' from global param 'mediafile_id'
+  And set request body param 'datafile_id' from global param 'datafile_id'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
  Then response code is '201'

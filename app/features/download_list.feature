@@ -1,75 +1,75 @@
 Feature: List downloads
 
-Background: Auth users and upload mediafile
+Background: Auth users and upload datafile
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload mediafile
+    # upload datafile
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'mediafile'
+ When send 'POST' request to url 'datafile'
  Then response code is '201'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response params contain 'revision_id'
   And response contains '2' params
-  And save response param 'mediafile_id' to global param 'mediafile_id'
+  And save response param 'datafile_id' to global param 'datafile_id'
     # remove file from request
 Given delete request file
 
 @download @list
-Scenario Outline: List downloads when mediafile_id is invalid
+Scenario Outline: List downloads when datafile_id is invalid
     # list downloads
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from value '<mediafile_id>'
+  And set request path param 'datafile_id' from value '<datafile_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '404'
-  And error loc is 'path' and 'mediafile_id'
+  And error loc is 'path' and 'datafile_id'
   And error type is 'resource_not_found'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
-| mediafile_id |
+| datafile_id |
 | -1           |
 | 0            |
 | 9999999999   |
 
 @download @list
-Scenario Outline: List downloads when mediafile_id is correct
+Scenario Outline: List downloads when datafile_id is correct
     # list downloads
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
-| mediafile_id |
+| datafile_id |
 | none        |
 | 0           |
 | 0.0         |
@@ -82,22 +82,22 @@ Examples:
 Scenario Outline: List downloads when offset is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '<offset>'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '422'
   And error loc is 'query' and 'offset'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -115,22 +115,22 @@ Examples:
 Scenario Outline: List downloads when offset is correct
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '<offset>'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -145,22 +145,22 @@ Examples:
 Scenario Outline: List downloads when limit is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '<limit>'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '422'
   And error loc is 'query' and 'limit'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -180,22 +180,22 @@ Examples:
 Scenario Outline: List downloads when limit is correct
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '<limit>'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -209,22 +209,22 @@ Examples:
 Scenario Outline: List downloads when order_by is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value '<order_by>'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '422'
   And error loc is 'query' and 'order_by'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -240,22 +240,22 @@ Examples:
 Scenario Outline: List downloads when order_by is correct
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value '<order_by>'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -267,22 +267,22 @@ Examples:
 Scenario Outline: List downloads when order is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value '<order>'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '422'
   And error loc is 'query' and 'order'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -301,22 +301,22 @@ Examples:
 Scenario Outline: List downloads when order is correct
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value '<order>'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 Examples:
@@ -335,12 +335,12 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '423'
     # delete lock
 Given set request header token from global param 'admin_token' 
@@ -351,127 +351,127 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 @download @list
 Scenario: List downloads when user is admin
     # list downloads
 Given set request header token from global param 'admin_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '200'
   And response params contain 'downloads'
   And response params contain 'downloads_count'
   And response contains '2' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 @download @list
 Scenario: List downloads when user is editor
     # list downloads
 Given set request header token from global param 'editor_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 @download @list
 Scenario: List downloads when user is writer
     # list downloads
 Given set request header token from global param 'writer_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 @download @list
 Scenario: List downloads when user is reader
     # list downloads
 Given set request header token from global param 'reader_token'
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_rejected'
   And response contains '1' params
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params
 
 @download @list
 Scenario: List downloads when token is missing
     # list downloads
 Given delete request header token
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'mediafile/:mediafile_id/downloads'
+ When send 'GET' request to url 'datafile/:datafile_id/downloads'
  Then response code is '403'
-    # delete mediafile
+    # delete datafile
 Given set request header token from global param 'admin_token' 
-  And set request path param 'mediafile_id' from global param 'mediafile_id'
- When send 'DELETE' request to url 'mediafile/:mediafile_id'
+  And set request path param 'datafile_id' from global param 'datafile_id'
+ When send 'DELETE' request to url 'datafile/:datafile_id'
  Then response code is '200'
-  And response params contain 'mediafile_id'
+  And response params contain 'datafile_id'
   And response contains '1' params

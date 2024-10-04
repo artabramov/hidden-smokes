@@ -1,7 +1,7 @@
 """
 This script generates demo data by executing Behave feature files for
-collections, mediafiles, and comments based on specified command-line
-arguments. It uses the --collections, --mediafiles, and --comments
+collections, datafiles, and comments based on specified command-line
+arguments. It uses the --collections, --datafiles, and --comments
 options to determine the number of each type of demo data to create. 
 """
 
@@ -12,7 +12,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Generates demo data by running specific Behave "
                     "feature files. You can create demo collections, "
-                    "mediafiles, and comments as needed.")
+                    "datafiles, and comments as needed.")
 
     parser.add_argument(
         "--collections", type=int, required=False,
@@ -20,9 +20,9 @@ def main():
              "omitted, no collections will be created.")
     
     parser.add_argument(
-        "--mediafiles", type=int, required=False,
-        help="Specify the number of demo mediafiles to create. If "
-             "omitted, no mediafiles will be created.")
+        "--datafiles", type=int, required=False,
+        help="Specify the number of demo datafiles to create. If "
+             "omitted, no datafiles will be created.")
 
     parser.add_argument(
         "--comments", type=int, required=False,
@@ -35,9 +35,9 @@ def main():
         for i in range(args.collections):
             os.system("behave /smokes/app/features/demo_collection.feature --format null")
 
-    if args.mediafiles:
-        for i in range(args.mediafiles):
-            os.system("behave /smokes/app/features/demo_mediafile.feature --format null")
+    if args.datafiles:
+        for i in range(args.datafiles):
+            os.system("behave /smokes/app/features/demo_datafile.feature --format null")
 
     if args.comments:
         for i in range(args.comments):
