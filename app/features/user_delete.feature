@@ -90,7 +90,7 @@ Given set request header token from global param 'editor_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
-  And error type is 'user_rejected'
+  And error type is 'user_role_rejected'
   And response contains '1' params
     # delete user
 Given set request header token from global param 'admin_token' 
@@ -108,7 +108,7 @@ Given set request header token from global param 'writer_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
-  And error type is 'user_rejected'
+  And error type is 'user_role_rejected'
   And response contains '1' params
     # delete user
 Given set request header token from global param 'admin_token' 
@@ -126,7 +126,7 @@ Given set request header token from global param 'reader_token'
  When send 'DELETE' request to url 'user/:user_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
-  And error type is 'user_rejected'
+  And error type is 'user_role_rejected'
   And response contains '1' params
     # delete user
 Given set request header token from global param 'admin_token' 
