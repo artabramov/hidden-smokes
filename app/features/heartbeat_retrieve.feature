@@ -13,7 +13,7 @@ Then response code is '200'
  And response params contain 'timezone_name'
  And response params contain 'timezone_offset'
  And response params contain 'is_locked'
- And response params contain 'lock_time'
+ And response params contain 'locked_date'
  And response contains '5' params
 
 @heartbeat @retrieve
@@ -33,7 +33,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'timezone_name'
   And response params contain 'timezone_offset'
   And response params contain 'is_locked'
-  And response params contain 'lock_time'
+  And response params contain 'locked_date'
   And response param 'is_locked' equals 'True'
   And response contains '5' params
     # delete lock
@@ -51,7 +51,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'timezone_name'
   And response params contain 'timezone_offset'
   And response params contain 'is_locked'
-  And response params contain 'lock_time'
+  And response params contain 'locked_date'
   And response param 'is_locked' equals 'False'
-  And response param 'lock_time' equals '0'
+  And response param 'locked_date' equals '0'
   And response contains '5' params
