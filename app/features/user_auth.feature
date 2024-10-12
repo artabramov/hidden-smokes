@@ -30,9 +30,9 @@ Scenario: Auth user when user_login not found (on first step)
 Given set request body param 'user_login' from fake 'user_login'
   And set request body param 'user_password' from value 'fake_password'
  When send 'POST' request to url 'auth/login'
- Then response code is '404'
+ Then response code is '422'
   And error loc is 'body' and 'user_login'
-  And error type is 'resource_not_found'
+  And error type is 'value_invalid'
   And response contains '1' params
 
 @user @auth
@@ -103,9 +103,9 @@ Scenario: Auth user when user_login not found (on second step)
 Given set request query param 'user_login' from fake 'user_login'
   And set request query param 'user_totp' from value '123456'
  When send 'GET' request to url 'auth/token'
- Then response code is '404'
+ Then response code is '422'
   And error loc is 'query' and 'user_login'
-  And error type is 'resource_not_found'
+  And error type is 'value_invalid'
   And response contains '1' params
 
 @user @auth

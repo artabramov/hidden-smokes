@@ -349,14 +349,6 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Time retrieve",
-            "args": ["--tags", "@time", "--tags", "@retrieve", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
             "name": "Telemetry retrieve",
             "args": ["--tags", "@telemetry", "--tags", "@retrieve", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
@@ -367,14 +359,6 @@
         {
             "name": "Lock create",
             "args": ["--tags", "@lock", "--tags", "@create", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "Lock retrieve",
-            "args": ["--tags", "@lock", "--tags", "@retrieve", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
@@ -399,6 +383,14 @@
         {
             "name": "Custom execute",
             "args": ["--tags", "@custom", "--tags", "@execute", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "Heartbeat retrieve",
+            "args": ["--tags", "@heartbeat", "--tags", "@retrieve", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
