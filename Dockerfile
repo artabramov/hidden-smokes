@@ -4,6 +4,13 @@ ADD . /smokes
 WORKDIR /smokes
 RUN chmod -R 777 /smokes
 
+RUN apt-get install -y openssh-client
+RUN mkdir /root/.ssh
+COPY ./.ssh/ /root/.ssh/
+RUN chmod -R 600 /root/.ssh/
+RUN exec ssh-agent bash && ssh-add /root/.ssh/id_ed25519
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+
 RUN pip3 install behave==1.2.6
 RUN pip3 install requests==2.31.0
 RUN pip3 install pyotp==2.9.0

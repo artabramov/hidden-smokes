@@ -1,1 +1,4 @@
+.ssh/*
+!.ssh/.gitkeep
+
 __pycache__/
