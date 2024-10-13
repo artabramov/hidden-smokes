@@ -73,7 +73,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'member_name'
   And response params contain 'member_summary'
   And response params contain 'member_contacts'
-  And response params contain 'image_url'
+  And response params contain 'logo_url'
   And response params contain 'member_user'
   And response contains '9' params
     # delete member
@@ -97,7 +97,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'member_name'
   And response params contain 'member_summary'
   And response params contain 'member_contacts'
-  And response params contain 'image_url'
+  And response params contain 'logo_url'
   And response params contain 'member_user'
   And response contains '9' params
     # delete member
@@ -121,7 +121,7 @@ Given set request header token from global param 'editor_token'
   And response params contain 'member_name'
   And response params contain 'member_summary'
   And response params contain 'member_contacts'
-  And response params contain 'image_url'
+  And response params contain 'logo_url'
   And response params contain 'member_user'
   And response contains '9' params
     # delete member
@@ -145,7 +145,7 @@ Given set request header token from global param 'writer_token'
   And response params contain 'member_name'
   And response params contain 'member_summary'
   And response params contain 'member_contacts'
-  And response params contain 'image_url'
+  And response params contain 'logo_url'
   And response params contain 'member_user'
   And response contains '9' params
     # delete member
@@ -169,7 +169,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'member_name'
   And response params contain 'member_summary'
   And response params contain 'member_contacts'
-  And response params contain 'image_url'
+  And response params contain 'logo_url'
   And response params contain 'member_user'
   And response contains '9' params
     # delete member
