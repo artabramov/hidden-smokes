@@ -18,6 +18,9 @@ USER_SIGNATURE_WORDS_COUNT = 2
 USER_CONTACTS_WORDS_COUNT = 16
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
+MEMBER_NAME_WORDS_NUMBER = 4
+MEMBER_SUMMARY_WORDS_NUMBER = 16
+MEMBER_CONTACTS_WORDS_NUMBER = 16
 DATAFILE_SUMMARY_WORDS_NUMBER = 16
 DATAFILE_TAGS_COUNT = 8
 COMMENT_CONTENT_WORDS_NUMBER = 16
@@ -71,6 +74,33 @@ class CollectionSummaryProvider(BaseProvider):
         Faker consisting of a specified number of words.
         """
         return fake.sentence(nb_words=COLLECTION_SUMMARY_WORDS_NUMBER)
+
+
+class MemberNameProvider(BaseProvider):
+    def member_name(self):
+        """
+        Generate a member name by creating a random sentence with
+        Faker and removing the trailing period.
+        """
+        return fake.sentence(nb_words=MEMBER_NAME_WORDS_NUMBER).rstrip(".")
+
+
+class MemberSummaryProvider(BaseProvider):
+    def member_summary(self):
+        """
+        Generate a member summary by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=MEMBER_SUMMARY_WORDS_NUMBER)
+
+
+class MemberContactsProvider(BaseProvider):
+    def member_contacts(self):
+        """
+        Generate a member contacts by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=MEMBER_CONTACTS_WORDS_NUMBER)
 
 
 class DatafileNameProvider(BaseProvider):
@@ -130,6 +160,9 @@ fake.add_provider(UserSignatureProvider)
 fake.add_provider(UserContactsProvider)
 fake.add_provider(CollectionNameProvider)
 fake.add_provider(CollectionSummaryProvider)
+fake.add_provider(MemberNameProvider)
+fake.add_provider(MemberSummaryProvider)
+fake.add_provider(MemberContactsProvider)
 fake.add_provider(DatafileNameProvider)
 fake.add_provider(DatafileSummaryProvider)
 fake.add_provider(DatafileTagsProvider)
