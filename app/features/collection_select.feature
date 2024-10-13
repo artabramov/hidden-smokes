@@ -73,10 +73,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_name'
   And response params contain 'collection_summary'
   And response params contain 'documents_count'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'collection_user'
-  And response contains '11' params
+  And response contains '9' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -98,10 +96,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_name'
   And response params contain 'collection_summary'
   And response params contain 'documents_count'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'collection_user'
-  And response contains '11' params
+  And response contains '9' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -124,10 +120,8 @@ Given set request header token from global param 'editor_token'
   And response params contain 'collection_name'
   And response params contain 'collection_summary'
   And response params contain 'documents_count'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'collection_user'
-  And response contains '11' params
+  And response contains '9' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -150,10 +144,8 @@ Given set request header token from global param 'writer_token'
   And response params contain 'collection_name'
   And response params contain 'collection_summary'
   And response params contain 'documents_count'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'collection_user'
-  And response contains '11' params
+  And response contains '9' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -176,10 +168,8 @@ Given set request header token from global param 'reader_token'
   And response params contain 'collection_name'
   And response params contain 'collection_summary'
   And response params contain 'documents_count'
-  And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'collection_user'
-  And response contains '11' params
+  And response contains '9' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
