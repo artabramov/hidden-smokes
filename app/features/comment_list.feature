@@ -8,17 +8,17 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @comment @list
-Scenario Outline: List comments when datafile_id is invalid
+Scenario Outline: List comments when document_id is invalid
     # list comments
 Given set request header token from global param 'admin_token' 
-  And set request query param 'datafile_id__eq' from value '<datafile_id>'
+  And set request query param 'document_id__eq' from value '<document_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'comments'
  Then response code is '422'
-  And error loc is 'query' and 'datafile_id__eq'
+  And error loc is 'query' and 'document_id__eq'
   And error type is '<error_type>'
   And response contains '1' params
 
@@ -32,10 +32,10 @@ Examples:
 | string(8)     | int_parsing        |
 
 @comment @list
-Scenario Outline: List comments when datafile_id is correct
+Scenario Outline: List comments when document_id is correct
     # list comments
 Given set request header token from global param 'admin_token' 
-  And set request query param 'datafile_id__eq' from value '<datafile_id>'
+  And set request query param 'document_id__eq' from value '<document_id>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -47,7 +47,7 @@ Given set request header token from global param 'admin_token'
   And response contains '2' params
 
 Examples:
-| datafile_id |
+| document_id |
 | none        |
 | 0           |
 | 0.0         |

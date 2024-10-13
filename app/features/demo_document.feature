@@ -1,10 +1,10 @@
-Feature: Create demo datafile
+Feature: Create demo document
 
 Background: Authorize users
 Given auth with user role 'admin'
 
-@datafile @demo
-Scenario: Create demo datafile
+@document @demo
+Scenario: Create demo document
     # select random collection
 Given set request header token from global param 'admin_token' 
   And set request param 'offset' from value '0'
@@ -15,12 +15,12 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collections'
   And save id from response list 'collections' to global param 'collection_id'
-    # insert datafile
+    # insert document
 Given set request header token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
-  And set request param 'datafile_name' from fake 'datafile_name'
-  And set request param 'datafile_summary' from fake 'datafile_summary'
-  And set request param 'tags' from fake 'datafile_tags'
+  And set request param 'document_name' from fake 'document_name'
+  And set request param 'document_summary' from fake 'document_summary'
+  And set request param 'tags' from fake 'document_tags'
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'datafile'
+ When send 'POST' request to url 'document'
  Then response code is '201'

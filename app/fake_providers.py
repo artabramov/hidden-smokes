@@ -21,8 +21,8 @@ COLLECTION_SUMMARY_WORDS_NUMBER = 16
 MEMBER_NAME_WORDS_NUMBER = 4
 MEMBER_SUMMARY_WORDS_NUMBER = 16
 MEMBER_CONTACTS_WORDS_NUMBER = 16
-DATAFILE_SUMMARY_WORDS_NUMBER = 16
-DATAFILE_TAGS_COUNT = 8
+DOCUMENT_SUMMARY_WORDS_NUMBER = 16
+DOCUMENT_TAGS_COUNT = 8
 COMMENT_CONTENT_WORDS_NUMBER = 16
 OPTION_KEY_WORDS_NUMBER = 2
 OPTION_VALUE_WORDS_NUMBER = 4
@@ -103,27 +103,27 @@ class MemberContactsProvider(BaseProvider):
         return fake.sentence(nb_words=MEMBER_CONTACTS_WORDS_NUMBER)
 
 
-class DatafileNameProvider(BaseProvider):
-    def datafile_name(self):
+class DocumentNameProvider(BaseProvider):
+    def document_name(self):
         return f"{fake.word()}.{fake.file_extension()}"
 
 
-class DatafileSummaryProvider(BaseProvider):
-    def datafile_summary(self):
+class DocumentSummaryProvider(BaseProvider):
+    def document_summary(self):
         """
-        Generate a datafile summary by creating a random sentence with
+        Generate a document summary by creating a random sentence with
         Faker consisting of a specified number of words.
         """
-        return fake.sentence(nb_words=DATAFILE_SUMMARY_WORDS_NUMBER)
+        return fake.sentence(nb_words=DOCUMENT_SUMMARY_WORDS_NUMBER)
 
 
-class DatafileTagsProvider(BaseProvider):
-    def datafile_tags(self):
+class DocumentTagsProvider(BaseProvider):
+    def document_tags(self):
         """
-        Generate a list of datafile tags by creating random words with
+        Generate a list of document tags by creating random words with
         Faker. The number of tags can be controlled by a constant.
         """
-        tags = [fake.word() for _ in range(DATAFILE_TAGS_COUNT)]
+        tags = [fake.word() for _ in range(DOCUMENT_TAGS_COUNT)]
         return ", ".join(tags)
 
 class CommentContentProvider(BaseProvider):
@@ -163,9 +163,9 @@ fake.add_provider(CollectionSummaryProvider)
 fake.add_provider(MemberNameProvider)
 fake.add_provider(MemberSummaryProvider)
 fake.add_provider(MemberContactsProvider)
-fake.add_provider(DatafileNameProvider)
-fake.add_provider(DatafileSummaryProvider)
-fake.add_provider(DatafileTagsProvider)
+fake.add_provider(DocumentNameProvider)
+fake.add_provider(DocumentSummaryProvider)
+fake.add_provider(DocumentTagsProvider)
 fake.add_provider(CommentContentProvider)
 fake.add_provider(OptionKeyProvider)
 fake.add_provider(OptionValueProvider)
