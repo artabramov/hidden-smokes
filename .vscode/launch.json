@@ -181,6 +181,22 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Member emblem upload",
+            "args": ["--tags", "@member", "--tags", "@emblem", "--tags", "@upload", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "Member emblem delete",
+            "args": ["--tags", "@member", "--tags", "@emblem", "--tags", "@delete", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Document upload",
             "args": ["--tags", "@document", "--tags", "@upload", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],

@@ -8,8 +8,8 @@ Given auth with user role 'admin'
   And auth with user role 'reader'
 
 @userpic @delete
-Scenario Outline: Upload userpic when user_id is not found
-    # upload userpic
+Scenario Outline: Delete userpic when user_id is not found
+    # delete userpic
 Given set request header token from global param 'admin_token' 
   And set request path param 'user_id' from value '<user_id>'
  When send 'DELETE' request to url 'user/:user_id/userpic'
@@ -25,8 +25,8 @@ Examples:
 | 9999999999 |
 
 @userpic @delete
-Scenario: Upload userpic when user_id is invalid
-    # upload userpic
+Scenario: Delete userpic when user_id is invalid
+    # delete userpic
 Given set request header token from global param 'admin_token' 
   And set request path param 'user_id' from global param 'reader_id'
  When send 'DELETE' request to url 'user/:user_id/userpic'
@@ -36,7 +36,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 @userpic @delete
-Scenario: Upload userpic when app is locked
+Scenario: Delete userpic when app is locked
     # create lock
 Given set request header token from global param 'admin_token' 
  When send 'POST' request to url 'lock'
@@ -65,7 +65,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 @userpic @delete
-Scenario: Upload userpic when user is admin
+Scenario: Delete userpic when user is admin
     # delete userpic
 Given set request header token from global param 'admin_token' 
   And set request path param 'user_id' from global param 'admin_id'
@@ -75,7 +75,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 @userpic @delete
-Scenario: Upload userpic when user is editor
+Scenario: Delete userpic when user is editor
     # delete userpic
 Given set request header token from global param 'editor_token' 
   And set request path param 'user_id' from global param 'editor_id'
@@ -85,7 +85,7 @@ Given set request header token from global param 'editor_token'
   And response contains '1' params
 
 @userpic @delete
-Scenario: Upload userpic when user is writer
+Scenario: Delete userpic when user is writer
     # delete userpic
 Given set request header token from global param 'writer_token' 
   And set request path param 'user_id' from global param 'writer_id'
@@ -95,7 +95,7 @@ Given set request header token from global param 'writer_token'
   And response contains '1' params
 
 @userpic @delete
-Scenario: Upload userpic when user is reader
+Scenario: Delete userpic when user is reader
     # delete userpic
 Given set request header token from global param 'reader_token' 
   And set request path param 'user_id' from global param 'reader_id'
@@ -105,7 +105,7 @@ Given set request header token from global param 'reader_token'
   And response contains '1' params
 
 @userpic @delete
-Scenario: Upload userpic when token is missing
+Scenario: Delete userpic when token is missing
     # delete userpic
 Given delete request header token 
   And set request path param 'user_id' from global param 'reader_id'

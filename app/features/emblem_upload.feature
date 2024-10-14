@@ -1,0 +1,215 @@
+Feature: Upload member emblem
+
+Background: Auth users, create member
+    # auth users
+Given auth with user role 'admin'
+  And auth with user role 'editor'
+  And auth with user role 'writer'
+  And auth with user role 'reader'
+    # insert member
+Given set request header token from global param 'admin_token' 
+  And set request body param 'member_name' from fake 'member_name'
+  And set request body param 'member_summary' from fake 'member_summary'
+  And set request body param 'member_contacts' from fake 'member_contacts'
+ When send 'POST' request to url 'member'
+ Then response code is '201'
+  And response params contain 'member_id'
+  And response contains '1' params
+  And save response param 'member_id' to global param 'member_id'
+
+@member @emblem @upload
+Scenario Outline: Upload member emblem when member_id is not found
+    # upload userpic
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from value '<member_id>'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '404'
+  And error loc is 'path' and 'member_id'
+  And error type is 'resource_not_found'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+Examples:
+| member_id  |
+| -1         |
+| 0          |
+| 9999999999 |
+
+@member @emblem @upload
+Scenario: Upload member emblem when file mimetype is not supported
+    # upload emblem
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'pdf'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '422'
+  And error loc is 'body' and 'file'
+  And error type is 'mimetype_unsupported'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+@member @emblem @upload
+Scenario Outline: Upload member emblem when file mimetype is correct
+    # upload file
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format '<file_extension>'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+Examples:
+| file_extension |
+| jpeg           |
+| webp           |
+| png            |
+| gif            |
+
+@member @emblem @upload
+Scenario: Upload member emblem when app is locked
+    # create lock
+Given set request header token from global param 'admin_token' 
+ When send 'POST' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
+  And response contains '1' params
+    # upload file
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '423'
+    # delete lock
+Given set request header token from global param 'admin_token' 
+ When send 'DELETE' request to url 'lock'
+ Then response code is '200'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
+  And response contains '1' params
+    # upload userpic
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+@member @emblem @upload
+Scenario: Upload member emblem when user is admin
+    # upload file
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+@member @emblem @upload
+Scenario: Upload member emblem when user is editor
+    # upload file
+Given set request header token from global param 'editor_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+@member @emblem @upload
+Scenario: Upload member emblem when user is writer
+    # upload file
+Given set request header token from global param 'writer_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '403'
+  And error loc is 'header' and 'user_token'
+  And error type is 'user_role_rejected'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+@member @emblem @upload
+Scenario: Upload member emblem when user is reader
+    # upload file
+Given set request header token from global param 'reader_token' 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '403'
+  And error loc is 'header' and 'user_token'
+  And error type is 'user_role_rejected'
+  And response contains '1' params
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
+
+@member @emblem @upload
+Scenario: Upload member emblem when token is missing
+    # upload file
+Given delete request header token 
+  And set request path param 'member_id' from global param 'member_id'
+  And set request file from sample format 'jpeg'
+ When send 'POST' request to url 'member/:member_id/emblem'
+ Then response code is '403'
+    # delete member
+Given set request header token from global param 'admin_token' 
+  And set request path param 'member_id' from global param 'member_id'
+ When send 'DELETE' request to url 'member/:member_id'
+ Then response code is '200'
+  And response params contain 'member_id'
+  And response contains '1' params
