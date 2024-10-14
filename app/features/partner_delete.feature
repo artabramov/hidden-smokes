@@ -1,6 +1,6 @@
-Feature: Upload partner emblem
+Feature: Delete partner
 
-Background: Auth users, create partner
+Background: Auth users and create partner
     # auth users
 Given auth with user role 'admin'
   And auth with user role 'editor'
@@ -17,13 +17,12 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
   And save response param 'partner_id' to global param 'partner_id'
 
-@partner @emblem @upload
-Scenario Outline: Upload partner emblem when partner_id is not found
-    # upload userpic
+@partner @delete
+Scenario: Delete partner when partner_id not found
+    # delete partner
 Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from value '<partner_id>'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
+  And set request path param 'partner_id' from value '9999999999'
+ When send 'DELETE' request to url 'partner/:partner_id'
  Then response code is '404'
   And error loc is 'path' and 'partner_id'
   And error type is 'resource_not_found'
@@ -33,61 +32,11 @@ Given set request header token from global param 'admin_token'
   And set request path param 'partner_id' from global param 'partner_id'
  When send 'DELETE' request to url 'partner/:partner_id'
  Then response code is '200'
-  And response params contain 'partner_id'
-  And response contains '1' params
+ And response params contain 'partner_id'
+ And response contains '1' params
 
-Examples:
-| partner_id  |
-| -1         |
-| 0          |
-| 9999999999 |
-
-@partner @emblem @upload
-Scenario: Upload partner emblem when file mimetype is not supported
-    # upload emblem
-Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'pdf'
- When send 'POST' request to url 'partner/:partner_id/emblem'
- Then response code is '422'
-  And error loc is 'body' and 'file'
-  And error type is 'mimetype_unsupported'
-  And response contains '1' params
-    # delete partner
-Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from global param 'partner_id'
- When send 'DELETE' request to url 'partner/:partner_id'
- Then response code is '200'
-  And response params contain 'partner_id'
-  And response contains '1' params
-
-@partner @emblem @upload
-Scenario Outline: Upload partner emblem when file mimetype is correct
-    # upload file
-Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format '<file_extension>'
- When send 'POST' request to url 'partner/:partner_id/emblem'
- Then response code is '200'
-  And response params contain 'partner_id'
-  And response contains '1' params
-    # delete partner
-Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from global param 'partner_id'
- When send 'DELETE' request to url 'partner/:partner_id'
- Then response code is '200'
-  And response params contain 'partner_id'
-  And response contains '1' params
-
-Examples:
-| file_extension |
-| jpeg           |
-| webp           |
-| png            |
-| gif            |
-
-@partner @emblem @upload
-Scenario: Upload partner emblem when app is locked
+@partner @delete
+Scenario: Delete partner when app is locked
     # create lock
 Given set request header token from global param 'admin_token' 
  When send 'POST' request to url 'lock'
@@ -95,11 +44,10 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
   And response contains '1' params
-    # upload file
+    # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
+ When send 'DELETE' request to url 'partner/:partner_id'
  Then response code is '423'
     # delete lock
 Given set request header token from global param 'admin_token' 
@@ -108,14 +56,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
   And response contains '1' params
-    # upload userpic
-Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
- Then response code is '200'
-  And response params contain 'partner_id'
-  And response contains '1' params
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
@@ -124,16 +64,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_id'
   And response contains '1' params
 
-@partner @emblem @upload
-Scenario: Upload partner emblem when user is admin
-    # upload file
-Given set request header token from global param 'admin_token' 
-  And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
- Then response code is '200'
-  And response params contain 'partner_id'
-  And response contains '1' params
+@partner @delete
+Scenario: Delete partner when user is admin
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
@@ -142,15 +74,15 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_id'
   And response contains '1' params
 
-@partner @emblem @upload
-Scenario: Upload partner emblem when user is editor
-    # upload file
+@partner @delete
+Scenario: Delete partner when user is editor
+    # delete partner
 Given set request header token from global param 'editor_token' 
   And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
- Then response code is '200'
-  And response params contain 'partner_id'
+ When send 'DELETE' request to url 'partner/:partner_id'
+ Then response code is '403'
+  And error loc is 'header' and 'user_token'
+  And error type is 'user_role_rejected'
   And response contains '1' params
     # delete partner
 Given set request header token from global param 'admin_token' 
@@ -160,13 +92,12 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_id'
   And response contains '1' params
 
-@partner @emblem @upload
-Scenario: Upload partner emblem when user is writer
-    # upload file
+@partner @delete
+Scenario: Delete partner when user is writer
+    # delete partner
 Given set request header token from global param 'writer_token' 
   And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
+ When send 'DELETE' request to url 'partner/:partner_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_role_rejected'
@@ -179,13 +110,12 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_id'
   And response contains '1' params
 
-@partner @emblem @upload
-Scenario: Upload partner emblem when user is reader
-    # upload file
+@partner @delete
+Scenario: Delete partner when user is reader
+    # delete partner
 Given set request header token from global param 'reader_token' 
   And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
+ When send 'DELETE' request to url 'partner/:partner_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_role_rejected'
@@ -198,13 +128,12 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_id'
   And response contains '1' params
 
-@partner @emblem @upload
-Scenario: Upload partner emblem when token is missing
-    # upload file
+@partner @delete
+Scenario: Delete partner when token is missing
+    # delete partner
 Given delete request header token 
   And set request path param 'partner_id' from global param 'partner_id'
-  And set request file from sample format 'jpeg'
- When send 'POST' request to url 'partner/:partner_id/emblem'
+ When send 'DELETE' request to url 'partner/:partner_id'
  Then response code is '403'
     # delete partner
 Given set request header token from global param 'admin_token' 

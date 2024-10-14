@@ -18,9 +18,9 @@ USER_SIGNATURE_WORDS_COUNT = 2
 USER_CONTACTS_WORDS_COUNT = 16
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
-MEMBER_NAME_WORDS_NUMBER = 4
-MEMBER_SUMMARY_WORDS_NUMBER = 16
-MEMBER_CONTACTS_WORDS_NUMBER = 16
+PARTNER_NAME_WORDS_NUMBER = 4
+PARTNER_SUMMARY_WORDS_NUMBER = 16
+PARTNER_CONTACTS_WORDS_NUMBER = 16
 DOCUMENT_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_TAGS_COUNT = 8
 COMMENT_CONTENT_WORDS_NUMBER = 16
@@ -76,31 +76,31 @@ class CollectionSummaryProvider(BaseProvider):
         return fake.sentence(nb_words=COLLECTION_SUMMARY_WORDS_NUMBER)
 
 
-class MemberNameProvider(BaseProvider):
-    def member_name(self):
+class PartnerNameProvider(BaseProvider):
+    def partner_name(self):
         """
-        Generate a member name by creating a random sentence with
+        Generate a partner name by creating a random sentence with
         Faker and removing the trailing period.
         """
-        return fake.sentence(nb_words=MEMBER_NAME_WORDS_NUMBER).rstrip(".")
+        return fake.sentence(nb_words=PARTNER_NAME_WORDS_NUMBER).rstrip(".")
 
 
-class MemberSummaryProvider(BaseProvider):
-    def member_summary(self):
+class PartnerSummaryProvider(BaseProvider):
+    def partner_summary(self):
         """
-        Generate a member summary by creating a random sentence with
+        Generate a partner summary by creating a random sentence with
         Faker consisting of a specified number of words.
         """
-        return fake.sentence(nb_words=MEMBER_SUMMARY_WORDS_NUMBER)
+        return fake.sentence(nb_words=PARTNER_SUMMARY_WORDS_NUMBER)
 
 
-class MemberContactsProvider(BaseProvider):
-    def member_contacts(self):
+class PartnerContactsProvider(BaseProvider):
+    def partner_contacts(self):
         """
-        Generate a member contacts by creating a random sentence with
+        Generate a partner contacts by creating a random sentence with
         Faker consisting of a specified number of words.
         """
-        return fake.sentence(nb_words=MEMBER_CONTACTS_WORDS_NUMBER)
+        return fake.sentence(nb_words=PARTNER_CONTACTS_WORDS_NUMBER)
 
 
 class DocumentNameProvider(BaseProvider):
@@ -160,9 +160,9 @@ fake.add_provider(UserSignatureProvider)
 fake.add_provider(UserContactsProvider)
 fake.add_provider(CollectionNameProvider)
 fake.add_provider(CollectionSummaryProvider)
-fake.add_provider(MemberNameProvider)
-fake.add_provider(MemberSummaryProvider)
-fake.add_provider(MemberContactsProvider)
+fake.add_provider(PartnerNameProvider)
+fake.add_provider(PartnerSummaryProvider)
+fake.add_provider(PartnerContactsProvider)
 fake.add_provider(DocumentNameProvider)
 fake.add_provider(DocumentSummaryProvider)
 fake.add_provider(DocumentTagsProvider)
