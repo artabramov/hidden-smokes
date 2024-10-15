@@ -45,9 +45,9 @@ Given set request header token from global param 'admin_token'
   And set request body param 'document_id' from value '<document_id>'
   And set request body param 'comment_content' from fake 'comment_content'
  When send 'POST' request to url 'comment'
- Then response code is '404'
+ Then response code is '422'
   And error loc is 'body' and 'document_id'
-  And error type is 'resource_not_found'
+  And error type is 'value_invalid'
   And response contains '1' params
     # delete collection
 Given set request header token from global param 'admin_token' 
