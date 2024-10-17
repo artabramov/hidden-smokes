@@ -318,7 +318,9 @@ Examples:
 | id              |
 | created_date    |
 | updated_date    |
+| locked_date     |
 | user_id         |
+| is_locked       |
 | collection_name |
 | documents_count |
 
