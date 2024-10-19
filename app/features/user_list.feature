@@ -160,6 +160,21 @@ Given set request header token from global param 'reader_token'
   And response contains '2' params
 
 @user @list
+Scenario: List users when full_name is correct
+    # list users
+Given set request header token from global param 'reader_token' 
+  And set request query param 'full_name__ilike' from value 'dummy'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'users'
+ Then response code is '200'
+  And response params contain 'users'
+  And response params contain 'users_count'
+  And response contains '2' params
+
+@user @list
 Scenario Outline: List users when offset is invalid
     # list users
 Given set request header token from global param 'reader_token' 
