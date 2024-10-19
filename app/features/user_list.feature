@@ -317,6 +317,7 @@ Examples:
 | user_login      |
 | first_name      |
 | last_name       |
+| full_name       |
 
 @user @list
 Scenario Outline: List users when order is invalid
