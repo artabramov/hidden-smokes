@@ -125,6 +125,22 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Collection lock",
+            "args": ["--tags", "@collection", "--tags", "@lock", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
+            "name": "Collection unlock",
+            "args": ["--tags", "@collection", "--tags", "@unlock", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Collection delete",
             "args": ["--tags", "@collection", "--tags", "@delete", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
