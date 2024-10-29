@@ -437,6 +437,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Protected retrieve",
+            "args": ["--tags", "@protected", "--tags", "@retrieve", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Cache erase",
             "args": ["--tags", "@cache", "--tags", "@erase", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
@@ -453,8 +461,8 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Heartbeat retrieve",
-            "args": ["--tags", "@heartbeat", "--tags", "@retrieve", "--tags", "~@demo",
+            "name": "Time retrieve",
+            "args": ["--tags", "@time", "--tags", "@retrieve", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

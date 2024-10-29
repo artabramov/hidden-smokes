@@ -43,7 +43,7 @@ Examples:
 | 9999999999  |
 
 @favorite @delete
-Scenario: Delete favorite when app is locked
+Scenario: Delete favorite when protected mode is enabled
     # insert favorite
 Given set request header token from global param 'admin_token' 
   And set request body param 'document_id' from global param 'document_id'
@@ -52,24 +52,24 @@ Given set request header token from global param 'admin_token'
   And response params contain 'favorite_id'
   And response contains '1' params
   And save response param 'favorite_id' to global param 'favorite_id'
-    # create lock
+    # enable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'POST' request to url 'lock'
+ When send 'POST' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'True'
   And response contains '1' params
     # delete favorite
 Given set request header token from global param 'admin_token' 
   And set request path param 'favorite_id' from global param 'favorite_id'
  When send 'DELETE' request to url 'favorite/:favorite_id'
  Then response code is '423'
-    # delete lock
+    # disable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'DELETE' request to url 'lock'
+ When send 'DELETE' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'False'
   And response contains '1' params
     # delete favorite
 Given set request header token from global param 'admin_token' 

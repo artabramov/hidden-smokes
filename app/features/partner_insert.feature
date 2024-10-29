@@ -148,13 +148,13 @@ Examples:
 | string(512)     |
 
 @partner @insert
-Scenario: Insert partner when app is locked
-    # create lock
+Scenario: Insert partner when protected mode is enabled
+    # enable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'POST' request to url 'lock'
+ When send 'POST' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'True'
   And response contains '1' params
     # insert partner
 Given set request header token from global param 'admin_token' 
@@ -163,12 +163,12 @@ Given set request header token from global param 'admin_token'
   And set request body param 'partner_contacts' from fake 'partner_contacts'
  When send 'POST' request to url 'partner'
  Then response code is '423'
-    # delete lock
+    # disable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'DELETE' request to url 'lock'
+ When send 'DELETE' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'False'
   And response contains '1' params
     # insert partner
 Given set request header token from global param 'admin_token' 

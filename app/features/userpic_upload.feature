@@ -68,14 +68,14 @@ Examples:
 | gif            |
 
 @userpic @upload
-Scenario: Upload userpic when app is locked
+Scenario: Upload userpic when protected mode is enabled
     # lock app
-    # create lock
+    # enable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'POST' request to url 'lock'
+ When send 'POST' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'True'
   And response contains '1' params
     # upload userpic
 Given set request header token from global param 'admin_token' 
@@ -83,12 +83,12 @@ Given set request header token from global param 'admin_token'
   And set request file from sample format 'jpeg'
  When send 'POST' request to url 'user/:user_id/userpic'
  Then response code is '423'
-    # delete lock
+    # disable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'DELETE' request to url 'lock'
+ When send 'DELETE' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'False'
   And response contains '1' params
     # upload userpic
 Given set request header token from global param 'admin_token' 

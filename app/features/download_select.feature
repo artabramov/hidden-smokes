@@ -90,7 +90,7 @@ Examples:
 | 9999999999   |
 
 @download @select
-Scenario: Select download when app is locked
+Scenario: Select download when protected mode is enabled
     # list downloads
 Given set request header token from global param 'admin_token'
   And set request path param 'document_id' from global param 'document_id' 
@@ -104,12 +104,12 @@ Given set request header token from global param 'admin_token'
   And response params contain 'downloads_count'
   And response contains '2' params
   And save id from response list 'downloads' to global param 'download_id'
-    # create lock
+    # enable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'POST' request to url 'lock'
+ When send 'POST' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'True'
   And response contains '1' params
     # select dowload
 Given set request header token from global param 'admin_token'
@@ -117,12 +117,12 @@ Given set request header token from global param 'admin_token'
   And set request path param 'download_id' from global param 'download_id'
  When send 'GET' request to url 'document/:document_id/download/:download_id'
  Then response code is '423'
-    # delete lock
+    # disable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'DELETE' request to url 'lock'
+ When send 'DELETE' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'False'
   And response contains '1' params
     # select dowload
 Given set request header token from global param 'admin_token'

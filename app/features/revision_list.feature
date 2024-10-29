@@ -315,13 +315,13 @@ Examples:
 | desc  |
 
 @revision @list
-Scenario: List revisions when app is locked
-    # create lock
+Scenario: List revisions when protected mode is enabled
+    # enable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'POST' request to url 'lock'
+ When send 'POST' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'True'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'True'
   And response contains '1' params
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -332,12 +332,12 @@ Given set request header token from global param 'admin_token'
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'document/:document_id/revisions'
  Then response code is '423'
-    # delete lock
+    # disable protected mode
 Given set request header token from global param 'admin_token' 
- When send 'DELETE' request to url 'lock'
+ When send 'DELETE' request to url 'protected'
  Then response code is '200'
-  And response params contain 'is_locked'
-  And response param 'is_locked' equals 'False'
+  And response params contain 'is_protected'
+  And response param 'is_protected' equals 'False'
   And response contains '1' params
     # list revisions
 Given set request header token from global param 'admin_token'
