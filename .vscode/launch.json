@@ -421,16 +421,8 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Protected enable",
-            "args": ["--tags", "@protected", "--tags", "@create", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "Protected disable",
-            "args": ["--tags", "@protected", "--tags", "@delete", "--tags", "~@demo",
+            "name": "Protected change",
+            "args": ["--tags", "@protected", "--tags", "@change", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

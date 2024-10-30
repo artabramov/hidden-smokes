@@ -258,8 +258,9 @@ Given set request header token from global param 'admin_token'
 @document @update
 Scenario: Update document when protected mode is enabled
     # enable protected mode
-Given set request header token from global param 'admin_token' 
- When send 'POST' request to url 'protected'
+Given set request header token from global param 'admin_token'
+  And set request body param 'is_protected' from value '1'
+ When send 'PUT' request to url 'protected'
  Then response code is '200'
   And response params contain 'is_protected'
   And response param 'is_protected' equals 'True'
@@ -273,8 +274,9 @@ Given set request header token from global param 'admin_token'
  When send 'PUT' request to url 'document/:document_id'
  Then response code is '423'
     # disable protected mode
-Given set request header token from global param 'admin_token' 
- When send 'DELETE' request to url 'protected'
+Given set request header token from global param 'admin_token'
+  And set request body param 'is_protected' from value '0'
+ When send 'PUT' request to url 'protected'
  Then response code is '200'
   And response params contain 'is_protected'
   And response param 'is_protected' equals 'False'
