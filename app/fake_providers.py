@@ -19,8 +19,11 @@ USER_CONTACTS_WORDS_COUNT = 16
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
 PARTNER_NAME_WORDS_NUMBER = 4
-PARTNER_SUMMARY_WORDS_NUMBER = 16
+PARTNER_TYPE_WORDS_NUMBER = 2
+PARTNER_REGION_WORDS_NUMBER = 2
+PARTNER_WEBSITE_WORDS_NUMBER = 1
 PARTNER_CONTACTS_WORDS_NUMBER = 16
+PARTNER_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_TAGS_COUNT = 8
 COMMENT_CONTENT_WORDS_NUMBER = 16
@@ -85,13 +88,31 @@ class PartnerNameProvider(BaseProvider):
         return fake.sentence(nb_words=PARTNER_NAME_WORDS_NUMBER).rstrip(".")
 
 
-class PartnerSummaryProvider(BaseProvider):
-    def partner_summary(self):
+class PartnerTypeProvider(BaseProvider):
+    def partner_type(self):
         """
-        Generate a partner summary by creating a random sentence with
+        Generate a partner type by creating a random sentence with
         Faker consisting of a specified number of words.
         """
-        return fake.sentence(nb_words=PARTNER_SUMMARY_WORDS_NUMBER)
+        return fake.sentence(nb_words=PARTNER_TYPE_WORDS_NUMBER)
+
+
+class PartnerRegionProvider(BaseProvider):
+    def partner_region(self):
+        """
+        Generate a partner region by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=PARTNER_REGION_WORDS_NUMBER)
+
+
+class PartnerWebsiteProvider(BaseProvider):
+    def partner_website(self):
+        """
+        Generate a partner website by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=PARTNER_WEBSITE_WORDS_NUMBER)
 
 
 class PartnerContactsProvider(BaseProvider):
@@ -101,6 +122,15 @@ class PartnerContactsProvider(BaseProvider):
         Faker consisting of a specified number of words.
         """
         return fake.sentence(nb_words=PARTNER_CONTACTS_WORDS_NUMBER)
+
+
+class PartnerSummaryProvider(BaseProvider):
+    def partner_summary(self):
+        """
+        Generate a partner summary by creating a random sentence with
+        Faker consisting of a specified number of words.
+        """
+        return fake.sentence(nb_words=PARTNER_SUMMARY_WORDS_NUMBER)
 
 
 class DocumentNameProvider(BaseProvider):
@@ -161,8 +191,11 @@ fake.add_provider(UserContactsProvider)
 fake.add_provider(CollectionNameProvider)
 fake.add_provider(CollectionSummaryProvider)
 fake.add_provider(PartnerNameProvider)
-fake.add_provider(PartnerSummaryProvider)
+fake.add_provider(PartnerTypeProvider)
+fake.add_provider(PartnerRegionProvider)
+fake.add_provider(PartnerWebsiteProvider)
 fake.add_provider(PartnerContactsProvider)
+fake.add_provider(PartnerSummaryProvider)
 fake.add_provider(DocumentNameProvider)
 fake.add_provider(DocumentSummaryProvider)
 fake.add_provider(DocumentTagsProvider)
