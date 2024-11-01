@@ -461,6 +461,15 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Demo partner",
+            "args": [
+                "--tags", "@partner", "--tags", "@demo",
+                "--no-skipped", "--no-source", "--stop"],
+                "type": "debugpy", "request": "launch", "module": "behave",
+                "console": "integratedTerminal", "cwd": "/smokes/app/features",
+                "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Demo collection",
             "args": [
                 "--tags", "@collection", "--tags", "@demo",
@@ -470,7 +479,7 @@
                 "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Demo Document",
+            "name": "Demo document",
             "args": [
                 "--tags", "@document", "--tags", "@demo",
                 "--no-skipped", "--no-source", "--stop"],

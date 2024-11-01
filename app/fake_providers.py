@@ -18,11 +18,6 @@ USER_SIGNATURE_WORDS_COUNT = 2
 USER_CONTACTS_WORDS_COUNT = 16
 COLLECTION_NAME_WORDS_NUMBER = 4
 COLLECTION_SUMMARY_WORDS_NUMBER = 16
-PARTNER_NAME_WORDS_NUMBER = 4
-PARTNER_TYPE_WORDS_NUMBER = 2
-PARTNER_REGION_WORDS_NUMBER = 2
-PARTNER_WEBSITE_WORDS_NUMBER = 1
-PARTNER_CONTACTS_WORDS_NUMBER = 16
 PARTNER_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_SUMMARY_WORDS_NUMBER = 16
 DOCUMENT_TAGS_COUNT = 8
@@ -77,51 +72,6 @@ class CollectionSummaryProvider(BaseProvider):
         Faker consisting of a specified number of words.
         """
         return fake.sentence(nb_words=COLLECTION_SUMMARY_WORDS_NUMBER)
-
-
-class PartnerNameProvider(BaseProvider):
-    def partner_name(self):
-        """
-        Generate a partner name by creating a random sentence with
-        Faker and removing the trailing period.
-        """
-        return fake.sentence(nb_words=PARTNER_NAME_WORDS_NUMBER).rstrip(".")
-
-
-class PartnerTypeProvider(BaseProvider):
-    def partner_type(self):
-        """
-        Generate a partner type by creating a random sentence with
-        Faker consisting of a specified number of words.
-        """
-        return fake.sentence(nb_words=PARTNER_TYPE_WORDS_NUMBER)
-
-
-class PartnerRegionProvider(BaseProvider):
-    def partner_region(self):
-        """
-        Generate a partner region by creating a random sentence with
-        Faker consisting of a specified number of words.
-        """
-        return fake.sentence(nb_words=PARTNER_REGION_WORDS_NUMBER)
-
-
-class PartnerWebsiteProvider(BaseProvider):
-    def partner_website(self):
-        """
-        Generate a partner website by creating a random sentence with
-        Faker consisting of a specified number of words.
-        """
-        return fake.sentence(nb_words=PARTNER_WEBSITE_WORDS_NUMBER)
-
-
-class PartnerContactsProvider(BaseProvider):
-    def partner_contacts(self):
-        """
-        Generate a partner contacts by creating a random sentence with
-        Faker consisting of a specified number of words.
-        """
-        return fake.sentence(nb_words=PARTNER_CONTACTS_WORDS_NUMBER)
 
 
 class PartnerSummaryProvider(BaseProvider):
@@ -190,11 +140,6 @@ fake.add_provider(UserSignatureProvider)
 fake.add_provider(UserContactsProvider)
 fake.add_provider(CollectionNameProvider)
 fake.add_provider(CollectionSummaryProvider)
-fake.add_provider(PartnerNameProvider)
-fake.add_provider(PartnerTypeProvider)
-fake.add_provider(PartnerRegionProvider)
-fake.add_provider(PartnerWebsiteProvider)
-fake.add_provider(PartnerContactsProvider)
 fake.add_provider(PartnerSummaryProvider)
 fake.add_provider(DocumentNameProvider)
 fake.add_provider(DocumentSummaryProvider)
