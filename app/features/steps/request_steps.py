@@ -180,6 +180,12 @@ def step_impl(context, body_param, config_param):
     context.request_body[body_param] = context.config_params[config_param]
 
 
+@given("delete request body param '{body_param}'")
+def step_impl(context, body_param):
+    if body_param in context.request_body:
+        del context.request_body[body_param]
+
+
 # @given("set request param '{request_param}' from global param '{global_param}'")
 # def step_impl(context, request_param, global_param):
 #     """
