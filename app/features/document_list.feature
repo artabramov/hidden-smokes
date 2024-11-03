@@ -82,6 +82,69 @@ Examples:
 | +123.0        |
 
 @document @list
+Scenario Outline: List documents when partner_id is invalid
+    # list documents
+Given set request header token from global param 'admin_token'
+  And set request query param 'partner_id__eq' from value '<partner_id>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'documents'
+ Then response code is '422'
+  And error loc is 'query' and 'partner_id__eq'
+  And error type is '<error_type>'
+  And response contains '1' params
+    # delete document
+Given set request header token from global param 'admin_token' 
+  And set request path param 'document_id' from global param 'document_id'
+ When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'document_id'
+  And response contains '1' params
+
+Examples:
+| partner_id | error_type  |
+| tabs       | int_parsing |
+| spaces     | int_parsing |
+| 123.4      | int_parsing |
+| 123,0      | int_parsing |
+| string(0)  | int_parsing |
+| string(8)  | int_parsing |
+
+@document @list
+Scenario Outline: List documents when partner_id is correct
+    # list documents
+Given set request header token from global param 'admin_token' 
+  And set request query param 'partner_id__eq' from value '<partner_id>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'documents'
+ Then response code is '200'
+  And response params contain 'documents'
+  And response params contain 'documents_count'
+  And response contains '2' params
+    # delete document
+Given set request header token from global param 'admin_token' 
+  And set request path param 'document_id' from global param 'document_id'
+ When send 'DELETE' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'document_id'
+  And response contains '1' params
+
+Examples:
+| partner_id |
+| none       |
+| 0          |
+| 0.0        |
+| -123       |
+| -123.0     |
+| +123       |
+| +123.0     |
+
+@document @list
 Scenario Outline: List documents when document_name__ilike is correct
     # list documents
 Given set request header token from global param 'admin_token' 
@@ -105,11 +168,11 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | document_name | error_type       |
-| none           | missing          |
-| tabs           | string_too_short |
-| spaces         | string_too_short |
-| string(0)      | string_type      |
-| string(255)    | string_too_long  |
+| none          | missing          |
+| tabs          | string_too_short |
+| spaces        | string_too_short |
+| string(0)     | string_type      |
+| string(255)   | string_too_long  |
 
 @document @list
 Scenario Outline: List documents when document_size__ge is invalid
@@ -417,12 +480,12 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | revisions_count | error_type  |
-| tabs          | int_parsing |
-| spaces        | int_parsing |
-| 123.4         | int_parsing |
-| 123,0         | int_parsing |
-| string(0)     | int_parsing |
-| string(8)     | int_parsing |
+| tabs            | int_parsing |
+| spaces          | int_parsing |
+| 123.4           | int_parsing |
+| 123,0           | int_parsing |
+| string(0)       | int_parsing |
+| string(8)       | int_parsing |
 
 @document @list
 Scenario Outline: List documents when revisions_count__ge is correct
@@ -448,13 +511,13 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | revisions_count |
-| none          |
-| 0             |
-| 0.0           |
-| -123          |
-| -123.0        |
-| +123          |
-| +123.0        |
+| none            |
+| 0               |
+| 0.0             |
+| -123            |
+| -123.0          |
+| +123            |
+| +123.0          |
 
 @document @list
 Scenario Outline: List documents when revisions_count__le is invalid
@@ -480,12 +543,12 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | revisions_count | error_type  |
-| tabs          | int_parsing |
-| spaces        | int_parsing |
-| 123.4         | int_parsing |
-| 123,0         | int_parsing |
-| string(0)     | int_parsing |
-| string(8)     | int_parsing |
+| tabs            | int_parsing |
+| spaces          | int_parsing |
+| 123.4           | int_parsing |
+| 123,0           | int_parsing |
+| string(0)       | int_parsing |
+| string(8)       | int_parsing |
 
 @document @list
 Scenario Outline: List documents when revisions_count__le is correct
@@ -511,13 +574,13 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | revisions_count |
-| none          |
-| 0             |
-| 0.0           |
-| -123          |
-| -123.0        |
-| +123          |
-| +123.0        |
+| none            |
+| 0               |
+| 0.0             |
+| -123            |
+| -123.0          |
+| +123            |
+| +123.0          |
 
 @document @list
 Scenario Outline: List documents when revisions_size__ge is invalid
@@ -543,12 +606,12 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | revisions_size | error_type  |
-| tabs         | int_parsing |
-| spaces       | int_parsing |
-| 123.4        | int_parsing |
-| 123,0        | int_parsing |
-| string(0)    | int_parsing |
-| string(8)    | int_parsing |
+| tabs           | int_parsing |
+| spaces         | int_parsing |
+| 123.4          | int_parsing |
+| 123,0          | int_parsing |
+| string(0)      | int_parsing |
+| string(8)      | int_parsing |
 
 @document @list
 Scenario Outline: List documents when revisions_size__ge is correct
@@ -574,13 +637,13 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | revisions_size |
-| none         |
-| 0            |
-| 0.0          |
-| -123         |
-| -123.0       |
-| +123         |
-| +123.0       |
+| none           |
+| 0              |
+| 0.0            |
+| -123           |
+| -123.0         |
+| +123           |
+| +123.0         |
 
 @document @list
 Scenario Outline: List documents when revisions_size__le is invalid
@@ -978,17 +1041,20 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| order_by        |
-| id              |
-| created_date    |
-| updated_date    |
-| user_id         |
-| collection_id   |
-| document_name  |
-| comments_count  |
-| revisions_count |
-| revisions_size  |
-| downloads_count |
+| order_by          |
+| id                |
+| created_date      |
+| updated_date      |
+| user_id           |
+| collection_id     |
+| partner_id        |
+| document_name     |
+| document_size     |
+| document_mimetype |
+| comments_count    |
+| revisions_count   |
+| revisions_size    |
+| downloads_count   |
 
 @document @list
 Scenario Outline: List documents when order is invalid
