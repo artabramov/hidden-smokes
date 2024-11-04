@@ -97,7 +97,6 @@ Examples:
 #   And response params contain 'downloads_count'
 #   And response params contain 'document_tags'
 #   And response params contain 'document_user'
-#   And response params contain 'latest_revision'
 #   And response contains '14' params
 #     # delete document
 # Given set request header token from global param 'admin_token' 
@@ -153,8 +152,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response params contain 'latest_revision'
-  And response contains '19' params
+  And response contains '18' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
@@ -188,8 +186,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response params contain 'latest_revision'
-  And response contains '19' params
+  And response contains '18' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
@@ -223,8 +220,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response params contain 'latest_revision'
-  And response contains '19' params
+  And response contains '18' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
@@ -258,8 +254,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response params contain 'latest_revision'
-  And response contains '19' params
+  And response contains '18' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
@@ -293,8 +288,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response params contain 'latest_revision'
-  And response contains '19' params
+  And response contains '18' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'

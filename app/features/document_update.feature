@@ -145,7 +145,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| original_filename |
+| revision_filename |
 | string(1)         |
 | string(256)       |
 
