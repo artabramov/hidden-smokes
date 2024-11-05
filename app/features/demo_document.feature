@@ -18,7 +18,7 @@ Given set request header token from global param 'admin_token'
     # insert document
 Given set request header token from global param 'admin_token' 
   And set request param 'collection_id' from global param 'collection_id'
-  And set request param 'document_name' from fake 'document_name'
+  And set request param 'document_filename' from fake 'document_filename'
   And set request param 'document_summary' from fake 'document_summary'
   And set request param 'tags' from fake 'document_tags'
   And set request file from sample format 'pdf'

@@ -31,7 +31,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
  When send 'PUT' request to url 'document/:document_id'
  Then response code is '200'
   And response params contain 'document_id'
@@ -127,7 +127,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| document_name |
+| document_filename |
 | string(1)     |
 | string(512)   |
 

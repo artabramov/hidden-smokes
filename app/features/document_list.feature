@@ -145,10 +145,10 @@ Examples:
 | +123.0     |
 
 @document @list
-Scenario Outline: List documents when document_name__ilike is correct
+Scenario Outline: List documents when document_filename__ilike is correct
     # list documents
 Given set request header token from global param 'admin_token' 
-  And set request query param 'document_name__ilike' from value '<document_name>'
+  And set request query param 'document_filename__ilike' from value '<document_filename>'
   And set request query param 'offset' from value '0'
   And set request query param 'limit' from value '1'
   And set request query param 'order_by' from value 'id'
@@ -167,7 +167,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| document_name | error_type       |
+| document_filename | error_type       |
 | none          | missing          |
 | tabs          | string_too_short |
 | spaces        | string_too_short |
@@ -1048,7 +1048,7 @@ Examples:
 | user_id           |
 | collection_id     |
 | partner_id        |
-| document_name     |
+| document_filename     |
 | document_size     |
 | document_mimetype |
 | comments_count    |

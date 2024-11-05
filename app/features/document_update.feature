@@ -31,7 +31,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
  When send 'PUT' request to url 'document/:document_id'
  Then response code is '200'
   And response params contain 'document_id'
@@ -43,7 +43,7 @@ Scenario Outline: Update document when document_id not found
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from value '<document_id>'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -70,7 +70,7 @@ Scenario Outline: Update document when document_id is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from value '<document_id>'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -95,16 +95,16 @@ Examples:
 | 123,0       | int_parsing |
 
 @document @update
-Scenario Outline: Update document when document_name is invalid
+Scenario Outline: Update document when document_filename is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from value '<document_name>'
+  And set request body param 'document_filename' from value '<document_filename>'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
  Then response code is '422'
-  And error loc is 'body' and 'document_name'
+  And error loc is 'body' and 'document_filename'
   And error type is '<error_type>'
   And response contains '1' params
     # delete collection
@@ -116,7 +116,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| document_name | error_type       |
+| document_filename | error_type       |
 | none          | missing          |
 | tabs          | string_too_short |
 | spaces        | string_too_short |
@@ -124,11 +124,11 @@ Examples:
 | string(257)   | string_too_long  |
 
 @document @update
-Scenario Outline: Update document when document_name is correct
+Scenario Outline: Update document when document_filename is correct
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from value '<document_name>'
+  And set request body param 'document_filename' from value '<document_filename>'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -154,7 +154,7 @@ Scenario Outline: Update document when document_summary is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from value '<document_summary>'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -179,7 +179,7 @@ Scenario Outline: Update document when document_summary is correct
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from value '<document_summary>'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -219,7 +219,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -240,7 +240,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -268,7 +268,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -284,7 +284,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -305,7 +305,7 @@ Scenario: Update document when user is admin
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -326,7 +326,7 @@ Scenario: Update document when user is editor
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -347,7 +347,7 @@ Scenario: Update document when user is writer
     # update document
 Given set request header token from global param 'writer_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -368,7 +368,7 @@ Scenario: Update document when user is reader
     # update document
 Given set request header token from global param 'reader_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'
@@ -389,7 +389,7 @@ Scenario: Update document when token is missing
     # update document
 Given delete request header token 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'document_name' from fake 'document_name'
+  And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
  When send 'PUT' request to url 'document/:document_id'

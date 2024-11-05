@@ -84,7 +84,7 @@ class PartnerSummaryProvider(BaseProvider):
 
 
 class DocumentNameProvider(BaseProvider):
-    def document_name(self):
+    def document_filename(self):
         return f"{fake.word()}.{fake.file_extension()}"
 
 
