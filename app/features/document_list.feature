@@ -1048,7 +1048,7 @@ Examples:
 | user_id           |
 | collection_id     |
 | partner_id        |
-| document_filename     |
+| document_filename |
 | document_size     |
 | document_mimetype |
 | comments_count    |
