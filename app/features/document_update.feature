@@ -6,17 +6,6 @@ Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload document
-Given set request header token from global param 'admin_token' 
-  And set request file from sample format 'pdf'
- When send 'POST' request to url 'document'
- Then response code is '201'
-  And response params contain 'document_id'
-  And response params contain 'revision_id'
-  And response contains '2' params
-  And save response param 'document_id' to global param 'document_id'
-    # remove file from request
-Given delete request file
     # create collection
 Given set request header token from global param 'admin_token' 
   And set request body param 'is_locked' from value '0'
@@ -27,22 +16,25 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
   And save response param 'collection_id' to global param 'collection_id'
-    # relate document to collection
+    # upload document
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
-  And set request body param 'document_filename' from fake 'document_filename'
- When send 'PUT' request to url 'document/:document_id'
- Then response code is '200'
+  And set request file from sample format 'pdf'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'POST' request to url 'collection/:collection_id/document'
+ Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
   And response contains '2' params
+  And save response param 'document_id' to global param 'document_id'
+    # remove file from request
+Given delete request file
 
 @document @update
 Scenario Outline: Update document when document_id not found
     # update document
-Given set request header token from global param 'editor_token' 
+Given set request header token from global param 'editor_token'
   And set request path param 'document_id' from value '<document_id>'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -70,6 +62,7 @@ Scenario Outline: Update document when document_id is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from value '<document_id>'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -99,6 +92,7 @@ Scenario Outline: Update document when document_filename is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from value '<document_filename>'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -117,17 +111,18 @@ Given set request header token from global param 'admin_token'
 
 Examples:
 | document_filename | error_type       |
-| none          | missing          |
-| tabs          | string_too_short |
-| spaces        | string_too_short |
-| string(0)     | string_type      |
-| string(257)   | string_too_long  |
+| none              | missing          |
+| tabs              | string_too_short |
+| spaces            | string_too_short |
+| string(0)         | string_type      |
+| string(257)       | string_too_long  |
 
 @document @update
 Scenario Outline: Update document when document_filename is correct
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from value '<document_filename>'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -154,6 +149,7 @@ Scenario Outline: Update document when document_summary is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from value '<document_summary>'
   And set request body param 'tags' from fake 'document_tags'
@@ -179,6 +175,7 @@ Scenario Outline: Update document when document_summary is correct
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from value '<document_summary>'
   And set request body param 'tags' from fake 'document_tags'
@@ -219,6 +216,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -240,6 +238,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -268,6 +267,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -284,6 +284,7 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -305,6 +306,7 @@ Scenario: Update document when user is admin
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -326,6 +328,7 @@ Scenario: Update document when user is editor
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -347,6 +350,7 @@ Scenario: Update document when user is writer
     # update document
 Given set request header token from global param 'writer_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -368,6 +372,7 @@ Scenario: Update document when user is reader
     # update document
 Given set request header token from global param 'reader_token' 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'
@@ -389,6 +394,7 @@ Scenario: Update document when token is missing
     # update document
 Given delete request header token 
   And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'tags' from fake 'document_tags'

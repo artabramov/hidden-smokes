@@ -6,10 +6,21 @@ Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
+    # create collection
+Given set request header token from global param 'admin_token' 
+  And set request body param 'is_locked' from value '0'
+  And set request body param 'collection_name' from fake 'collection_name'
+  And set request body param 'collection_summary' from fake 'collection_summary'
+ When send 'POST' request to url 'collection'
+ Then response code is '201'
+  And response params contain 'collection_id'
+  And response contains '1' params
+  And save response param 'collection_id' to global param 'collection_id'
     # upload document
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
- When send 'POST' request to url 'document'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'POST' request to url 'collection/:collection_id/document'
  Then response code is '201'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -28,14 +39,13 @@ Given set request header token from global param 'admin_token'
   And error loc is 'body' and 'document_id'
   And error type is 'value_invalid'
   And response contains '1' params
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
-  
 
 Examples:
 | document_id |
@@ -73,12 +83,12 @@ Given set request header token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'favorite_id'
   And response contains '1' params
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 @favorite @insert
@@ -90,12 +100,12 @@ Given set request header token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'favorite_id'
   And response contains '1' params
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 @favorite @insert
@@ -107,12 +117,12 @@ Given set request header token from global param 'editor_token'
  Then response code is '201'
   And response params contain 'favorite_id'
   And response contains '1' params
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 @favorite @insert
@@ -124,12 +134,12 @@ Given set request header token from global param 'writer_token'
  Then response code is '201'
   And response params contain 'favorite_id'
   And response contains '1' params
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 @favorite @insert
@@ -141,12 +151,12 @@ Given set request header token from global param 'reader_token'
  Then response code is '201'
   And response params contain 'favorite_id'
   And response contains '1' params
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 @favorite @insert
@@ -156,10 +166,10 @@ Given delete request header token
   And set request body param 'document_id' from global param 'document_id'
  When send 'POST' request to url 'favorite'
  Then response code is '403'
-    # delete document
+    # delete collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params

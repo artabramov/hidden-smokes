@@ -6,18 +6,7 @@ Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload document
-Given set request header token from global param 'admin_token' 
-  And set request file from sample format 'pdf'
- When send 'POST' request to url 'document'
- Then response code is '201'
-  And response params contain 'document_id'
-  And response params contain 'revision_id'
-  And response contains '2' params
-  And save response param 'document_id' to global param 'document_id'
-    # remove file from request
-Given delete request file
-    # create collection
+    # create collection 1
 Given set request header token from global param 'admin_token' 
   And set request body param 'is_locked' from value '0'
   And set request body param 'collection_name' from fake 'collection_name'
@@ -26,32 +15,53 @@ Given set request header token from global param 'admin_token'
  Then response code is '201'
   And response params contain 'collection_id'
   And response contains '1' params
-  And save response param 'collection_id' to global param 'collection_id'
+  And save response param 'collection_id' to global param 'collection_id1'
+    # create collection 2
+Given set request header token from global param 'admin_token' 
+  And set request body param 'is_locked' from value '0'
+  And set request body param 'collection_name' from fake 'collection_name'
+  And set request body param 'collection_summary' from fake 'collection_summary'
+ When send 'POST' request to url 'collection'
+ Then response code is '201'
+  And response params contain 'collection_id'
+  And response contains '1' params
+  And save response param 'collection_id' to global param 'collection_id2'
+    # upload document to collection 1
+Given set request header token from global param 'admin_token' 
+  And set request file from sample format 'pdf'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'POST' request to url 'collection/:collection_id/document'
+ Then response code is '201'
+  And response params contain 'document_id'
+ And response contains '2' params
+  And save response param 'document_id' to global param 'document_id'
+    # remove file from request
+Given delete request file
 
 @document @move
 Scenario Outline: Move document when document_id not found
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from value '<document_id>'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '404'
   And error loc is 'path' and 'document_id'
   And error type is 'resource_not_found'
   And response contains '1' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
   And response contains '1' params
-    # delete document
+    # delete collection 2
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id2'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 Examples:
@@ -62,28 +72,28 @@ Examples:
 
 @document @move
 Scenario Outline: Move document when document_id is invalid
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'editor_token'
   And set request path param 'document_id' from value '<document_id>'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '422'
   And error loc is 'path' and 'document_id'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
   And response contains '1' params
-    # delete document
+    # delete collection 2
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
+  And set request path param 'collection_id' from global param 'collection_id2'
+ When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
-  And response params contain 'document_id'
+  And response params contain 'collection_id'
   And response contains '1' params
 
 Examples:
@@ -96,9 +106,9 @@ Examples:
 
 @document @move
 Scenario: Move document when collection is locked
-    # lock collection
+    # lock collection 2
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id2'
   And set request body param 'is_locked' from value '1'
   And set request body param 'collection_name' from fake 'collection_name'
   And set request body param 'collection_summary' from fake 'collection_summary'
@@ -106,10 +116,10 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collection_id'
   And response contains '1' params
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '423'
   And error loc is 'body' and 'collection_id'
@@ -117,7 +127,7 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
     # unlock collection
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id2'
   And set request body param 'is_locked' from value '0'
   And set request body param 'collection_name' from fake 'collection_name'
   And set request body param 'collection_summary' from fake 'collection_summary'
@@ -128,51 +138,25 @@ Given set request header token from global param 'admin_token'
     # move document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
   And response contains '2' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
-
-@document @move
-Scenario: Move document when collection is none
-    # move document to collection
+  And response contains '1' params
+    # delete collection 2
 Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
- When send 'PUT' request to url 'document/:document_id/collection_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response params contain 'revision_id'
-  And response contains '2' params
-    # move document from collection
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
-  And delete request body param 'collection_id'
- When send 'PUT' request to url 'document/:document_id/collection_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response params contain 'revision_id'
-  And response contains '2' params
-    # delete collection
-Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 @document @move
@@ -185,10 +169,10 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_protected'
   And response param 'is_protected' equals 'True'
   And response contains '1' params
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '423'
     # disable protected mode
@@ -199,18 +183,25 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_protected'
   And response param 'is_protected' equals 'False'
   And response contains '1' params
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
   And response contains '2' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection 2
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
@@ -218,18 +209,25 @@ Given set request header token from global param 'admin_token'
 
 @document @move
 Scenario: Move document when user is admin
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
   And response contains '2' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection 2
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
@@ -237,18 +235,25 @@ Given set request header token from global param 'admin_token'
 
 @document @move
 Scenario: Move document when user is editor
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
   And response contains '2' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection 2
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
@@ -256,18 +261,25 @@ Given set request header token from global param 'admin_token'
 
 @document @move
 Scenario: Move document when user is writer
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'writer_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_role_rejected'
   And response contains '1' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection 2
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
@@ -275,18 +287,25 @@ Given set request header token from global param 'admin_token'
 
 @document @move
 Scenario: Move document when user is reader
-    # move document
+    # move document from collection 1 to collection 2
 Given set request header token from global param 'reader_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_role_rejected'
   And response contains '1' params
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection 2
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'
@@ -294,15 +313,22 @@ Given set request header token from global param 'admin_token'
 
 @document @move
 Scenario: Move document when token is missing
-    # move document
+    # move document from collection 1 to collection 2
 Given delete request header token 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'collection_id' from global param 'collection_id2'
  When send 'PUT' request to url 'document/:document_id/collection_id'
  Then response code is '403'
-    # delete collection
+    # delete collection 1
 Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
+  And set request path param 'collection_id' from global param 'collection_id1'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+    # delete collection 2
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id2'
  When send 'DELETE' request to url 'collection/:collection_id'
  Then response code is '200'
   And response params contain 'collection_id'

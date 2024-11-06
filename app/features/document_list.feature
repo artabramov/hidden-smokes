@@ -6,17 +6,6 @@ Given auth with user role 'admin'
   And auth with user role 'editor'
   And auth with user role 'writer'
   And auth with user role 'reader'
-    # upload document
-Given set request header token from global param 'admin_token' 
-  And set request file from sample format 'pdf'
- When send 'POST' request to url 'document'
- Then response code is '201'
-  And response params contain 'document_id'
-  And response params contain 'revision_id'
-  And response contains '2' params
-  And save response param 'document_id' to global param 'document_id'
-    # remove file from request
-Given delete request file
 
 @document @list
 Scenario Outline: List documents when collection_id is invalid
@@ -31,13 +20,6 @@ Given set request header token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'query' and 'collection_id__eq'
   And error type is '<error_type>'
-  And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 Examples:
@@ -63,13 +45,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | collection_id |
@@ -95,13 +70,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'partner_id__eq'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | partner_id | error_type  |
@@ -126,13 +94,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | partner_id |
@@ -158,13 +119,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | document_filename | error_type       |
@@ -187,13 +141,6 @@ Given set request header token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'query' and 'document_size__ge'
   And error type is '<error_type>'
-  And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 Examples:
@@ -219,13 +166,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | document_size |
@@ -251,13 +191,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'document_size__le'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | document_size | error_type  |
@@ -282,13 +215,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | document_size |
@@ -314,13 +240,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | document_mimetype | error_type       |
@@ -343,13 +262,6 @@ Given set request header token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'query' and 'comments_count__ge'
   And error type is '<error_type>'
-  And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 Examples:
@@ -375,13 +287,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | comments_count |
@@ -407,13 +312,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'comments_count__le'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | comments_count | error_type  |
@@ -438,13 +336,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | comments_count |
@@ -470,13 +361,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'revisions_count__ge'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_count | error_type  |
@@ -501,13 +385,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_count |
@@ -533,13 +410,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'revisions_count__le'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_count | error_type  |
@@ -564,13 +434,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_count |
@@ -596,13 +459,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'revisions_size__ge'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_size | error_type  |
@@ -627,13 +483,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_size |
@@ -659,13 +508,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'revisions_size__le'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_size | error_type  |
@@ -690,13 +532,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | revisions_size |
@@ -722,13 +557,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'downloads_count__ge'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | downloads_count | error_type  |
@@ -753,13 +581,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | downloads_count |
@@ -785,13 +606,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'downloads_count__le'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | downloads_count | error_type  |
@@ -816,13 +630,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | downloads_count |
@@ -848,13 +655,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | tag_value |
@@ -878,13 +678,6 @@ Given set request header token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'query' and 'offset'
   And error type is '<error_type>'
-  And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 Examples:
@@ -911,13 +704,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | offset |
@@ -939,13 +725,6 @@ Given set request header token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'query' and 'limit'
   And error type is '<error_type>'
-  And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 Examples:
@@ -974,13 +753,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | limit |
@@ -1001,13 +773,6 @@ Given set request header token from global param 'admin_token'
  Then response code is '422'
   And error loc is 'query' and 'order_by'
   And error type is '<error_type>'
-  And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
   And response contains '1' params
 
 Examples:
@@ -1032,13 +797,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | order_by          |
@@ -1069,13 +827,6 @@ Given set request header token from global param 'admin_token'
   And error loc is 'query' and 'order'
   And error type is '<error_type>'
   And response contains '1' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | order  | error_type    |
@@ -1100,13 +851,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 Examples:
 | order |
@@ -1151,13 +895,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 @document @list
 Scenario: List documents when user is admin
@@ -1172,13 +909,6 @@ Given set request header token from global param 'admin_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 @document @list
 Scenario: List documents when user is editor
@@ -1193,13 +923,6 @@ Given set request header token from global param 'editor_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 @document @list
 Scenario: List documents when user is writer
@@ -1214,13 +937,6 @@ Given set request header token from global param 'writer_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 @document @list
 Scenario: List documents when user is reader
@@ -1235,13 +951,6 @@ Given set request header token from global param 'reader_token'
   And response params contain 'documents'
   And response params contain 'documents_count'
   And response contains '2' params
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
 
 @document @list
 Scenario: List documents when token is missing
@@ -1253,10 +962,3 @@ Given delete request header token
   And set request query param 'order' from value 'asc'
  When send 'GET' request to url 'documents'
  Then response code is '403'
-    # delete document
-Given set request header token from global param 'admin_token' 
-  And set request path param 'document_id' from global param 'document_id'
- When send 'DELETE' request to url 'document/:document_id'
- Then response code is '200'
-  And response params contain 'document_id'
-  And response contains '1' params
