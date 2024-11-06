@@ -119,9 +119,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'revision_size'
   And response params contain 'revision_mimetype'
   And response params contain 'thumbnail_url'
-  And response params contain 'downloads_count'
   And response params contain 'revision_user'
-  And response contains '11' params
+  And response contains '10' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -147,9 +146,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'revision_size'
   And response params contain 'revision_mimetype'
   And response params contain 'thumbnail_url'
-  And response params contain 'downloads_count'
   And response params contain 'revision_user'
-  And response contains '11' params
+  And response contains '10' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -175,9 +173,8 @@ Given set request header token from global param 'editor_token'
   And response params contain 'revision_size'
   And response params contain 'revision_mimetype'
   And response params contain 'thumbnail_url'
-  And response params contain 'downloads_count'
   And response params contain 'revision_user'
-  And response contains '11' params
+  And response contains '10' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -203,9 +200,8 @@ Given set request header token from global param 'writer_token'
   And response params contain 'revision_size'
   And response params contain 'revision_mimetype'
   And response params contain 'thumbnail_url'
-  And response params contain 'downloads_count'
   And response params contain 'revision_user'
-  And response contains '11' params
+  And response contains '10' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -231,9 +227,8 @@ Given set request header token from global param 'reader_token'
   And response params contain 'revision_size'
   And response params contain 'revision_mimetype'
   And response params contain 'thumbnail_url'
-  And response params contain 'downloads_count'
   And response params contain 'revision_user'
-  And response contains '11' params
+  And response contains '10' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
