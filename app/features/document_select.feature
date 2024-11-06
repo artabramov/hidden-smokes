@@ -104,7 +104,6 @@ Examples:
 #   And response params contain 'document_summary'
 #   And response params contain 'comments_count'
 #   And response params contain 'revisions_count'
-#   And response params contain 'revisions_size'
 #   And response params contain 'downloads_count'
 #   And response params contain 'document_tags'
 #   And response params contain 'document_user'
@@ -158,13 +157,12 @@ Given set request header token from global param 'reader_token'
   And response params contain 'thumbnail_url'
   And response params contain 'comments_count'
   And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'downloads_count'
   And response params contain 'document_tags'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response contains '19' params
+  And response contains '18' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -193,13 +191,12 @@ Given set request header token from global param 'reader_token'
   And response params contain 'thumbnail_url'
   And response params contain 'comments_count'
   And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'downloads_count'
   And response params contain 'document_tags'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response contains '19' params
+  And response contains '18' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -228,13 +225,12 @@ Given set request header token from global param 'reader_token'
   And response params contain 'thumbnail_url'
   And response params contain 'comments_count'
   And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'downloads_count'
   And response params contain 'document_tags'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response contains '19' params
+  And response contains '18' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -263,13 +259,12 @@ Given set request header token from global param 'reader_token'
   And response params contain 'thumbnail_url'
   And response params contain 'comments_count'
   And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'downloads_count'
   And response params contain 'document_tags'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response contains '19' params
+  And response contains '18' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
@@ -298,13 +293,12 @@ Given set request header token from global param 'reader_token'
   And response params contain 'thumbnail_url'
   And response params contain 'comments_count'
   And response params contain 'revisions_count'
-  And response params contain 'revisions_size'
   And response params contain 'downloads_count'
   And response params contain 'document_tags'
   And response params contain 'document_user'
   And response params contain 'document_collection'
   And response params contain 'document_partner'
-  And response contains '19' params
+  And response contains '18' params
     # delete collection
 Given set request header token from global param 'admin_token' 
   And set request path param 'collection_id' from global param 'collection_id'
