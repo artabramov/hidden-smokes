@@ -250,104 +250,6 @@ Examples:
 | string(255)       | string_too_long  |
 
 @document @list
-Scenario Outline: List documents when comments_count__ge is invalid
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'comments_count__ge' from value '<comments_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '422'
-  And error loc is 'query' and 'comments_count__ge'
-  And error type is '<error_type>'
-  And response contains '1' params
-
-Examples:
-| comments_count | error_type  |
-| tabs           | int_parsing |
-| spaces         | int_parsing |
-| 123.4          | int_parsing |
-| 123,0          | int_parsing |
-| string(0)      | int_parsing |
-| string(8)      | int_parsing |
-
-@document @list
-Scenario Outline: List documents when comments_count__ge is correct
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'comments_count__ge' from value '<comments_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
-  And response contains '2' params
-
-Examples:
-| comments_count |
-| none           |
-| 0              |
-| 0.0            |
-| -123           |
-| -123.0         |
-| +123           |
-| +123.0         |
-
-@document @list
-Scenario Outline: List documents when comments_count__le is invalid
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'comments_count__le' from value '<comments_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '422'
-  And error loc is 'query' and 'comments_count__le'
-  And error type is '<error_type>'
-  And response contains '1' params
-
-Examples:
-| comments_count | error_type  |
-| tabs           | int_parsing |
-| spaces         | int_parsing |
-| 123.4          | int_parsing |
-| 123,0          | int_parsing |
-| string(0)      | int_parsing |
-| string(8)      | int_parsing |
-
-@document @list
-Scenario Outline: List documents when comments_count__le is correct
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'comments_count__le' from value '<comments_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
-  And response contains '2' params
-
-Examples:
-| comments_count |
-| none           |
-| 0              |
-| 0.0            |
-| -123           |
-| -123.0         |
-| +123           |
-| +123.0         |
-
-@document @list
 Scenario Outline: List documents when revisions_count__ge is invalid
     # list documents
 Given set request header token from global param 'admin_token' 
@@ -809,7 +711,6 @@ Examples:
 | document_filename |
 | document_size     |
 | document_mimetype |
-| comments_count    |
 | revisions_count   |
 | revisions_size    |
 | downloads_count   |
