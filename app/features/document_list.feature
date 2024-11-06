@@ -446,104 +446,6 @@ Examples:
 | +123.0       |
 
 @document @list
-Scenario Outline: List documents when downloads_count__ge is invalid
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'downloads_count__ge' from value '<downloads_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '422'
-  And error loc is 'query' and 'downloads_count__ge'
-  And error type is '<error_type>'
-  And response contains '1' params
-
-Examples:
-| downloads_count | error_type  |
-| tabs            | int_parsing |
-| spaces          | int_parsing |
-| 123.4           | int_parsing |
-| 123,0           | int_parsing |
-| string(0)       | int_parsing |
-| string(8)       | int_parsing |
-
-@document @list
-Scenario Outline: List documents when downloads_count__ge is correct
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'downloads_count__ge' from value '<downloads_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
-  And response contains '2' params
-
-Examples:
-| downloads_count |
-| none            |
-| 0               |
-| 0.0             |
-| -123            |
-| -123.0          |
-| +123            |
-| +123.0          |
-
-@document @list
-Scenario Outline: List documents when downloads_count__le is invalid
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'downloads_count__le' from value '<downloads_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '422'
-  And error loc is 'query' and 'downloads_count__le'
-  And error type is '<error_type>'
-  And response contains '1' params
-
-Examples:
-| downloads_count | error_type  |
-| tabs            | int_parsing |
-| spaces          | int_parsing |
-| 123.4           | int_parsing |
-| 123,0           | int_parsing |
-| string(0)       | int_parsing |
-| string(8)       | int_parsing |
-
-@document @list
-Scenario Outline: List documents when downloads_count__le is correct
-    # list documents
-Given set request header token from global param 'admin_token' 
-  And set request query param 'downloads_count__le' from value '<downloads_count>'
-  And set request query param 'offset' from value '0'
-  And set request query param 'limit' from value '1'
-  And set request query param 'order_by' from value 'id'
-  And set request query param 'order' from value 'asc'
- When send 'GET' request to url 'documents'
- Then response code is '200'
-  And response params contain 'documents'
-  And response params contain 'documents_count'
-  And response contains '2' params
-
-Examples:
-| downloads_count |
-| none            |
-| 0               |
-| 0.0             |
-| -123            |
-| -123.0          |
-| +123            |
-| +123.0          |
-
-@document @list
 Scenario Outline: List documents when tag_value is correct
     # list documents
 Given set request header token from global param 'admin_token' 
@@ -713,7 +615,6 @@ Examples:
 | document_mimetype |
 | revisions_count   |
 | revisions_size    |
-| downloads_count   |
 
 @document @list
 Scenario Outline: List documents when order is invalid
