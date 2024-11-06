@@ -148,7 +148,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'user_id'
   And response params contain 'user_name'
   And response params contain 'document_id'
-  And response contains '5' params
+  And response params contain 'document_filename'
+  And response contains '6' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
@@ -183,7 +184,8 @@ Given set request header token from global param 'admin_token'
   And response params contain 'user_id'
   And response params contain 'user_name'
   And response params contain 'document_id'
-  And response contains '5' params
+  And response params contain 'document_filename'
+  And response contains '6' params
     # delete document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
