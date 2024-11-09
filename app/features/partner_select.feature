@@ -79,7 +79,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_website'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
-  And response params contain 'emblem_url'
+  And response params contain 'partnerpic_url'
   And response params contain 'documents_count'
   And response contains '13' params
     # delete partner
@@ -107,7 +107,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_website'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
-  And response params contain 'emblem_url'
+  And response params contain 'partnerpic_url'
   And response params contain 'documents_count'
   And response contains '13' params
     # delete partner
@@ -135,7 +135,7 @@ Given set request header token from global param 'editor_token'
   And response params contain 'partner_website'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
-  And response params contain 'emblem_url'
+  And response params contain 'partnerpic_url'
   And response params contain 'documents_count'
   And response contains '13' params
     # delete partner
@@ -163,7 +163,7 @@ Given set request header token from global param 'writer_token'
   And response params contain 'partner_website'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
-  And response params contain 'emblem_url'
+  And response params contain 'partnerpic_url'
   And response params contain 'documents_count'
   And response contains '13' params
     # delete partner
@@ -191,7 +191,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'partner_website'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
-  And response params contain 'emblem_url'
+  And response params contain 'partnerpic_url'
   And response params contain 'documents_count'
   And response contains '13' params
     # delete partner
