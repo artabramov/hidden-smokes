@@ -189,7 +189,7 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Partner partnerpic upload",
+            "name": "Partnerpic upload",
             "args": ["--tags", "@partner", "--tags", "@partnerpic", "--tags", "@upload", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
@@ -197,7 +197,7 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Partner partnerpic delete",
+            "name": "Partnerpic delete",
             "args": ["--tags", "@partner", "--tags", "@partnerpic", "--tags", "@delete", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
@@ -367,14 +367,6 @@
         {
             "name": "Favorite list",
             "args": ["--tags", "@favorite", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "Option insert",
-            "args": ["--tags", "@option", "--tags", "@insert", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
