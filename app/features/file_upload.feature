@@ -1,4 +1,4 @@
-Feature: Insert document
+Feature: Upload file
 
 Background: Auth users and create collection
     # auth users
@@ -17,8 +17,8 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
   And save response param 'collection_id' to global param 'collection_id'
 
-@document @upload
-Scenario: Insert document when lock mode is enabled
+@file @upload
+Scenario: Upload file when lock mode is enabled
     # enable lock mode
 Given set request header token from global param 'admin_token'
   And set request body param 'is_locked' from value '1'
@@ -27,7 +27,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
   And response contains '1' params
-    # upload document
+    # upload file
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'
@@ -41,7 +41,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
   And response contains '1' params
-    # upload document
+    # upload file
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'
@@ -59,9 +59,9 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @upload
+@file @upload
 Scenario: Upload document when user is admin
-    # upload document
+    # upload file
 Given set request header token from global param 'admin_token' 
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'
@@ -79,9 +79,9 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @upload
-Scenario: Insert document when user is editor
-    # upload document
+@file @upload
+Scenario: Upload file when user is editor
+    # upload file
 Given set request header token from global param 'editor_token' 
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'
@@ -99,9 +99,9 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @upload
-Scenario: Insert document when user is writer
-    # upload document
+@file @upload
+Scenario: Upload file when user is writer
+    # upload file
 Given set request header token from global param 'writer_token' 
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'
@@ -119,9 +119,9 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-# @document @upload
-Scenario: Insert document when user is reader
-    # upload document
+# @file @upload
+Scenario: Upload file when user is reader
+    # upload file
 Given set request header token from global param 'reader_token' 
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'
@@ -138,9 +138,9 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @upload
-Scenario: Insert document when token is missing
-    # upload document
+@file @upload
+Scenario: Upload file when token is missing
+    # upload file
 Given delete request header token
   And set request file from sample format 'pdf'
   And set request path param 'collection_id' from global param 'collection_id'

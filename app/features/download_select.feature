@@ -31,9 +31,10 @@ Given set request header token from global param 'admin_token'
 Given delete request file
     # download revision
 Given set request header token from global param 'admin_token'
+  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'document/:document_id/revision/:revision_id/download'
+ When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
  Then response code is '200'
   And response content is not empty
 
