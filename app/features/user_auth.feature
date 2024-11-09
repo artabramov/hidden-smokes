@@ -215,28 +215,28 @@ Examples:
 | 4102430400.0 |
 
 @user @auth
-Scenario: Auth user when protected mode is enabled
+Scenario: Auth user when lock mode is enabled
 Given auth with user role 'admin'
-    # enable protected mode
+    # enable lock mode
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '1'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '1'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'True'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
   And response contains '1' params
     # user login
 Given set request body param 'user_login' from config param 'admin_login'
   And set request body param 'user_password' from config param 'admin_password'
  When send 'POST' request to url 'auth/login'
  Then response code is '423'
-    # disable protected mode
+    # disable lock mode
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '0'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '0'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'False'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
   And response contains '1' params
     # user login
 Given set request body param 'user_login' from config param 'admin_login'
@@ -245,26 +245,26 @@ Given set request body param 'user_login' from config param 'admin_login'
  Then response code is '200'
   And response params contain 'password_accepted'
   And response contains '1' params
-    # enable protected mode
+    # enable lock mode
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '1'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '1'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'True'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
   And response contains '1' params
     # token retrieve
 Given set request query param 'user_login' from config param 'admin_login'
   And generate request query param 'user_totp' from config param 'admin_mfa_secret'
  When send 'GET' request to url 'auth/token'
  Then response code is '423'
-    # disable protected mode
+    # disable lock mode
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '0'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '0'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'False'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
   And response contains '1' params
     # token retrieve
 Given set request query param 'user_login' from config param 'admin_login'

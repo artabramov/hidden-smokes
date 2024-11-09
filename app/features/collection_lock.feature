@@ -45,14 +45,14 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 @collection @lock
-Scenario: Lock collection when protected mode is enabled
+Scenario: Lock collection when lock mode is enabled
     # create global lock
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '1'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '1'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'True'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
   And response contains '1' params
     # lock collection
 Given set request header token from global param 'admin_token' 
@@ -68,11 +68,11 @@ Given set request header token from global param 'admin_token'
  Then response code is '423'
     # delete global lock
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '0'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '0'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'False'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
   And response contains '1' params
     # lock collection
 Given set request header token from global param 'admin_token' 

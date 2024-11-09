@@ -324,15 +324,15 @@ Examples:
 | string(512)   |
 
 @user @register
-Scenario: Register user when protected mode is enabled
+Scenario: Register user when lock mode is enabled
 Given auth with user role 'admin'
-    # enable protected mode
+    # enable lock mode
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '1'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '1'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'True'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'True'
   And response contains '1' params
     # register user
 Given set request body param 'user_login' from fake 'user_login'
@@ -343,13 +343,13 @@ Given set request body param 'user_login' from fake 'user_login'
   And set request body param 'user_contacts' from fake 'user_contacts'
  When send 'POST' request to url 'user'
  Then response code is '423'
-    # disable protected mode
+    # disable lock mode
 Given set request header token from global param 'admin_token'
-  And set request body param 'is_protected' from value '0'
- When send 'PUT' request to url 'protected'
+  And set request body param 'is_locked' from value '0'
+ When send 'PUT' request to url 'lock'
  Then response code is '200'
-  And response params contain 'is_protected'
-  And response param 'is_protected' equals 'False'
+  And response params contain 'is_locked'
+  And response param 'is_locked' equals 'False'
   And response contains '1' params
     # register user
 Given set request body param 'user_login' from fake 'user_login'

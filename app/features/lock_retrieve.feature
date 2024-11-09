@@ -1,21 +1,20 @@
-Feature: Retrieve time
+Feature: Retrieve lock mode
 
 Background: Auth users
     # auth users
 Given auth with user role 'admin'
 
-@time @retrieve
-Scenario: Retrieve time
-   # retrieve time
-When send 'GET' request to url 'time'
+@locked @retrieve
+Scenario: Retrieve lock mode
+   # retrieve lock mode
+When send 'GET' request to url 'lock'
 Then response code is '200'
- And response params contain 'unix_timestamp'
- And response params contain 'timezone_name'
- And response params contain 'timezone_offset'
- And response contains '3' params
+ And response params contain 'is_locked'
+ And response params contain 'locked_date'
+ And response contains '2' params
 
-@time @retrieve
-Scenario: Retrieve time when lock mode is changed
+@locked @retrieve
+Scenario: Retrieve lock mode when lock mode is changed
     # enable lock mode
 Given set request header token from global param 'admin_token'
   And set request body param 'is_locked' from value '1'
@@ -24,14 +23,14 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
   And response contains '1' params
-    # retrieve time
+    # retrieve lock mode
 Given set request header token from global param 'admin_token' 
- When send 'GET' request to url 'time'
+ When send 'GET' request to url 'lock'
  Then response code is '200'
-  And response params contain 'unix_timestamp'
-  And response params contain 'timezone_name'
-  And response params contain 'timezone_offset'
-  And response contains '3' params
+  And response params contain 'is_locked'
+  And response params contain 'locked_date'
+  And response param 'is_locked' equals 'True'
+  And response contains '2' params
     # disable lock mode
 Given set request header token from global param 'admin_token'
   And set request body param 'is_locked' from value '0'
@@ -40,11 +39,12 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
   And response contains '1' params
-    # retrieve time
+    # retrieve lock mode
 Given set request header token from global param 'admin_token' 
- When send 'GET' request to url 'time'
+ When send 'GET' request to url 'lock'
  Then response code is '200'
-  And response params contain 'unix_timestamp'
-  And response params contain 'timezone_name'
-  And response params contain 'timezone_offset'
-  And response contains '3' params
+  And response params contain 'is_locked'
+  And response params contain 'locked_date'
+  And response param 'is_locked' equals 'False'
+  And response param 'locked_date' equals '0'
+  And response contains '2' params
