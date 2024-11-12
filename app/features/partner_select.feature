@@ -80,8 +80,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
   And response params contain 'partnerpic_url'
-  And response params contain 'documents_count'
-  And response contains '13' params
+  And response contains '12' params
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
@@ -108,8 +107,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
   And response params contain 'partnerpic_url'
-  And response params contain 'documents_count'
-  And response contains '13' params
+  And response contains '12' params
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
@@ -136,8 +134,7 @@ Given set request header token from global param 'editor_token'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
   And response params contain 'partnerpic_url'
-  And response params contain 'documents_count'
-  And response contains '13' params
+  And response contains '12' params
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
@@ -164,8 +161,7 @@ Given set request header token from global param 'writer_token'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
   And response params contain 'partnerpic_url'
-  And response params contain 'documents_count'
-  And response contains '13' params
+  And response contains '12' params
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
@@ -192,8 +188,7 @@ Given set request header token from global param 'reader_token'
   And response params contain 'partner_contacts'
   And response params contain 'partner_summary'
   And response params contain 'partnerpic_url'
-  And response params contain 'documents_count'
-  And response contains '13' params
+  And response contains '12' params
     # delete partner
 Given set request header token from global param 'admin_token' 
   And set request path param 'partner_id' from global param 'partner_id'
