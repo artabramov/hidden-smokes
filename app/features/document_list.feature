@@ -417,6 +417,9 @@ Examples:
 | document_filename |
 | document_size     |
 | document_mimetype |
+| comments_count    |
+| revisions_count   |
+| downloads_count   |
 
 @document @list
 Scenario Outline: List documents when order is invalid

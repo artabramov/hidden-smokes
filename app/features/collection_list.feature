@@ -273,6 +273,7 @@ Examples:
 | user_id         |
 | is_locked       |
 | collection_name |
+| documents_count |
 
 @collection @list
 Scenario Outline: List collections when order is invalid
