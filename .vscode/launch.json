@@ -262,7 +262,7 @@
         },
         {
             "name": "File upload",
-            "args": ["--tags", "@file", "--tags", "@upload", "--tags", "~@demo",
+            "args": ["--tags", "@document", "--tags", "@upload", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
@@ -270,7 +270,7 @@
         },
         {
             "name": "File replace",
-            "args": ["--tags", "@file", "--tags", "@replace", "--tags", "~@demo",
+            "args": ["--tags", "@document", "--tags", "@replace", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
@@ -278,7 +278,7 @@
         },
         {
             "name": "File download",
-            "args": ["--tags", "@file", "--tags", "@download", "--tags", "~@demo",
+            "args": ["--tags", "@document", "--tags", "@download", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",
