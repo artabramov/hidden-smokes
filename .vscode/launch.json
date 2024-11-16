@@ -269,16 +269,8 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Revision select",
-            "args": ["--tags", "@revision", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "Revision list",
-            "args": ["--tags", "@revision", "--tags", "@list", "--tags", "~@demo",
+            "name": "Document revisions",
+            "args": ["--tags", "@document", "--tags", "@revisions", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

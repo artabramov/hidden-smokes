@@ -29,7 +29,7 @@ Given set request header token from global param 'admin_token'
     # remove file from request
 Given delete request file
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when document_id is not found
     # list revisions
 Given set request header token from global param 'admin_token' 
@@ -57,7 +57,7 @@ Examples:
 | 0            |
 | 9999999999   |
 
-@revision @list
+@document @revisions
 Scenario: List revisions when document_id is correct
     # list revisions
 Given set request header token from global param 'admin_token' 
@@ -79,7 +79,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when offset is invalid
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -112,7 +112,7 @@ Examples:
 | string(0) | int_parsing        |
 | string(8) | int_parsing        |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when offset is correct
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -142,7 +142,7 @@ Examples:
 | 123.0  |
 | +123   |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when limit is invalid
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -177,7 +177,7 @@ Examples:
 | string(0) | int_parsing        |
 | string(8) | int_parsing        |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when limit is correct
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -206,7 +206,7 @@ Examples:
 | 123.0 |
 | +123  |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when order_by is invalid
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -237,7 +237,7 @@ Examples:
 | 123       | literal_error |
 | string(8) | literal_error |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when order_by is correct
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -264,7 +264,7 @@ Examples:
 | id                |
 | created_date      |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when order is invalid
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -298,7 +298,7 @@ Examples:
 | RAND   | literal_error |
 | rand   | literal_error |
 
-@revision @list
+@document @revisions
 Scenario Outline: List revisions when order is correct
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -325,7 +325,7 @@ Examples:
 | asc   |
 | desc  |
 
-@revision @list
+@document @revisions
 Scenario: List revisions when lock mode is enabled
     # enable lock mode
 Given set request header token from global param 'admin_token'
@@ -372,7 +372,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@revision @list
+@document @revisions
 Scenario: List revisions when user is admin
     # list revisions
 Given set request header token from global param 'admin_token'
@@ -394,7 +394,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@revision @list
+@document @revisions
 Scenario: List revisions when user is editor
     # list revisions
 Given set request header token from global param 'editor_token'
@@ -416,7 +416,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@revision @list
+@document @revisions
 Scenario: List revisions when user is writer
     # list revisions
 Given set request header token from global param 'writer_token'
@@ -438,7 +438,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@revision @list
+@document @revisions
 Scenario: List revisions when user is reader
     # list revisions
 Given set request header token from global param 'reader_token'
@@ -460,7 +460,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@revision @list
+@document @revisions
 Scenario: List revisions when token is missing
     # list revisions
 Given delete request header token

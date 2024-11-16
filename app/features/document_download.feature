@@ -34,10 +34,9 @@ Given delete request file
 Scenario Outline: Download file when revision_id is incorrect
     # download file
 Given set request header token from global param 'admin_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from value '<revision_id>'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '404'
   And error loc is 'path' and 'revision_id'
   And error type is 'resource_not_found'
@@ -60,10 +59,9 @@ Examples:
 Scenario Outline: Download file when document_id is incorrect
     # download file
 Given set request header token from global param 'admin_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from value '<document_id>'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '404'
   And error loc is 'path' and 'revision_id'
   And error type is 'resource_not_found'
@@ -83,32 +81,6 @@ Examples:
 | 9999999999  |
 
 @document @download
-Scenario Outline: Download file when collection_id is incorrect
-    # download file
-Given set request header token from global param 'admin_token'
-  And set request path param 'collection_id' from value '<collection_id>'
-  And set request path param 'document_id' from global param 'document_id'
-  And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
- Then response code is '404'
-  And error loc is 'path' and 'revision_id'
-  And error type is 'resource_not_found'
-  And response contains '1' params
-    # delete collection
-Given set request header token from global param 'admin_token' 
-  And set request path param 'collection_id' from global param 'collection_id'
- When send 'DELETE' request to url 'collection/:collection_id'
- Then response code is '200'
-  And response params contain 'collection_id'
-  And response contains '1' params
-
-Examples:
-| collection_id |
-| -1            |
-| 0             |
-| 9999999999    |
-
-@document @download
 Scenario: Download file when lock mode is enabled
     # enable lock mode
 Given set request header token from global param 'admin_token'
@@ -120,10 +92,9 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
     # download file
 Given set request header token from global param 'admin_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '423'
     # disable lock mode
 Given set request header token from global param 'admin_token'
@@ -135,10 +106,9 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
     # download file
 Given set request header token from global param 'admin_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '200'
   And response content is not empty
     # delete collection
@@ -153,10 +123,9 @@ Given set request header token from global param 'admin_token'
 Scenario: Download file when user is admin
     # download file
 Given set request header token from global param 'admin_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '200'
   And response content is not empty
     # delete collection
@@ -171,10 +140,9 @@ Given set request header token from global param 'admin_token'
 Scenario: Download file when user is editor
     # download file
 Given set request header token from global param 'editor_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '200'
   And response content is not empty
     # delete collection
@@ -189,10 +157,9 @@ Given set request header token from global param 'admin_token'
 Scenario: Download file when user is writer
     # download file
 Given set request header token from global param 'writer_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '200'
   And response content is not empty
     # delete collection
@@ -207,10 +174,9 @@ Given set request header token from global param 'admin_token'
 Scenario: Download file when user is reader
     # download file
 Given set request header token from global param 'reader_token'
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '200'
   And response content is not empty
     # delete collection
@@ -225,10 +191,9 @@ Given set request header token from global param 'admin_token'
 Scenario: Download file when token is missing
     # download file
 Given delete request header token
-  And set request path param 'collection_id' from global param 'collection_id'
   And set request path param 'document_id' from global param 'document_id'
   And set request path param 'revision_id' from global param 'revision_id'
- When send 'GET' request to url 'collection/:collection_id/document/:document_id/revision/:revision_id'
+ When send 'GET' request to url 'document/:document_id/revision/:revision_id'
  Then response code is '403'
     # delete collection
 Given set request header token from global param 'admin_token' 
