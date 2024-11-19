@@ -39,7 +39,7 @@ class UserLoginProvider(BaseProvider):
 
 
 class UserSignatureProvider(BaseProvider):
-    def user_capture(self):
+    def user_caption(self):
         """
         Generate a user signature by creating a random sentence with
         Faker consisting of a specified number of words.
