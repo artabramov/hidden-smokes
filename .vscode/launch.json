@@ -277,6 +277,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Document downloads",
+            "args": ["--tags", "@document", "--tags", "@downloads", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Comment insert",
             "args": ["--tags", "@comment", "--tags", "@insert", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
@@ -311,22 +319,6 @@
         {
             "name": "Comment list",
             "args": ["--tags", "@comment", "--tags", "@list", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "Download select",
-            "args": ["--tags", "@download", "--tags", "@select", "--tags", "~@demo",
-                     "--no-skipped", "--no-source", "--stop"],
-            "type": "debugpy", "request": "launch", "module": "behave",
-            "console": "integratedTerminal", "cwd": "/smokes/app/features",
-            "env": {"PYTHONPATH": "${workspaceFolder}"},
-        },
-        {
-            "name": "Download list",
-            "args": ["--tags", "@download", "--tags", "@list", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

@@ -29,7 +29,7 @@ Given set request header token from global param 'admin_token'
     # remove file from request
 Given delete request file
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when document_id is invalid
     # list downloads
 Given set request header token from global param 'admin_token' 
@@ -57,7 +57,7 @@ Examples:
 | 0            |
 | 9999999999   |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when document_id is correct
     # list downloads
 Given set request header token from global param 'admin_token' 
@@ -89,7 +89,7 @@ Examples:
 | +123        |
 | +123.0      |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when offset is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -122,7 +122,7 @@ Examples:
 | string(0) | int_parsing        |
 | string(8) | int_parsing        |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when offset is correct
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -152,7 +152,7 @@ Examples:
 | 123.0  |
 | +123   |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when limit is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -187,7 +187,7 @@ Examples:
 | string(0) | int_parsing        |
 | string(8) | int_parsing        |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when limit is correct
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -216,7 +216,7 @@ Examples:
 | 123.0 |
 | +123  |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when order_by is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -247,7 +247,7 @@ Examples:
 | 123       | literal_error |
 | string(8) | literal_error |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when order_by is correct
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -274,7 +274,7 @@ Examples:
 | id                |
 | created_date      |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when order is invalid
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -308,7 +308,7 @@ Examples:
 | RAND   | literal_error |
 | rand   | literal_error |
 
-@download @list
+@document @downloads
 Scenario Outline: List downloads when order is correct
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -335,7 +335,7 @@ Examples:
 | asc   |
 | desc  |
 
-@download @list
+@document @downloads
 Scenario: List downloads when lock mode is enabled
     # enable lock mode
 Given set request header token from global param 'admin_token'
@@ -382,7 +382,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@download @list
+@document @downloads
 Scenario: List downloads when user is admin
     # list downloads
 Given set request header token from global param 'admin_token'
@@ -404,7 +404,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@download @list
+@document @downloads
 Scenario: List downloads when user is editor
     # list downloads
 Given set request header token from global param 'editor_token'
@@ -426,7 +426,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@download @list
+@document @downloads
 Scenario: List downloads when user is writer
     # list downloads
 Given set request header token from global param 'writer_token'
@@ -448,7 +448,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@download @list
+@document @downloads
 Scenario: List downloads when user is reader
     # list downloads
 Given set request header token from global param 'reader_token'
@@ -470,7 +470,7 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@download @list
+@document @downloads
 Scenario: List downloads when token is missing
     # list downloads
 Given delete request header token
