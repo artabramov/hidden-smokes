@@ -33,7 +33,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
  When send 'GET' request to url 'telemetry'
  Then response code is '200'
-  And response contains '30' params
+  And response contains '33' params
 
 @telemetry @retrieve
 Scenario: Retrieve telemetry when user is admin
@@ -41,7 +41,7 @@ Scenario: Retrieve telemetry when user is admin
 Given set request header token from global param 'admin_token' 
  When send 'GET' request to url 'telemetry'
  Then response code is '200'
-  And response contains '30' params
+  And response contains '33' params
 
 @telemetry @retrieve
 Scenario: Retrieve telemetry when user is editor
