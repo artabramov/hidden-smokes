@@ -421,8 +421,8 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Action execute",
-            "args": ["--tags", "@action", "--tags", "@execute", "--tags", "~@demo",
+            "name": "Execute",
+            "args": ["--tags", "@execute", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

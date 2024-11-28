@@ -39,7 +39,7 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response contains '0' params
 
-@action @execute
+@execute
 Scenario: Execute action when user is admin
     # execute action
 Given set request header token from global param 'admin_token'
@@ -49,7 +49,7 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response contains '0' params
 
-@action @execute
+@execute
 Scenario: Lock when user is editor
     # execute action
 Given set request header token from global param 'editor_token'
@@ -61,7 +61,7 @@ Given set request header token from global param 'editor_token'
   And error type is 'user_role_rejected'
   And response contains '1' params
 
-@action @execute
+@execute
 Scenario: Lock when user is writer
     # action execute
 Given set request header token from global param 'writer_token'
@@ -73,7 +73,7 @@ Given set request header token from global param 'writer_token'
   And error type is 'user_role_rejected'
   And response contains '1' params
 
-@action @execute
+@execute
 Scenario: Lock when user is reader
     # execute action
 Given set request header token from global param 'reader_token'
@@ -85,7 +85,7 @@ Given set request header token from global param 'reader_token'
   And error type is 'user_role_rejected'
   And response contains '1' params
 
-@action @execute
+@execute
 Scenario: Lock app when token is missing
     # execute action
 Given delete request header token
