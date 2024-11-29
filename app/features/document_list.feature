@@ -106,6 +106,58 @@ Examples:
 | +123.0     |
 
 @document @list
+Scenario Outline: List documents when is_pinned is invalid
+    # list documents
+Given set request header token from global param 'admin_token'
+  And set request query param 'is_pinned__eq' from value '<is_pinned>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'documents'
+ Then response code is '422'
+  And error loc is 'query' and 'is_pinned__eq'
+  And error type is '<error_type>'
+  And response contains '1' params
+
+Examples:
+| is_pinned | error_type   |
+| tabs      | bool_parsing |
+| spaces    | bool_parsing |
+| +1        | bool_parsing |
+| -1        | bool_parsing |
+| 2         | bool_parsing |
+| 123       | bool_parsing |
+| string(0) | bool_parsing |
+| string(8) | bool_parsing |
+
+@document @list
+Scenario Outline: List documents when is_pinned is correct
+    # list documents
+Given set request header token from global param 'admin_token' 
+  And set request query param 'is_pinned__eq' from value '<is_pinned>'
+  And set request query param 'offset' from value '0'
+  And set request query param 'limit' from value '1'
+  And set request query param 'order_by' from value 'id'
+  And set request query param 'order' from value 'asc'
+ When send 'GET' request to url 'documents'
+ Then response code is '200'
+  And response params contain 'documents'
+  And response params contain 'documents_count'
+  And response contains '2' params
+
+Examples:
+| is_pinned |
+| TRUE      |
+| True      |
+| true      |
+| FALSE     |
+| False     |
+| false     |
+| 1         |
+| 0         |
+
+@document @list
 Scenario Outline: List documents when document_filename__ilike is correct
     # list documents
 Given set request header token from global param 'admin_token' 
