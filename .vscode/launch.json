@@ -229,8 +229,8 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
-            "name": "Document pin",
-            "args": ["--tags", "@document", "--tags", "@pin", "--tags", "~@demo",
+            "name": "Document flag",
+            "args": ["--tags", "@document", "--tags", "@flag", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],
             "type": "debugpy", "request": "launch", "module": "behave",
             "console": "integratedTerminal", "cwd": "/smokes/app/features",

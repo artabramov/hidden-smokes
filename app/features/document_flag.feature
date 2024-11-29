@@ -29,13 +29,13 @@ Given set request header token from global param 'admin_token'
     # remove file from request
 Given delete request file
 
-@document @pin
+@document @flag
 Scenario Outline: Pin document when document_id not found
-    # pin document
+    # flag document
 Given set request header token from global param 'editor_token'
   And set request path param 'document_id' from value '<document_id>'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '404'
   And error loc is 'path' and 'document_id'
   And error type is 'resource_not_found'
@@ -54,13 +54,13 @@ Examples:
 | 0           |
 | 9999999999  |
 
-@document @pin
+@document @flag
 Scenario Outline: Pin document when document_id is invalid
-    # pin document
+    # flag document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from value '<document_id>'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '422'
   And error loc is 'path' and 'document_id'
   And error type is '<error_type>'
@@ -81,15 +81,15 @@ Examples:
 | 123.5       | int_parsing |
 | 123,0       | int_parsing |
 
-@document @pin
-Scenario Outline: Pin document when is_pinned is invalid
-    # pin document
+@document @flag
+Scenario Outline: Pin document when is_flagged is invalid
+    # flag document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '<is_pinned>'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '<is_flagged>'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '422'
-  And error loc is 'body' and 'is_pinned'
+  And error loc is 'body' and 'is_flagged'
   And error type is '<error_type>'
   And response contains '1' params
     # delete collection
@@ -101,23 +101,23 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| is_pinned | error_type   |
-| none      | missing      |
-| tabs      | bool_parsing |
-| spaces    | bool_parsing |
-| +1        | bool_parsing |
-| -1        | bool_parsing |
-| 2         | bool_parsing |
-| string(0) | bool_parsing |
-| string(8) | bool_parsing |
+| is_flagged | error_type   |
+| none       | missing      |
+| tabs       | bool_parsing |
+| spaces     | bool_parsing |
+| +1         | bool_parsing |
+| -1         | bool_parsing |
+| 2          | bool_parsing |
+| string(0)  | bool_parsing |
+| string(8)  | bool_parsing |
 
-@document @pin
-Scenario Outline: Pin document when is_pinned is correct
-    # pin document
+@document @flag
+Scenario Outline: Pin document when is_flagged is correct
+    # flag document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '<is_pinned>'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '<is_flagged>'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -131,25 +131,25 @@ Given set request header token from global param 'admin_token'
   And response contains '1' params
 
 Examples:
-| is_pinned |
-| TRUE      |
-| True      |
-| true      |
-| YES       |
-| yes       |
-| Y         |
-| y         |
-| FALSE     |
-| False     |
-| false     |
-| NO        |
-| no        |
-| N         |
-| n         |
-| 1         |
-| 0         |
+| is_flagged |
+| TRUE       |
+| True       |
+| true       |
+| YES        |
+| yes        |
+| Y          |
+| y          |
+| FALSE      |
+| False      |
+| false      |
+| NO         |
+| no         |
+| N          |
+| n          |
+| 1          |
+| 0          |
 
-@document @pin
+@document @flag
 Scenario: Pin document when collection is locked
     # lock collection
 Given set request header token from global param 'admin_token' 
@@ -161,11 +161,11 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collection_id'
   And response contains '1' params
-    # pin document
+    # flag document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -183,8 +183,8 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -196,7 +196,7 @@ Given set request header token from global param 'admin_token'
  Then response code is '200'
   And response params contain 'collection_id'
 
-@document @pin
+@document @flag
 Scenario: Pin document when lock mode is enabled
     # enable lock mode
 Given set request header token from global param 'admin_token'
@@ -209,8 +209,8 @@ Given set request header token from global param 'admin_token'
     # update document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '423'
     # disable lock mode
 Given set request header token from global param 'admin_token'
@@ -220,11 +220,11 @@ Given set request header token from global param 'admin_token'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
   And response contains '1' params
-    # pin document
+    # flag document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -237,13 +237,13 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @pin
+@document @flag
 Scenario: Pin document when user is admin
-    # pin document
+    # flag document
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -256,13 +256,13 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @pin
+@document @flag
 Scenario: Pin document when user is editor
-    # pin document
+    # flag document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '200'
   And response params contain 'document_id'
   And response params contain 'revision_id'
@@ -275,13 +275,13 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @pin
+@document @flag
 Scenario: Pin document when user is writer
-    # pin document
+    # flag document
 Given set request header token from global param 'writer_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_role_rejected'
@@ -294,13 +294,13 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @pin
+@document @flag
 Scenario: Pin document when user is reader
-    # pin document
+    # flag document
 Given set request header token from global param 'reader_token' 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '403'
   And error loc is 'header' and 'user_token'
   And error type is 'user_role_rejected'
@@ -313,13 +313,13 @@ Given set request header token from global param 'admin_token'
   And response params contain 'collection_id'
   And response contains '1' params
 
-@document @pin
+@document @flag
 Scenario: Pin document when token is missing
-    # pin document
+    # flag document
 Given delete request header token 
   And set request path param 'document_id' from global param 'document_id'
-  And set request body param 'is_pinned' from value '1'
- When send 'PUT' request to url 'document/:document_id/pinned'
+  And set request body param 'is_flagged' from value '1'
+ When send 'PUT' request to url 'document/:document_id/flagged'
  Then response code is '403'
     # delete collection
 Given set request header token from global param 'admin_token' 
