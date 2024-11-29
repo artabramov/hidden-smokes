@@ -415,7 +415,7 @@ Scenario Outline: Update partner when lock mode is enabled
     # enable lock mode
 Given set request header token from global param 'admin_token'
   And set request body param 'is_locked' from value '1'
- When send 'PUT' request to url 'lock'
+ When send 'PUT' request to url 'locked'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'True'
@@ -434,7 +434,7 @@ Given set request header token from global param 'admin_token'
     # disable lock mode
 Given set request header token from global param 'admin_token'
   And set request body param 'is_locked' from value '0'
- When send 'PUT' request to url 'lock'
+ When send 'PUT' request to url 'locked'
  Then response code is '200'
   And response params contain 'is_locked'
   And response param 'is_locked' equals 'False'
