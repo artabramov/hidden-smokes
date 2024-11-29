@@ -229,6 +229,14 @@
             "env": {"PYTHONPATH": "${workspaceFolder}"},
         },
         {
+            "name": "Document pin",
+            "args": ["--tags", "@document", "--tags", "@pin", "--tags", "~@demo",
+                     "--no-skipped", "--no-source", "--stop"],
+            "type": "debugpy", "request": "launch", "module": "behave",
+            "console": "integratedTerminal", "cwd": "/smokes/app/features",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
+        },
+        {
             "name": "Document delete",
             "args": ["--tags", "@document", "--tags", "@delete", "--tags", "~@demo",
                      "--no-skipped", "--no-source", "--stop"],

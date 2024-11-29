@@ -35,6 +35,7 @@ Scenario Outline: Update document when collection_id not found
 Given set request header token from global param 'editor_token'
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from value '<collection_id>'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -63,6 +64,7 @@ Scenario Outline: Update document when collection_id is invalid
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from value '<collection_id>'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -93,6 +95,7 @@ Scenario Outline: Update document when document_id not found
 Given set request header token from global param 'editor_token'
   And set request path param 'document_id' from value '<document_id>'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -121,6 +124,7 @@ Scenario Outline: Update document when document_id is invalid
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from value '<document_id>'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -146,11 +150,88 @@ Examples:
 | 123,0       | int_parsing |
 
 @document @update
+Scenario Outline: Update document when is_pinned is invalid
+    # update document
+Given set request header token from global param 'editor_token' 
+  And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '<is_pinned>'
+  And set request body param 'document_filename' from fake 'document_filename'
+  And set request body param 'document_summary' from fake 'document_summary'
+  And set request body param 'document_tags' from fake 'document_tags'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '422'
+  And error loc is 'body' and 'is_pinned'
+  And error type is '<error_type>'
+  And response contains '1' params
+    # delete collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+
+Examples:
+| is_pinned | error_type   |
+| none      | missing      |
+| tabs      | bool_parsing |
+| spaces    | bool_parsing |
+| +1        | bool_parsing |
+| -1        | bool_parsing |
+| 2         | bool_parsing |
+| string(0) | bool_parsing |
+| string(8) | bool_parsing |
+
+@document @update
+Scenario Outline: Update document when is_pinned is correct
+    # update document
+Given set request header token from global param 'editor_token' 
+  And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '<is_pinned>'
+  And set request body param 'document_filename' from fake 'document_filename'
+  And set request body param 'document_summary' from fake 'document_summary'
+  And set request body param 'document_tags' from fake 'document_tags'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '200'
+  And response params contain 'document_id'
+  And response params contain 'revision_id'
+  And response contains '2' params
+    # delete collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+
+Examples:
+| is_pinned |
+| TRUE      |
+| True      |
+| true      |
+| YES       |
+| yes       |
+| Y         |
+| y         |
+| FALSE     |
+| False     |
+| false     |
+| NO        |
+| no        |
+| N         |
+| n         |
+| 1         |
+| 0         |
+
+@document @update
 Scenario Outline: Update document when document_filename is invalid
     # update document
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from value '<document_filename>'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -181,6 +262,7 @@ Scenario Outline: Update document when document_filename is correct
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from value '<document_filename>'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -208,6 +290,7 @@ Scenario Outline: Update document when document_summary is invalid
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from value '<document_summary>'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -234,6 +317,7 @@ Scenario Outline: Update document when document_summary is correct
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from value '<document_summary>'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -275,6 +359,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -297,6 +382,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -326,6 +412,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -343,6 +430,7 @@ Given set request header token from global param 'admin_token'
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -365,6 +453,7 @@ Scenario: Update document when user is admin
 Given set request header token from global param 'admin_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -387,6 +476,7 @@ Scenario: Update document when user is editor
 Given set request header token from global param 'editor_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -409,6 +499,7 @@ Scenario: Update document when user is writer
 Given set request header token from global param 'writer_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -431,6 +522,7 @@ Scenario: Update document when user is reader
 Given set request header token from global param 'reader_token' 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
@@ -453,6 +545,7 @@ Scenario: Update document when token is missing
 Given delete request header token 
   And set request path param 'document_id' from global param 'document_id'
   And set request body param 'collection_id' from global param 'collection_id'
+  And set request body param 'is_pinned' from value '0'
   And set request body param 'document_filename' from fake 'document_filename'
   And set request body param 'document_summary' from fake 'document_summary'
   And set request body param 'document_tags' from fake 'document_tags'
