@@ -30,6 +30,64 @@ Given set request header token from global param 'admin_token'
 Given delete request file
 
 @document @update
+Scenario Outline: Update document when collection_id not found
+    # update document
+Given set request header token from global param 'editor_token'
+  And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from value '<collection_id>'
+  And set request body param 'document_filename' from fake 'document_filename'
+  And set request body param 'document_summary' from fake 'document_summary'
+  And set request body param 'document_tags' from fake 'document_tags'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '422'
+  And error loc is 'body' and 'collection_id'
+  And error type is 'value_invalid'
+  And response contains '1' params
+    # delete collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+
+Examples:
+| collection_id |
+| -1            |
+| 0             |
+| 9999999999    |
+
+@document @update
+Scenario Outline: Update document when collection_id is invalid
+    # update document
+Given set request header token from global param 'editor_token' 
+  And set request path param 'document_id' from global param 'document_id'
+  And set request body param 'collection_id' from value '<collection_id>'
+  And set request body param 'document_filename' from fake 'document_filename'
+  And set request body param 'document_summary' from fake 'document_summary'
+  And set request body param 'document_tags' from fake 'document_tags'
+ When send 'PUT' request to url 'document/:document_id'
+ Then response code is '422'
+  And error loc is 'body' and 'collection_id'
+  And error type is '<error_type>'
+  And response contains '1' params
+    # delete collection
+Given set request header token from global param 'admin_token' 
+  And set request path param 'collection_id' from global param 'collection_id'
+ When send 'DELETE' request to url 'collection/:collection_id'
+ Then response code is '200'
+  And response params contain 'collection_id'
+  And response contains '1' params
+
+Examples:
+| collection_id | error_type  |
+| tabs          | int_parsing |
+| spaces        | int_parsing |
+| string(1)     | int_parsing |
+| 123.5         | int_parsing |
+| 123,0         | int_parsing |
+
+@document @update
 Scenario Outline: Update document when document_id not found
     # update document
 Given set request header token from global param 'editor_token'
