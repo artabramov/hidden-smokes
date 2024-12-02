@@ -82,15 +82,15 @@ Given set request header token from global param 'reader_token'
   And response contains '1' params
 
 Examples:
-| user_role | error_type |
-| tabs      | enum       |
-| spaces    | enum       |
-| string(0) | enum       |
-| string(1) | enum       |
-| ADMIN     | enum       |
-| EDITOR    | enum       |
-| WRITER    | enum       |
-| READER    | enum       |
+| user_role | error_type    |
+| tabs      | literal_error |
+| spaces    | literal_error |
+| string(0) | literal_error |
+| string(1) | literal_error |
+| ADMIN     | literal_error |
+| EDITOR    | literal_error |
+| WRITER    | literal_error |
+| READER    | literal_error |
 
 @user @list
 Scenario Outline: List users when user_role is correct
